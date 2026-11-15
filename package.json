@@ -1,0 +1,40 @@
+{
+  "name": "smart-city-traffic-management",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Smart City Intelligent Traffic Management System using Graph Theory",
+  "scripts": {
+    "dev": "concurrently -k -n WEB,WS -c cyan,magenta \"next dev\" \"node server/ws-server.mjs\"",
+    "dev:web": "next dev",
+    "dev:ws": "node server/ws-server.mjs",
+    "build": "next build",
+    "start": "concurrently -k -n WEB,WS -c cyan,magenta \"next start\" \"node server/ws-server.mjs\"",
+    "typecheck": "tsc --noEmit",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "framer-motion": "12.23.24",
+    "lucide-react": "0.468.0",
+    "next": "^15.5.29",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "ws": "8.18.3",
+    "zustand": "5.0.8"
+  },
+  "overrides": {
+    "motion-dom": "12.23.23",
+    "motion-utils": "12.23.6"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "@types/ws": "8.5.13",
+    "autoprefixer": "10.4.20",
+    "concurrently": "9.1.2",
+    "postcss": "8.4.49",
+    "tailwindcss": "3.4.17",
+    "typescript": "5.7.2"
+  }
+}
+
