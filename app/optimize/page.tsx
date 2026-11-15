@@ -77,7 +77,7 @@ export default function OptimizePage() {
 
   const rows = comparison
     ? ([
-        { key: "dijkstra", result: comparison.dijkstra, color: "#22d3ee" },
+        { key: "dijkstra", result: comparison.dijkstra, color: "#2563eb" },
         { key: "astar", result: comparison.astar, color: "#a3e635" },
         { key: "bfs", result: comparison.bfs, color: "#a78bfa" },
         { key: "dfs", result: comparison.dfs, color: "#fb923c" },
@@ -108,7 +108,7 @@ export default function OptimizePage() {
           value={route ? route.primary.totalDistanceKm : "—"}
           unit="km"
           icon={RouteIcon}
-          accent="#22d3ee"
+          accent="#2563eb"
           hint={route ? `${route.primary.pathEdges.length} segments` : "No active route"}
         />
         <StatCard
@@ -141,7 +141,7 @@ export default function OptimizePage() {
 
       <div className="grid gap-4 xl:grid-cols-[1.55fr_1fr]">
         <Card className="overflow-hidden">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-blue-100 px-4 py-3">
             <SectionHeader eyebrow="Optimal corridor" title="Route preview" className="flex-1" />
             <div className="flex items-center gap-1.5">
               {route ? <Badge tone="green">found</Badge> : <Badge tone="slate">awaiting query</Badge>}
@@ -151,15 +151,15 @@ export default function OptimizePage() {
             </div>
           </div>
           <NetworkMap height="clamp(380px, 54vh, 620px)" useGlobalRoute />
-          <div className="border-t border-white/[0.06] px-4 py-3">
+          <div className="border-t border-blue-100 px-4 py-3">
             {route ? (
               <>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-md border border-cyan-400/20 bg-cyan-400/[0.06] px-2 py-1 font-mono text-[9px] text-cyan-200">
+                  <span className="rounded-md border border-blue-200 bg-blue-500/[0.06] px-2 py-1 font-mono text-[9px] text-blue-700">
                     {route.primary.source} · {nodeName(route.primary.source)}
                   </span>
-                  <ArrowRight size={12} className="text-slate-600" />
-                  <span className="rounded-md border border-violet-400/20 bg-violet-400/[0.06] px-2 py-1 font-mono text-[9px] text-violet-200">
+                  <ArrowRight size={12} className="text-slate-500" />
+                  <span className="rounded-md border border-violet-200 bg-violet-400/[0.06] px-2 py-1 font-mono text-[9px] text-violet-700">
                     {route.primary.target} · {nodeName(route.primary.target)}
                   </span>
                   <span className="ml-auto font-mono text-[8.5px] text-slate-500">
@@ -169,31 +169,31 @@ export default function OptimizePage() {
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {route.primary.pathNodes.map((node, index) => (
                     <span key={`${node}-${index}`} className="flex items-center gap-1">
-                      <span className="rounded border border-white/10 bg-white/[0.03] px-1.5 py-0.5 font-mono text-[8.5px] text-slate-400">
+                      <span className="rounded border border-blue-100 bg-slate-50 px-1.5 py-0.5 font-mono text-[8.5px] text-slate-600">
                         {node}
                       </span>
                       {index < route.primary.pathNodes.length - 1 ? (
-                        <ArrowRight size={8} className="text-slate-700" />
+                        <ArrowRight size={8} className="text-slate-400" />
                       ) : null}
                     </span>
                   ))}
                 </div>
                 {route.alternatives.length ? (
                   <div className="mt-3">
-                    <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">
+                    <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">
                       Alternative corridors
                     </p>
                     <div className="mt-1.5 grid gap-1.5 sm:grid-cols-2">
                       {route.alternatives.map((alternative, index) => (
                         <div
                           key={`${alternative.pathEdges.join("-")}-${index}`}
-                          className="flex items-center justify-between gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-2.5 py-1.5"
+                          className="flex items-center justify-between gap-2 rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-1.5"
                         >
-                          <span className="font-mono text-[9px] text-slate-400">ALT {index + 1}</span>
+                          <span className="font-mono text-[9px] text-slate-600">ALT {index + 1}</span>
                           <span className="font-mono text-[9px] text-slate-500">
                             {alternative.totalDistanceKm} km · {formatMinutes(alternative.totalTimeMin, 0)}
                           </span>
-                          <span className="font-mono text-[9px] text-amber-300/80">
+                          <span className="font-mono text-[9px] text-amber-700/80">
                             +{Math.max(0, alternative.totalTimeMin - route.primary.totalTimeMin).toFixed(1)}m
                           </span>
                         </div>
@@ -246,7 +246,7 @@ export default function OptimizePage() {
               <Button variant="primary" className="w-full" onClick={optimise}>
                 <Navigation size={13} /> Run Dijkstra optimisation
               </Button>
-              <p className="text-[9.5px] leading-relaxed text-slate-600">
+              <p className="text-[9.5px] leading-relaxed text-slate-500">
                 Weights combine road length, live density, signal delay and incident penalties. Blocked edges receive a
                 prohibitive cost and are excluded from consideration.
               </p>
@@ -316,7 +316,7 @@ export default function OptimizePage() {
           <>
             <div className="mt-3 overflow-x-auto">
               <table className="w-full min-w-[680px] border-collapse text-left">
-                <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">
+                <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
                   <tr>
                     <th className="px-2 py-2">Algorithm</th>
                     <th className="px-2 py-2 text-right">Explored</th>
@@ -330,7 +330,7 @@ export default function OptimizePage() {
                 </thead>
                 <tbody>
                   {rows.map(({ key, result, color }) => (
-                    <tr key={key} className="border-t border-white/[0.04] text-[10px] text-slate-400">
+                    <tr key={key} className="border-t border-blue-100 text-[10px] text-slate-600">
                       <td className="px-2 py-2">
                         <span className="inline-flex items-center gap-1.5 font-mono" style={{ color }}>
                           <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} />
@@ -350,30 +350,30 @@ export default function OptimizePage() {
               </table>
             </div>
             <div className="mt-3 grid gap-2 sm:grid-cols-3">
-              <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-600">Route agreement</p>
-                <p className="mt-0.5 text-[10.5px] text-slate-300">
+              <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
+                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">Route agreement</p>
+                <p className="mt-0.5 text-[10.5px] text-slate-700">
                   {comparison.dijkstra.totalCost.toFixed(2) === comparison.astar.totalCost.toFixed(2)
                     ? "Dijkstra and A* return identical optimal cost"
                     : "A* cost differs — heuristic inspection required"}
                 </p>
               </div>
-              <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-600">A* efficiency</p>
-                <p className="mt-0.5 text-[10.5px] text-emerald-300">
+              <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
+                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">A* efficiency</p>
+                <p className="mt-0.5 text-[10.5px] text-emerald-700">
                   {comparison.dijkstra.explored > 0
                     ? `${Math.max(0, Math.round((1 - comparison.astar.explored / comparison.dijkstra.explored) * 100))}% fewer nodes expanded`
                     : "—"}
                 </p>
               </div>
-              <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-600">Heuristic</p>
-                <p className="mt-0.5 truncate text-[10px] text-slate-300">{comparison.astar.heuristic}</p>
+              <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
+                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">Heuristic</p>
+                <p className="mt-0.5 truncate text-[10px] text-slate-700">{comparison.astar.heuristic}</p>
               </div>
             </div>
           </>
         ) : (
-          <div className="mt-3 rounded-xl border border-dashed border-white/10 px-4 py-8 text-center">
+          <div className="mt-3 rounded-xl border border-dashed border-blue-100 px-4 py-8 text-center">
             <p className="text-[11px] text-slate-500">
               Run the optimizer to benchmark Dijkstra, A*, BFS and DFS on the current graph.
             </p>
@@ -390,7 +390,7 @@ export default function OptimizePage() {
           />
           <div className="scroll-area mt-3 max-h-[260px] overflow-y-auto">
             <table className="w-full border-collapse text-left">
-              <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">
+              <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
                 <tr>
                   <th className="px-2 py-1.5">Query</th>
                   <th className="px-2 py-1.5">Mode</th>
@@ -402,20 +402,20 @@ export default function OptimizePage() {
               <tbody>
                 {optimizationStats.length === 0 ? (
                   <tr>
-                    <td colSpan={5} className="px-2 py-6 text-center text-[10.5px] text-slate-600">
+                    <td colSpan={5} className="px-2 py-6 text-center text-[10.5px] text-slate-500">
                       No queries yet. Run an optimization to populate the log.
                     </td>
                   </tr>
                 ) : (
                   optimizationStats.map((stat) => (
-                    <tr key={stat.id} className="border-t border-white/[0.04] text-[10px] text-slate-400">
+                    <tr key={stat.id} className="border-t border-blue-100 text-[10px] text-slate-600">
                       <td className="px-2 py-1.5 font-mono">
                         {stat.source} → {stat.destination}
                       </td>
                       <td className="px-2 py-1.5 capitalize">{stat.mode}</td>
                       <td className="px-2 py-1.5 text-right font-mono">{stat.distanceKm} km</td>
                       <td className="px-2 py-1.5 text-right font-mono">{stat.timeMin} min</td>
-                      <td className="px-2 py-1.5 text-right font-mono text-emerald-300">+{stat.timeSavedMin} min</td>
+                      <td className="px-2 py-1.5 text-right font-mono text-emerald-700">+{stat.timeSavedMin} min</td>
                     </tr>
                   ))
                 )}
@@ -438,12 +438,12 @@ export default function OptimizePage() {
                 label="Traffic-optimised route"
                 value={`${route.primary.totalDistanceKm} km`}
                 secondary={`${route.primary.totalTimeMin} min under current traffic`}
-                color="#22d3ee"
+                color="#2563eb"
               />
               <div>
                 <div className="flex justify-between text-[10px]">
                   <span className="text-slate-500">Travel-time improvement</span>
-                  <span className="font-mono text-emerald-300">
+                  <span className="font-mono text-emerald-700">
                     {Math.max(0, route.baseline.totalTimeMin - route.primary.totalTimeMin).toFixed(1)} min
                   </span>
                 </div>
@@ -484,15 +484,15 @@ function CompareRow({
   color: string;
 }) {
   return (
-    <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
+    <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
       <div className="flex items-center justify-between gap-2">
-        <span className="flex items-center gap-1.5 text-[10px] text-slate-400">
+        <span className="flex items-center gap-1.5 text-[10px] text-slate-600">
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} />
           {label}
         </span>
-        <span className="font-mono text-[11px] text-slate-200">{value}</span>
+        <span className="font-mono text-[11px] text-slate-800">{value}</span>
       </div>
-      <p className="mt-0.5 font-mono text-[8.5px] text-slate-600">{secondary}</p>
+      <p className="mt-0.5 font-mono text-[8.5px] text-slate-500">{secondary}</p>
     </div>
   );
 }

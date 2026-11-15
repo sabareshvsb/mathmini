@@ -148,7 +148,7 @@ export default function AdminPage() {
     const url = URL.createObjectURL(blob);
     const anchor = document.createElement("a");
     anchor.href = url;
-    anchor.download = "nova-city-config.json";
+    anchor.download = "bengaluru-config.json";
     anchor.click();
     URL.revokeObjectURL(url);
   }
@@ -156,7 +156,7 @@ export default function AdminPage() {
   if (!auth.checked) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-600">Checking session…</p>
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Checking session…</p>
       </div>
     );
   }
@@ -170,10 +170,10 @@ export default function AdminPage() {
           description="Restricted area for network configuration, fleet registration and system health."
         />
         <Card className="mx-auto max-w-lg p-6 text-center">
-          <span className="mx-auto grid h-12 w-12 place-items-center rounded-full border border-amber-400/20 bg-amber-400/[0.07] text-amber-300">
+          <span className="mx-auto grid h-12 w-12 place-items-center rounded-full border border-amber-200 bg-amber-400/[0.07] text-amber-700">
             <Lock size={20} />
           </span>
-          <h2 className="mt-3 text-sm font-semibold text-slate-100">Administrator access required</h2>
+          <h2 className="mt-3 text-sm font-semibold text-slate-900">Administrator access required</h2>
           <p className="mt-1 text-[11px] leading-relaxed text-slate-500">
             {auth.role === "viewer"
               ? "You are signed in as a viewer. Configuration changes require an administrator session."
@@ -191,7 +191,7 @@ export default function AdminPage() {
               </Button>
             </Link>
           </div>
-          <p className="mt-3 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-600">
+          <p className="mt-3 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-500">
             Demo administrator: admin / admin123
           </p>
         </Card>
@@ -225,7 +225,7 @@ export default function AdminPage() {
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
         <StatCard label="Session role" value="Admin" icon={Shield} accent="#34d399" hint={auth.name ?? "Administrator"} />
-        <StatCard label="Database" value={health?.ok ? "Online" : "Unknown"} icon={Database} accent="#22d3ee" hint="node:sqlite WAL" delay={1} />
+        <StatCard label="Database" value={health?.ok ? "Online" : "Unknown"} icon={Database} accent="#2563eb" hint="node:sqlite WAL" delay={1} />
         <StatCard label="Live sync" value={syncStatus} icon={Wifi} accent="#a78bfa" hint={health?.websocket ?? "ws://localhost:4001"} delay={2} />
         <StatCard label="Fleet units" value={fleet.length} icon={ShieldAlert} accent="#fbbf24" hint={`${fleet.filter((item) => item.status === "idle").length} idle`} delay={3} />
         <StatCard label="Sim clock" value={simClock(simTime)} icon={Activity} accent="#fb7185" hint="Local simulation time" delay={4} />
@@ -302,7 +302,7 @@ export default function AdminPage() {
               actions={<Badge tone={health?.ok ? "green" : "amber"}>{health?.ok ? "healthy" : "unknown"}</Badge>}
             />
             <div className="mt-3 space-y-1.5 text-[10px]">
-              <Row label="API service" value={health?.service ?? "Nova City Traffic API"} />
+              <Row label="API service" value={health?.service ?? "Bengaluru Traffic API"} />
               <Row label="WebSocket" value={health?.websocket ?? "ws://localhost:4001"} />
               <Row label="Database" value="SQLite · node:sqlite" />
               {dbEntries.map(([key, value]) => (
@@ -321,8 +321,8 @@ export default function AdminPage() {
                 <Server size={11} /> Push snapshot
               </Button>
             </div>
-            <p className="mt-2 text-[9px] leading-relaxed text-slate-600">
-              The network and periodic telemetry snapshots are stored in <span className="font-mono">data/nova-city.db</span>.
+            <p className="mt-2 text-[9px] leading-relaxed text-slate-500">
+              The network and periodic telemetry snapshots are stored in <span className="font-mono">data/bengaluru-traffic.db</span>.
               The WebSocket relay is an optional secondary process.
             </p>
           </Card>
@@ -352,7 +352,7 @@ export default function AdminPage() {
                 <Lock size={12} /> End administrator session
               </Button>
             </div>
-            <p className="mt-2 text-[9px] leading-relaxed text-slate-600">
+            <p className="mt-2 text-[9px] leading-relaxed text-slate-500">
               Restoring the network replaces custom nodes and edges with the deterministic 30-intersection sample graph.
             </p>
           </Card>
@@ -368,13 +368,13 @@ export default function AdminPage() {
         <div className="mt-3 grid gap-4 lg:grid-cols-[1fr_340px]">
           <div className="grid gap-2 sm:grid-cols-2">
             {fleet.map((item) => (
-              <div key={item.id} className="flex items-center gap-2.5 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2">
-                <span className="grid h-7 w-7 place-items-center rounded-md border border-white/10 bg-white/[0.03] font-mono text-[8px] text-slate-400">
+              <div key={item.id} className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
+                <span className="grid h-7 w-7 place-items-center rounded-md border border-blue-100 bg-slate-50 font-mono text-[8px] text-slate-600">
                   {item.id.slice(-2)}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[10.5px] text-slate-300">{item.label}</p>
-                  <p className="font-mono text-[8px] text-slate-600">
+                  <p className="truncate text-[10.5px] text-slate-700">{item.label}</p>
+                  <p className="font-mono text-[8px] text-slate-500">
                     {item.type} · {item.callsign} · base {item.baseNode}
                   </p>
                 </div>
@@ -382,7 +382,7 @@ export default function AdminPage() {
                 <button
                   type="button"
                   onClick={() => removeFleetUnit(item.id)}
-                  className="text-slate-600 transition hover:text-rose-300"
+                  className="text-slate-500 transition hover:text-rose-700"
                   aria-label={`Remove ${item.label}`}
                 >
                   <Trash2 size={11} />
@@ -393,8 +393,8 @@ export default function AdminPage() {
               <EmptyState icon={ShieldAlert} title="No units registered" description="Add an emergency unit using the form." />
             ) : null}
           </div>
-          <div className="rounded-xl border border-white/[0.06] bg-ink-950/30 p-3">
-            <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">Register unit</p>
+          <div className="rounded-xl border border-blue-100 bg-slate-50 p-3">
+            <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Register unit</p>
             <div className="mt-2 space-y-2">
               <Field label="Label">
                 <Input value={unit.label} onChange={(event) => setUnit({ ...unit, label: event.target.value })} placeholder="Ambulance A-310" />
@@ -430,12 +430,12 @@ export default function AdminPage() {
 
       <div className="grid gap-3 sm:grid-cols-2">
         <Card className="flex items-start gap-2 p-3 text-[10px] leading-relaxed text-slate-500">
-          <Shield size={14} className="mt-0.5 shrink-0 text-emerald-300/70" />
+          <Shield size={14} className="mt-0.5 shrink-0 text-emerald-700/70" />
           Sessions are stored in browser localStorage for demonstration only. Viewer accounts are read-only in the
           administration area but may explore the simulation.
         </Card>
         <Card className="flex items-start gap-2 p-3 text-[10px] leading-relaxed text-slate-500">
-          <Database size={14} className="mt-0.5 shrink-0 text-cyan-300/70" />
+          <Database size={14} className="mt-0.5 shrink-0 text-blue-700/70" />
           {metrics.activeVehicles} simulated vehicles · {metrics.totalRoads} roads · snapshot state at {simClock(simTime)}.
           {health?.disclaimer ?? ""}
         </Card>
@@ -446,9 +446,9 @@ export default function AdminPage() {
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-2 border-b border-white/[0.04] pb-1.5 last:border-0 last:pb-0">
+    <div className="flex items-center justify-between gap-2 border-b border-blue-100 pb-1.5 last:border-0 last:pb-0">
       <span className="capitalize text-slate-500">{label.replace(/([A-Z])/g, " $1")}</span>
-      <span className="max-w-[58%] truncate font-mono text-slate-300">{value}</span>
+      <span className="max-w-[58%] truncate font-mono text-slate-700">{value}</span>
     </div>
   );
 }

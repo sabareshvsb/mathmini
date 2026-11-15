@@ -110,7 +110,7 @@ export default function NetworkPage() {
       <PageHeader
         eyebrow="Topology"
         title="Graph network editor"
-        description="Nova City is a weighted undirected graph G = (V, E). Inspect vertices and edges, add or remove road segments, and compute a minimum spanning tree over the current road costs."
+        description="Bengaluru is a weighted undirected graph G = (V, E). Inspect vertices and edges, add or remove road segments, and compute a minimum spanning tree over the current road costs."
         actions={
           <>
             <Button size="sm" variant="secondary" onClick={() => setNodeOpen(true)}>
@@ -127,7 +127,7 @@ export default function NetworkPage() {
       />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
-        <StatCard label="Intersections" value={stats.vertices} unit="V" icon={NetworkIcon} accent="#22d3ee" hint="Graph vertices" />
+        <StatCard label="Intersections" value={stats.vertices} unit="V" icon={NetworkIcon} accent="#2563eb" hint="Graph vertices" />
         <StatCard label="Road segments" value={stats.edges} unit="E" icon={GitBranch} accent="#34d399" hint="Undirected edges" delay={1} />
         <StatCard label="Average degree" value={stats.avgDegree.toFixed(2)} icon={Waypoints} accent="#a78bfa" hint="Connectivity measure" delay={2} />
         <StatCard label="Graph density" value={stats.density.toFixed(3)} icon={Sparkles} accent="#fbbf24" hint="Actual / possible edges" delay={3} />
@@ -152,7 +152,7 @@ export default function NetworkPage() {
 
       <div className="grid gap-4 xl:grid-cols-[1.55fr_1fr]">
         <Card className="overflow-hidden">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-blue-100 px-4 py-3">
             <SectionHeader eyebrow="Graph view" title="City topology" className="flex-1" />
             <div className="flex flex-wrap items-center gap-1.5">
               <Badge tone="cyan">{network.nodes.length} vertices</Badge>
@@ -161,7 +161,7 @@ export default function NetworkPage() {
             </div>
           </div>
           <NetworkMap height="clamp(380px, 54vh, 620px)" useGlobalMst showLabels />
-          <div className="flex flex-wrap items-center gap-2 border-t border-white/[0.06] px-4 py-2.5">
+          <div className="flex flex-wrap items-center gap-2 border-t border-blue-100 px-4 py-2.5">
             <Button size="sm" variant="outline" onClick={() => compute("kruskal")}>
               <GitBranch size={12} /> Kruskal MST
             </Button>
@@ -173,7 +173,7 @@ export default function NetworkPage() {
                 {mst.edges.length} roads · {mst.totalWeight} km · {mst.executionMs} ms
               </span>
             ) : (
-              <span className="font-mono text-[9px] text-slate-600">MST edges highlighted in emerald</span>
+              <span className="font-mono text-[9px] text-slate-500">MST edges highlighted in emerald</span>
             )}
           </div>
         </Card>
@@ -202,21 +202,21 @@ export default function NetworkPage() {
               {filteredNodes.map((node) => (
                 <div
                   key={node.id}
-                  className="group flex items-center gap-2 rounded-lg border border-white/[0.05] bg-white/[0.02] px-2.5 py-1.5"
+                  className="group flex items-center gap-2 rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-1.5"
                 >
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md border border-cyan-400/20 bg-cyan-400/[0.07] font-mono text-[8px] text-cyan-200">
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md border border-blue-200 bg-blue-500/[0.07] font-mono text-[8px] text-blue-700">
                     {node.id}
                   </span>
                   <div className="min-w-0 flex-1">
-                    <p className="truncate text-[10.5px] text-slate-300">{node.name}</p>
-                    <p className="font-mono text-[8px] text-slate-600">
+                    <p className="truncate text-[10.5px] text-slate-700">{node.name}</p>
+                    <p className="font-mono text-[8px] text-slate-500">
                       {node.district} · degree {degrees.get(node.id) ?? 0}
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => setSource(node.id)}
-                    className="shrink-0 font-mono text-[8px] text-cyan-300/70 opacity-0 transition hover:text-cyan-200 group-hover:opacity-100"
+                    className="shrink-0 font-mono text-[8px] text-blue-700/70 opacity-0 transition hover:text-blue-700 group-hover:opacity-100"
                     title="Set as origin"
                   >
                     A
@@ -224,7 +224,7 @@ export default function NetworkPage() {
                   <button
                     type="button"
                     onClick={() => setDestination(node.id)}
-                    className="shrink-0 font-mono text-[8px] text-violet-300/70 opacity-0 transition hover:text-violet-200 group-hover:opacity-100"
+                    className="shrink-0 font-mono text-[8px] text-violet-700/70 opacity-0 transition hover:text-violet-700 group-hover:opacity-100"
                     title="Set as destination"
                   >
                     B
@@ -232,7 +232,7 @@ export default function NetworkPage() {
                   <button
                     type="button"
                     onClick={() => removeNode(node.id)}
-                    className="shrink-0 text-slate-600 transition hover:text-rose-300"
+                    className="shrink-0 text-slate-500 transition hover:text-rose-700"
                     aria-label={`Remove ${node.id}`}
                   >
                     <Trash2 size={11} />
@@ -278,7 +278,7 @@ export default function NetworkPage() {
         />
         <div className="scroll-area mt-3 max-h-[360px] overflow-auto">
           <table className="w-full min-w-[720px] border-collapse text-left">
-            <thead className="sticky top-0 bg-ink-950/95 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600 backdrop-blur">
+            <thead className="sticky top-0 bg-white font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500 backdrop-blur">
               <tr>
                 <th className="px-2 py-2">ID</th>
                 <th className="px-2 py-2">Road</th>
@@ -293,8 +293,8 @@ export default function NetworkPage() {
             </thead>
             <tbody>
               {network.edges.map((edge) => (
-                <tr key={edge.id} className="border-t border-white/[0.04] text-[10px] text-slate-400 hover:bg-white/[0.02]">
-                  <td className="px-2 py-1.5 font-mono text-cyan-200/80">{edge.id}</td>
+                <tr key={edge.id} className="border-t border-blue-100 text-[10px] text-slate-600 hover:bg-blue-50">
+                  <td className="px-2 py-1.5 font-mono text-blue-700/80">{edge.id}</td>
                   <td className="px-2 py-1.5">{edge.name}</td>
                   <td className="px-2 py-1.5 font-mono text-slate-500">
                     {edge.from} → {edge.to}
@@ -308,7 +308,7 @@ export default function NetworkPage() {
                     <button
                       type="button"
                       onClick={() => removeEdge(edge.id)}
-                      className="text-slate-600 transition hover:text-rose-300"
+                      className="text-slate-500 transition hover:text-rose-700"
                       aria-label={`Remove ${edge.id}`}
                     >
                       <Trash2 size={11} />
@@ -323,7 +323,7 @@ export default function NetworkPage() {
 
       <div className="grid gap-3 lg:grid-cols-[1fr_auto]">
         <SimulationNote />
-        <div className="flex items-center gap-1.5 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 font-mono text-[8.5px] text-slate-500">
+        <div className="flex items-center gap-1.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 font-mono text-[8.5px] text-slate-500">
           {mstEdges?.length ? `${mstEdges.length} MST edges highlighted on map` : "MST overlay is currently empty"}
         </div>
       </div>
@@ -355,14 +355,14 @@ export default function NetworkPage() {
           </Field>
           <Field label="District">
             <Select value={nodeForm.district} onChange={(event) => setNodeForm({ ...nodeForm, district: event.target.value })}>
-              {["Central", "North", "South", "East", "West", "Riverside", "Industrial", "Airport"].map((district) => (
+              {["Central", "North", "North East", "East", "South East", "South", "South West", "West", "North West"].map((district) => (
                 <option key={district} value={district}>
                   {district}
                 </option>
               ))}
             </Select>
           </Field>
-          <p className="rounded-lg border border-amber-400/15 bg-amber-400/[0.04] px-3 py-2 text-[10px] leading-relaxed text-amber-100/60">
+          <p className="rounded-lg border border-amber-200 bg-amber-400/[0.04] px-3 py-2 text-[10px] leading-relaxed text-amber-700/60">
             Coordinates are generated deterministically from the graph canvas so the node participates immediately in
             routing and simulation.
           </p>
@@ -456,9 +456,9 @@ export default function NetworkPage() {
 
 function Mini({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-md border border-white/[0.06] bg-ink-950/30 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-600">{label}</p>
-      <p className="mt-0.5 font-mono text-[10.5px] text-slate-300">{value}</p>
+    <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
+      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 font-mono text-[10.5px] text-slate-700">{value}</p>
     </div>
   );
 }

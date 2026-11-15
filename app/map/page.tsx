@@ -102,8 +102,8 @@ export default function MapPage() {
           {Object.entries(metrics.congestionDistribution).map(([level, count]) => {
             const meta = CONGESTION_META[level as keyof typeof CONGESTION_META];
             return (
-              <div key={level} className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-                <p className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">
+              <div key={level} className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+                <p className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
                   <span className="h-1.5 w-1.5 rounded-full" style={{ background: meta.color }} />
                   {meta.label}
                 </p>
@@ -113,13 +113,13 @@ export default function MapPage() {
               </div>
             );
           })}
-          <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">Blocked</p>
-            <p className="mt-0.5 font-mono text-sm text-rose-300">{metrics.blockedRoads}</p>
+          <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Blocked</p>
+            <p className="mt-0.5 font-mono text-sm text-rose-700">{metrics.blockedRoads}</p>
           </div>
-          <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">Vehicles</p>
-            <p className="mt-0.5 font-mono text-sm text-cyan-200">{metrics.activeVehicles}</p>
+          <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Vehicles</p>
+            <p className="mt-0.5 font-mono text-sm text-blue-700">{metrics.activeVehicles}</p>
           </div>
         </div>
       </PageHeader>
@@ -140,7 +140,7 @@ export default function MapPage() {
                 <button
                   type="button"
                   onClick={swap}
-                  className="grid h-6 w-6 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-slate-400 transition hover:border-cyan-400/30 hover:text-cyan-200"
+                  className="grid h-6 w-6 place-items-center rounded-full border border-blue-100 bg-blue-50 text-slate-600 transition hover:border-blue-200 hover:text-blue-700"
                   aria-label="Swap origin and destination"
                 >
                   <ArrowLeftRight size={11} />
@@ -168,23 +168,23 @@ export default function MapPage() {
             </div>
 
             {route ? (
-              <div className="mt-3 rounded-lg border border-cyan-400/15 bg-cyan-400/[0.04] p-3">
+              <div className="mt-3 rounded-lg border border-blue-200 bg-blue-500/[0.04] p-3">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-cyan-300/70">Dijkstra optimum</p>
+                  <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-blue-700/70">Dijkstra optimum</p>
                   <Badge tone="green">optimal</Badge>
                 </div>
                 <div className="mt-2 grid grid-cols-3 gap-1.5 text-center">
                   <div>
-                    <p className="font-mono text-sm text-slate-100">{route.primary.totalDistanceKm}</p>
-                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-600">km</p>
+                    <p className="font-mono text-sm text-slate-900">{route.primary.totalDistanceKm}</p>
+                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-500">km</p>
                   </div>
                   <div>
-                    <p className="font-mono text-sm text-slate-100">{formatMinutes(route.primary.totalTimeMin, 0)}</p>
-                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-600">est.</p>
+                    <p className="font-mono text-sm text-slate-900">{formatMinutes(route.primary.totalTimeMin, 0)}</p>
+                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-500">est.</p>
                   </div>
                   <div>
-                    <p className="font-mono text-sm text-slate-100">{route.primary.explored}</p>
-                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-600">explored</p>
+                    <p className="font-mono text-sm text-slate-900">{route.primary.explored}</p>
+                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-500">explored</p>
                   </div>
                 </div>
                 <p className="mt-2 truncate font-mono text-[8.5px] text-slate-500">
@@ -225,17 +225,17 @@ export default function MapPage() {
                   <Info label="Signal" value={node.signalized ? (selectedSignal?.mode ?? "signalised") : "unsignalised"} />
                 </div>
                 {selectedSignal ? (
-                  <div className="rounded-lg border border-white/[0.07] bg-ink-950/30 p-2.5">
+                  <div className="rounded-lg border border-blue-100 bg-slate-50 p-2.5">
                     <div className="flex items-center justify-between">
                       <span className="font-mono text-[9px] text-slate-500">Phase</span>
                       <span
                         className={cn(
                           "font-mono text-[11px] font-semibold",
                           selectedSignal.phase === "GREEN"
-                            ? "text-emerald-300"
+                            ? "text-emerald-700"
                             : selectedSignal.phase === "YELLOW"
-                              ? "text-amber-300"
-                              : "text-rose-300",
+                              ? "text-amber-700"
+                              : "text-rose-700",
                         )}
                       >
                         {selectedSignal.phase} · {selectedSignal.remaining}s
@@ -271,7 +271,7 @@ export default function MapPage() {
                   <div>
                     <div className="flex justify-between text-[10px]">
                       <span className="text-slate-500">Live density</span>
-                      <span className="font-mono text-slate-200">{(road.density * 100).toFixed(0)}%</span>
+                      <span className="font-mono text-slate-800">{(road.density * 100).toFixed(0)}%</span>
                     </div>
                     <Progress
                       value={road.density * 100}
@@ -345,23 +345,23 @@ export default function MapPage() {
               />
               <div className="mt-3 max-h-[190px] space-y-2 overflow-y-auto">
                 {activeIncidents.length === 0 ? (
-                  <p className="rounded-lg border border-dashed border-white/10 px-3 py-5 text-center text-[10.5px] text-slate-600">
+                  <p className="rounded-lg border border-dashed border-blue-100 px-3 py-5 text-center text-[10.5px] text-slate-500">
                     Network clear. Select a road to simulate an incident.
                   </p>
                 ) : (
                   activeIncidents.map((entry) => (
-                    <div key={entry.id} className="rounded-lg border border-white/[0.07] bg-ink-950/30 px-2.5 py-2">
+                    <div key={entry.id} className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
-                          <p className="truncate text-[10.5px] text-slate-200">{entry.note}</p>
-                          <p className="font-mono text-[8px] text-slate-600">
+                          <p className="truncate text-[10.5px] text-slate-800">{entry.note}</p>
+                          <p className="font-mono text-[8px] text-slate-500">
                             {entry.edgeId} · {entry.kind} · {simClock(entry.startedAt)}
                           </p>
                         </div>
                         <button
                           type="button"
                           onClick={() => clearIncident(entry.id)}
-                          className="shrink-0 text-[9px] text-rose-300/80 hover:text-rose-200"
+                          className="shrink-0 text-[9px] text-rose-700/80 hover:text-rose-700"
                         >
                           clear
                         </button>
@@ -374,26 +374,26 @@ export default function MapPage() {
 
             <Card className="p-4">
               <SectionHeader eyebrow="Emergency overlay" title="Priority corridors" />
-              <div className="mt-2 space-y-1.5 text-[10.5px] text-slate-400">
+              <div className="mt-2 space-y-1.5 text-[10.5px] text-slate-600">
                 <p className="flex items-center gap-2">
                   <span className="h-1.5 w-6 rounded-full bg-rose-400" /> Emergency mission route
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="h-1.5 w-6 rounded-full bg-cyan-400" /> Optimised primary route
+                  <span className="h-1.5 w-6 rounded-full bg-blue-500" /> Optimised primary route
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="h-1.5 w-6 rounded-full bg-violet-400/70" /> Alternative route
+                  <span className="h-1.5 w-6 rounded-full bg-violet-400" /> Alternative route
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="h-1.5 w-6 rounded-full bg-emerald-400/70" /> Minimum spanning tree
+                  <span className="h-1.5 w-6 rounded-full bg-emerald-400" /> Minimum spanning tree
                 </p>
               </div>
-              <div className="mt-3 flex items-center gap-2 rounded-lg border border-rose-400/15 bg-rose-400/[0.04] px-2.5 py-2">
+              <div className="mt-3 flex items-center gap-2 rounded-lg border border-rose-200 bg-rose-400/[0.04] px-2.5 py-2">
                 <StatusDot tone={metrics.emergencyVehicles ? "red" : "slate"} pulse={metrics.emergencyVehicles > 0} />
-                <p className="text-[10px] text-slate-300">
+                <p className="text-[10px] text-slate-700">
                   {metrics.emergencyVehicles} emergency vehicle{metrics.emergencyVehicles === 1 ? "" : "s"} in network
                 </p>
-                <Siren size={12} className="ml-auto text-rose-300/70" />
+                <Siren size={12} className="ml-auto text-rose-700/70" />
               </div>
             </Card>
           </div>
@@ -406,9 +406,9 @@ export default function MapPage() {
 
 function Info({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-white/[0.06] bg-ink-950/30 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-600">{label}</p>
-      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-300">{value}</p>
+    <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
+      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-700">{value}</p>
     </div>
   );
 }
@@ -416,8 +416,8 @@ function Info({ label, value }: { label: string; value: string }) {
 function Mini({ label, value }: { label: string; value: string | number }) {
   return (
     <div>
-      <p className="font-mono text-[7px] uppercase tracking-[0.12em] text-slate-600">{label}</p>
-      <p className="font-mono text-[9.5px] text-slate-300">{value}</p>
+      <p className="font-mono text-[7px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="font-mono text-[9.5px] text-slate-700">{value}</p>
     </div>
   );
 }

@@ -41,13 +41,13 @@ export default function LoginPage() {
   if (auth.role) {
     return (
       <div className="mx-auto max-w-2xl space-y-4">
-        <PageHeader eyebrow="Authentication" title="Operator session" description="You are signed in to the Nova City traffic control demonstration." />
+        <PageHeader eyebrow="Authentication" title="Operator session" description="You are signed in to the Bengaluru traffic control demonstration." />
         <Card className="p-6 text-center">
-          <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-emerald-400/25 bg-emerald-400/[0.08] text-emerald-300">
+          <span className="mx-auto grid h-14 w-14 place-items-center rounded-full border border-emerald-200 bg-emerald-400/[0.08] text-emerald-700">
             <ShieldCheck size={24} />
           </span>
-          <h2 className="mt-3 text-base font-semibold text-slate-100">{auth.name}</h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-300/70">{auth.role} session</p>
+          <h2 className="mt-3 text-base font-semibold text-slate-900">{auth.name}</h2>
+          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-700/70">{auth.role} session</p>
           <p className="mx-auto mt-2 max-w-md text-[11px] leading-relaxed text-slate-500">
             {auth.role === "admin"
               ? "Full access to configuration, fleet registration, network persistence and destructive actions."
@@ -86,7 +86,7 @@ export default function LoginPage() {
 
       <div className="grid gap-4 md:grid-cols-[1fr_1fr]">
         <Card className="p-5">
-          <SectionHeader eyebrow="Session" title="Sign in to Nova City" />
+          <SectionHeader eyebrow="Session" title="Sign in to Bengaluru" />
           <form onSubmit={submit} className="mt-4 space-y-3">
             <Field label="Username">
               <div className="relative">
@@ -116,7 +116,7 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setShow(!show)}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 transition hover:text-slate-300"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-500 transition hover:text-slate-700"
                   aria-label={show ? "Hide password" : "Show password"}
                 >
                   {show ? <EyeOff size={13} /> : <Eye size={13} />}
@@ -124,14 +124,14 @@ export default function LoginPage() {
               </div>
             </Field>
             {error ? (
-              <p className="rounded-lg border border-rose-400/20 bg-rose-400/[0.06] px-3 py-2 text-[10.5px] text-rose-200">
+              <p className="rounded-lg border border-rose-200 bg-rose-400/[0.06] px-3 py-2 text-[10.5px] text-rose-700">
                 {error}
               </p>
             ) : null}
             <Button type="submit" variant="primary" className="w-full">
               <LogIn size={13} /> Sign in
             </Button>
-            <p className="text-center text-[9.5px] text-slate-600">
+            <p className="text-center text-[9.5px] text-slate-500">
               Authentication is simulated for this academic project.
             </p>
           </form>
@@ -148,14 +148,14 @@ export default function LoginPage() {
                   setPassword("admin123");
                   setError("");
                 }}
-                className="flex w-full items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.02] px-3 py-2.5 text-left transition hover:border-emerald-400/25 hover:bg-emerald-400/[0.04]"
+                className="flex w-full items-center gap-3 rounded-xl border border-blue-100 bg-slate-50 px-3 py-2.5 text-left transition hover:border-emerald-200 hover:bg-emerald-400/[0.04]"
               >
-                <span className="grid h-8 w-8 place-items-center rounded-lg border border-emerald-400/20 bg-emerald-400/[0.07] text-emerald-300">
+                <span className="grid h-8 w-8 place-items-center rounded-lg border border-emerald-200 bg-emerald-400/[0.07] text-emerald-700">
                   <Shield size={14} />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] font-medium text-slate-200">Administrator</p>
-                  <p className="font-mono text-[8.5px] text-slate-600">admin / admin123</p>
+                  <p className="text-[11px] font-medium text-slate-800">Administrator</p>
+                  <p className="font-mono text-[8.5px] text-slate-500">admin / admin123</p>
                 </div>
                 <Badge tone="green">full access</Badge>
               </button>
@@ -166,19 +166,19 @@ export default function LoginPage() {
                   setPassword("viewer123");
                   setError("");
                 }}
-                className="flex w-full items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.02] px-3 py-2.5 text-left transition hover:border-cyan-400/25 hover:bg-cyan-400/[0.04]"
+                className="flex w-full items-center gap-3 rounded-xl border border-blue-100 bg-slate-50 px-3 py-2.5 text-left transition hover:border-blue-200 hover:bg-blue-500/[0.04]"
               >
-                <span className="grid h-8 w-8 place-items-center rounded-lg border border-cyan-400/20 bg-cyan-400/[0.07] text-cyan-300">
+                <span className="grid h-8 w-8 place-items-center rounded-lg border border-blue-200 bg-blue-500/[0.07] text-blue-700">
                   <Eye size={14} />
                 </span>
                 <div className="min-w-0 flex-1">
-                  <p className="text-[11px] font-medium text-slate-200">Operations viewer</p>
-                  <p className="font-mono text-[8.5px] text-slate-600">viewer / viewer123</p>
+                  <p className="text-[11px] font-medium text-slate-800">Operations viewer</p>
+                  <p className="font-mono text-[8.5px] text-slate-500">viewer / viewer123</p>
                 </div>
                 <Badge tone="cyan">read-only</Badge>
               </button>
             </div>
-            <p className="mt-3 text-[9px] leading-relaxed text-slate-600">
+            <p className="mt-3 text-[9px] leading-relaxed text-slate-500">
               Click a card to prefill the form, then press sign in. You can also explore the simulation without an
               account; only administration is gated.
             </p>
@@ -194,11 +194,11 @@ export default function LoginPage() {
                 ["Signal and fleet configuration", true, false],
                 ["Network persistence and reports", true, false],
               ].map(([label, admin, viewer]) => (
-                <div key={String(label)} className="flex items-center justify-between gap-2 border-b border-white/[0.04] pb-1.5 last:border-0 last:pb-0">
+                <div key={String(label)} className="flex items-center justify-between gap-2 border-b border-blue-100 pb-1.5 last:border-0 last:pb-0">
                   <span className="text-slate-500">{label as string}</span>
                   <span className="flex items-center gap-3 font-mono text-[8.5px]">
-                    <span className={admin ? "text-emerald-300" : "text-slate-600"}>{admin ? "admin ✓" : "admin —"}</span>
-                    <span className={viewer ? "text-cyan-300" : "text-slate-600"}>{viewer ? "viewer ✓" : "viewer —"}</span>
+                    <span className={admin ? "text-emerald-700" : "text-slate-500"}>{admin ? "admin ✓" : "admin —"}</span>
+                    <span className={viewer ? "text-blue-700" : "text-slate-500"}>{viewer ? "viewer ✓" : "viewer —"}</span>
                   </span>
                 </div>
               ))}
@@ -206,7 +206,7 @@ export default function LoginPage() {
           </Card>
 
           <SimulationNote />
-          <p className="flex items-center justify-center gap-1.5 text-[9px] text-slate-600">
+          <p className="flex items-center justify-center gap-1.5 text-[9px] text-slate-500">
             <Lock size={10} /> No real credentials are transmitted or validated by a server.
           </p>
         </div>

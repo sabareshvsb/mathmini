@@ -91,7 +91,7 @@ export default function SignalsPage() {
       />
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
-        <StatCard label="Active signals" value={metrics.activeSignals} icon={TrafficCone} accent="#22d3ee" hint="Signalised intersections" />
+        <StatCard label="Active signals" value={metrics.activeSignals} icon={TrafficCone} accent="#2563eb" hint="Signalised intersections" />
         <StatCard label="Green phase" value={activeGreen} unit={`/ ${list.length}`} icon={Activity} accent="#34d399" hint="Currently serving traffic" delay={1} />
         <StatCard label="Average queue" value={avgQueue.toFixed(1)} unit="veh" icon={AlarmClock} accent="#fbbf24" hint="Across all approaches" delay={2} />
         <StatCard label="Preempted" value={preempted} icon={Waves} accent="#fb7185" hint="Emergency priority active" delay={3} />
@@ -100,7 +100,7 @@ export default function SignalsPage() {
 
       <div className="grid gap-4 xl:grid-cols-[1.5fr_1fr]">
         <Card className="overflow-hidden">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-blue-100 px-4 py-3">
             <SectionHeader eyebrow="Signal network" title="Intersection control map" className="flex-1" />
             <Badge tone={plan === "coordinated" ? "green" : plan === "adaptive" ? "cyan" : "slate"}>
               {plan === "coordinated" ? "Green wave" : plan === "adaptive" ? "Adaptive" : "Fixed cycle"}
@@ -112,11 +112,11 @@ export default function SignalsPage() {
             showVehicleLayer={false}
           />
           {selectedSignal ? (
-            <div className="border-t border-white/[0.06] px-4 py-3">
+            <div className="border-t border-blue-100 px-4 py-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-cyan-300/60">Selected signal</p>
-                  <p className="text-[12px] font-medium text-slate-100">
+                  <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-blue-700/60">Selected signal</p>
+                  <p className="text-[12px] font-medium text-slate-900">
                     {selectedSignal.nodeId} · {nodeName(selectedSignal.nodeId)}
                   </p>
                 </div>
@@ -138,7 +138,7 @@ export default function SignalsPage() {
               </div>
             </div>
           ) : (
-            <div className="border-t border-white/[0.06] px-4 py-2.5 text-center font-mono text-[9px] text-slate-600">
+            <div className="border-t border-blue-100 px-4 py-2.5 text-center font-mono text-[9px] text-slate-500">
               Select an intersection on the map to open its signal controller
             </div>
           )}
@@ -168,7 +168,7 @@ export default function SignalsPage() {
               />
             </div>
             {config.publicTransportPriority ? (
-              <div className="mt-3 flex items-center gap-2 rounded-lg border border-amber-400/15 bg-amber-400/[0.04] px-2.5 py-2 text-[10px] text-amber-100/70">
+              <div className="mt-3 flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-400/[0.04] px-2.5 py-2 text-[10px] text-amber-700/70">
                 <Bus size={12} /> Transit priority bias is applied to simulated bus routes.
               </div>
             ) : null}
@@ -219,8 +219,8 @@ export default function SignalsPage() {
               className={cn(
                 "rounded-xl border p-3 text-left transition",
                 selectedNode === signal.nodeId
-                  ? "border-cyan-400/30 bg-cyan-400/[0.05]"
-                  : "border-white/[0.06] bg-white/[0.02] hover:border-white/15 hover:bg-white/[0.04]",
+                  ? "border-blue-200 bg-blue-500/[0.05]"
+                  : "border-blue-100 bg-slate-50 hover:border-blue-200 hover:bg-blue-50",
               )}
             >
               <div className="flex items-center justify-between gap-2">
@@ -235,13 +235,13 @@ export default function SignalsPage() {
                           : "bg-rose-400 shadow-[0_0_8px_#fb7185]",
                     )}
                   />
-                  <span className="font-mono text-[9px] text-cyan-200/80">{signal.nodeId}</span>
-                  <span className="truncate text-[10.5px] text-slate-300">{nodeName(signal.nodeId)}</span>
+                  <span className="font-mono text-[9px] text-blue-700/80">{signal.nodeId}</span>
+                  <span className="truncate text-[10.5px] text-slate-700">{nodeName(signal.nodeId)}</span>
                 </div>
                 <span className="font-mono text-[9px] text-slate-500">{signal.remaining}s</span>
               </div>
               <div className="mt-2 grid grid-cols-4 gap-1.5 text-center">
-                <MiniStat label="Phase" value={signal.phase.slice(0, 1)} tone={signal.phase === "GREEN" ? "text-emerald-300" : signal.phase === "YELLOW" ? "text-amber-300" : "text-rose-300"} />
+                <MiniStat label="Phase" value={signal.phase.slice(0, 1)} tone={signal.phase === "GREEN" ? "text-emerald-700" : signal.phase === "YELLOW" ? "text-amber-700" : "text-rose-700"} />
                 <MiniStat label="Queue" value={signal.queue} />
                 <MiniStat label="Green" value={`${signal.greenDuration}s`} />
                 <MiniStat label="Mode" value={signal.mode.slice(0, 4)} />
@@ -253,7 +253,7 @@ export default function SignalsPage() {
                   height={3}
                 />
               </div>
-              <div className="mt-1.5 flex items-center justify-between font-mono text-[7.5px] uppercase tracking-[0.1em] text-slate-600">
+              <div className="mt-1.5 flex items-center justify-between font-mono text-[7.5px] uppercase tracking-[0.1em] text-slate-500">
                 <span>cycle {signal.cycle}s</span>
                 <span>offset {signal.offset}s</span>
               </div>
@@ -264,16 +264,16 @@ export default function SignalsPage() {
 
       <div className="grid gap-3 sm:grid-cols-3">
         <Card className="flex items-start gap-2 p-3 text-[10px] leading-relaxed text-slate-500">
-          <Radio size={14} className="mt-0.5 shrink-0 text-cyan-300/70" />
+          <Radio size={14} className="mt-0.5 shrink-0 text-blue-700/70" />
           Signal phases are advanced by the local simulation clock. No real controllers or city infrastructure are
           connected.
         </Card>
         <Card className="flex items-start gap-2 p-3 text-[10px] leading-relaxed text-slate-500">
-          <Timer size={14} className="mt-0.5 shrink-0 text-amber-300/70" />
+          <Timer size={14} className="mt-0.5 shrink-0 text-amber-700/70" />
           Green durations are bounded between 20 and 60 seconds in adaptive mode; fixed mode uses the configured table.
         </Card>
         <Card className="flex items-start gap-2 p-3 text-[10px] leading-relaxed text-slate-500">
-          <Gauge size={14} className="mt-0.5 shrink-0 text-emerald-300/70" />
+          <Gauge size={14} className="mt-0.5 shrink-0 text-emerald-700/70" />
           Signal efficiency reports the share of phase time that served at least one queued simulated vehicle.
         </Card>
       </div>
@@ -283,17 +283,17 @@ export default function SignalsPage() {
 
 function SignalStat({ label, value }: { label: string; value: string | number }) {
   return (
-    <div className="rounded-md border border-white/[0.06] bg-ink-950/30 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-600">{label}</p>
-      <p className="mt-0.5 font-mono text-[10px] text-slate-300">{value}</p>
+    <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
+      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 font-mono text-[10px] text-slate-700">{value}</p>
     </div>
   );
 }
 
-function MiniStat({ label, value, tone = "text-slate-300" }: { label: string; value: string | number; tone?: string }) {
+function MiniStat({ label, value, tone = "text-slate-700" }: { label: string; value: string | number; tone?: string }) {
   return (
     <div>
-      <p className="font-mono text-[7px] uppercase tracking-[0.1em] text-slate-600">{label}</p>
+      <p className="font-mono text-[7px] uppercase tracking-[0.1em] text-slate-500">{label}</p>
       <p className={cn("font-mono text-[9.5px]", tone)}>{value}</p>
     </div>
   );

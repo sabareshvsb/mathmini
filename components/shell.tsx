@@ -87,18 +87,18 @@ function BrandMark() {
       <svg viewBox="0 0 48 48" className="h-10 w-10">
         <defs>
           <linearGradient id="brand-stroke" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#67e8f9" />
+            <stop offset="0%" stopColor="#1d4ed8" />
             <stop offset="100%" stopColor="#34d399" />
           </linearGradient>
         </defs>
-        <path d="M24 3 42.5 13.5v21L24 45 5.5 34.5v-21L24 3Z" fill="rgba(34,211,238,0.06)" stroke="url(#brand-stroke)" strokeWidth="1.4" />
-        <path d="M16 34 24 13l8 21" fill="none" stroke="#67e8f9" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="24" cy="13" r="2.4" fill="#67e8f9" />
+        <path d="M24 3 42.5 13.5v21L24 45 5.5 34.5v-21L24 3Z" fill="rgba(37,99,235,0.06)" stroke="url(#brand-stroke)" strokeWidth="1.4" />
+        <path d="M16 34 24 13l8 21" fill="none" stroke="#1d4ed8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="24" cy="13" r="2.4" fill="#1d4ed8" />
         <circle cx="16" cy="34" r="2.2" fill="#34d399" />
         <circle cx="32" cy="34" r="2.2" fill="#34d399" />
-        <path d="M18 24h12" stroke="#22d3ee" strokeWidth="1" strokeDasharray="2 2" opacity="0.8" />
+        <path d="M18 24h12" stroke="#2563eb" strokeWidth="1" strokeDasharray="2 2" opacity="0.8" />
       </svg>
-      <span className="absolute inset-0 rounded-full bg-cyan-400/10 blur-lg" />
+      <span className="absolute inset-0 rounded-full bg-blue-50 blur-lg" />
     </div>
   );
 }
@@ -112,23 +112,23 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="flex h-[76px] shrink-0 items-center gap-3 border-b border-white/[0.06] px-4">
+      <div className="flex h-[76px] shrink-0 items-center gap-3 border-b border-blue-100 px-4">
         <BrandMark />
         <div className="min-w-0">
-          <p className="font-mono text-[13px] font-semibold tracking-[0.14em] text-slate-100">NOVA CITY</p>
-          <p className="truncate font-mono text-[8px] uppercase tracking-[0.22em] text-cyan-300/60">
+          <p className="font-mono text-[13px] font-semibold tracking-[0.14em] text-slate-900">BENGALURU</p>
+          <p className="truncate font-mono text-[8px] uppercase tracking-[0.22em] text-blue-700/60">
             Traffic Control OS
           </p>
         </div>
       </div>
 
       <div className="scroll-area flex-1 overflow-y-auto px-3 py-4">
-        <p className="mb-2 px-2 font-mono text-[8px] uppercase tracking-[0.2em] text-slate-600">
+        <p className="mb-2 px-2 font-mono text-[8px] uppercase tracking-[0.2em] text-slate-500">
           Smart City · Graph Theory
         </p>
         {NAV_GROUPS.map((group) => (
           <div key={group.label} className="mb-3">
-            <p className="mb-1.5 px-3 font-mono text-[8px] uppercase tracking-[0.22em] text-slate-600/80">
+            <p className="mb-1.5 px-3 font-mono text-[8px] uppercase tracking-[0.22em] text-slate-500/80">
               {group.label}
             </p>
             <nav className="space-y-0.5">
@@ -145,21 +145,21 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                     {active ? (
                       <motion.span
                         layoutId="sidebar-active"
-                        className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-cyan-300 shadow-[0_0_8px_#22d3ee]"
+                        className="absolute left-0 top-1/2 h-5 w-[2px] -translate-y-1/2 rounded-full bg-blue-600 shadow-[0_0_8px_#2563eb]"
                       />
                     ) : null}
                     <Icon
                       size={15}
                       strokeWidth={1.7}
-                      className={cn("shrink-0 transition", active ? "text-cyan-300" : "text-slate-500 group-hover:text-slate-300")}
+                      className={cn("shrink-0 transition", active ? "text-blue-700" : "text-slate-500 group-hover:text-slate-700")}
                     />
                     <span className="truncate">{item.label}</span>
                     {item.href === "/emergency" && metrics.emergencyVehicles > 0 ? (
-                      <span className="ml-auto grid h-4 min-w-4 place-items-center rounded-full bg-rose-500/20 px-1 font-mono text-[8px] text-rose-300">
+                      <span className="ml-auto grid h-4 min-w-4 place-items-center rounded-full bg-rose-50 px-1 font-mono text-[8px] text-rose-700">
                         {metrics.emergencyVehicles}
                       </span>
                     ) : null}
-                    {active ? <ChevronRight size={11} className="ml-auto text-cyan-400/60" /> : null}
+                    {active ? <ChevronRight size={11} className="ml-auto text-blue-600/60" /> : null}
                   </Link>
                 );
               })}
@@ -170,25 +170,25 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
         <Link
           href="/login"
           onClick={onNavigate}
-          className="mt-2 flex items-center gap-2.5 rounded-xl border border-white/[0.07] bg-white/[0.025] px-3 py-2.5 transition hover:border-cyan-400/20 hover:bg-cyan-400/[0.04]"
+          className="mt-2 flex items-center gap-2.5 rounded-xl border border-blue-100 bg-slate-50 px-3 py-2.5 transition hover:border-blue-200 hover:bg-blue-500/[0.04]"
         >
-          <span className="grid h-7 w-7 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-slate-400">
+          <span className="grid h-7 w-7 place-items-center rounded-full border border-blue-100 bg-blue-50 text-slate-600">
             {auth.role === "admin" ? <Shield size={13} /> : auth.role === "viewer" ? <Eye size={13} /> : <LogIn size={13} />}
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-[11px] font-medium text-slate-300">
+            <span className="block truncate text-[11px] font-medium text-slate-700">
               {auth.name ?? "Operator sign in"}
             </span>
-            <span className="block font-mono text-[8px] uppercase tracking-[0.14em] text-slate-600">
+            <span className="block font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">
               {auth.role ?? "guest session"}
             </span>
           </span>
-          <ChevronRight size={12} className="text-slate-600" />
+          <ChevronRight size={12} className="text-slate-500" />
         </Link>
       </div>
 
-      <div className="shrink-0 border-t border-white/[0.06] p-3">
-        <div className="rounded-xl border border-white/[0.07] bg-gradient-to-br from-cyan-400/[0.05] to-transparent p-3">
+      <div className="shrink-0 border-t border-blue-100 p-3">
+        <div className="rounded-xl border border-blue-100 bg-gradient-to-br from-blue-600/[0.05] to-transparent p-3">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[8px] uppercase tracking-[0.18em] text-slate-500">System status</span>
             <StatusDot tone={running ? "green" : "amber"} />
@@ -198,13 +198,13 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
               <span className="flex items-center gap-1.5 text-slate-500">
                 <Gauge size={10} /> Engine
               </span>
-              <span className={running ? "text-emerald-300" : "text-amber-300"}>{running ? "Running" : "Paused"}</span>
+              <span className={running ? "text-emerald-700" : "text-amber-700"}>{running ? "Running" : "Paused"}</span>
             </div>
             <div className="flex items-center justify-between text-[9.5px]">
               <span className="flex items-center gap-1.5 text-slate-500">
                 {syncStatus === "connected" ? <Wifi size={10} /> : <WifiOff size={10} />} Live sync
               </span>
-              <span className={syncStatus === "connected" ? "text-cyan-300" : "text-slate-500"}>
+              <span className={syncStatus === "connected" ? "text-blue-700" : "text-slate-500"}>
                 {syncStatus === "connected" ? "Linked" : syncStatus === "connecting" ? "Connecting" : "Offline"}
               </span>
             </div>
@@ -212,11 +212,11 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
               <span className="flex items-center gap-1.5 text-slate-500">
                 <Radio size={10} /> Signals
               </span>
-              <span className="text-slate-300">{metrics.activeSignals} active</span>
+              <span className="text-slate-700">{metrics.activeSignals} active</span>
             </div>
           </div>
         </div>
-        <p className="mt-2 px-1 text-center font-mono text-[7.5px] uppercase tracking-[0.16em] text-slate-700">
+        <p className="mt-2 px-1 text-center font-mono text-[7.5px] uppercase tracking-[0.16em] text-slate-400">
           Simulation data · academic build
         </p>
       </div>
@@ -237,13 +237,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const auth = useTrafficStore((state) => state.auth);
   const toasts = useTrafficStore((state) => state.toasts);
   const dismissToast = useTrafficStore((state) => state.dismissToast);
-  const meta = PAGE_META[pathname] ?? { title: "Nova City", eyebrow: "Traffic Control" };
+  const meta = PAGE_META[pathname] ?? { title: "Bengaluru", eyebrow: "Traffic Control" };
 
   return (
     <>
       <LiveEngine />
 
-      <aside className="fixed inset-y-0 left-0 z-50 hidden w-[268px] border-r border-white/[0.06] bg-ink-950/85 backdrop-blur-2xl lg:block">
+      <aside className="fixed inset-y-0 left-0 z-50 hidden w-[268px] border-r border-blue-100 bg-white/90 backdrop-blur-2xl lg:block">
         <SidebarContent />
       </aside>
 
@@ -251,7 +251,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {sidebarOpen ? (
           <>
             <motion.div
-              className="fixed inset-0 z-50 bg-ink-950/70 backdrop-blur-sm lg:hidden"
+              className="fixed inset-0 z-50 bg-slate-900/35 backdrop-blur-sm lg:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -262,12 +262,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               animate={{ x: 0 }}
               exit={{ x: -290 }}
               transition={{ type: "spring", stiffness: 320, damping: 32 }}
-              className="fixed inset-y-0 left-0 z-[60] w-[280px] border-r border-white/10 bg-ink-950/98 backdrop-blur-2xl lg:hidden"
+              className="fixed inset-y-0 left-0 z-[60] w-[280px] border-r border-blue-100 bg-white backdrop-blur-2xl lg:hidden"
             >
               <button
                 type="button"
                 onClick={() => setSidebarOpen(false)}
-                className="absolute right-2 top-2 z-10 grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-slate-400"
+                className="absolute right-2 top-2 z-10 grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-blue-50 text-slate-600"
                 aria-label="Close navigation"
               >
                 <X size={14} />
@@ -279,12 +279,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </AnimatePresence>
 
       <div className="relative z-10 min-h-screen lg:pl-[268px]">
-        <header className="sticky top-0 z-40 border-b border-white/[0.06] bg-ink-950/70 backdrop-blur-2xl">
+        <header className="sticky top-0 z-40 border-b border-blue-100 bg-white/80 backdrop-blur-2xl">
           <div className="flex h-[64px] items-center gap-3 px-4 sm:px-5 lg:px-6">
             <button
               type="button"
               onClick={() => setSidebarOpen(true)}
-              className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-slate-300 lg:hidden"
+              className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-blue-100 bg-blue-50 text-slate-700 lg:hidden"
               aria-label="Open navigation"
             >
               <Menu size={16} />
@@ -292,20 +292,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <p className="hidden font-mono text-[8px] uppercase tracking-[0.2em] text-cyan-300/50 sm:block">
+                <p className="hidden font-mono text-[8px] uppercase tracking-[0.2em] text-blue-700/50 sm:block">
                   {meta.eyebrow}
                 </p>
-                <ChevronRight size={9} className="hidden text-slate-700 sm:block" />
-                <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">Nova City</p>
+                <ChevronRight size={9} className="hidden text-slate-400 sm:block" />
+                <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Bengaluru</p>
               </div>
-              <h1 className="truncate text-[14px] font-semibold tracking-tight text-slate-100">{meta.title}</h1>
+              <h1 className="truncate text-[14px] font-semibold tracking-tight text-slate-900">{meta.title}</h1>
             </div>
 
             <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
-              <div className="hidden items-center gap-1.5 rounded-lg border border-white/[0.07] bg-white/[0.025] px-2.5 py-1.5 md:flex">
-                <Clock size={12} className="text-cyan-300/70" />
-                <span className="font-mono text-[11px] tabular-nums text-slate-200">{simClock(simTime)}</span>
-                <span className="font-mono text-[7.5px] uppercase tracking-wider text-slate-600">sim</span>
+              <div className="hidden items-center gap-1.5 rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-1.5 md:flex">
+                <Clock size={12} className="text-blue-700/70" />
+                <span className="font-mono text-[11px] tabular-nums text-slate-800">{simClock(simTime)}</span>
+                <span className="font-mono text-[7.5px] uppercase tracking-wider text-slate-500">sim</span>
               </div>
 
               <button
@@ -314,8 +314,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 className={cn(
                   "hidden items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.12em] transition sm:flex",
                   running
-                    ? "border-emerald-400/20 bg-emerald-400/[0.07] text-emerald-300 hover:bg-emerald-400/[0.12]"
-                    : "border-amber-400/20 bg-amber-400/[0.07] text-amber-300 hover:bg-amber-400/[0.12]",
+                    ? "border-emerald-200 bg-emerald-400/[0.07] text-emerald-700 hover:bg-emerald-400/[0.12]"
+                    : "border-amber-200 bg-amber-400/[0.07] text-amber-700 hover:bg-amber-400/[0.12]",
                 )}
                 title={running ? "Pause simulation" : "Resume simulation"}
               >
@@ -328,8 +328,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 className={cn(
                   "hidden items-center gap-1.5 rounded-lg border px-2.5 py-1.5 lg:flex",
                   syncStatus === "connected"
-                    ? "border-cyan-400/20 bg-cyan-400/[0.06] text-cyan-300"
-                    : "border-white/10 bg-white/[0.03] text-slate-500",
+                    ? "border-blue-200 bg-blue-500/[0.06] text-blue-700"
+                    : "border-blue-100 bg-slate-50 text-slate-500",
                 )}
                 title="WebSocket live telemetry"
               >
@@ -346,25 +346,25 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
               <Link
                 href="/login"
-                className="flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-2 py-1.5 transition hover:border-cyan-400/25 hover:bg-cyan-400/[0.06]"
+                className="flex items-center gap-1.5 rounded-lg border border-blue-100 bg-slate-50 px-2 py-1.5 transition hover:border-blue-200 hover:bg-blue-500/[0.06]"
                 title={auth.name ? `${auth.name} · ${auth.role}` : "Operator sign in"}
               >
-                <span className="grid h-6 w-6 place-items-center rounded-full border border-cyan-400/20 bg-cyan-400/[0.08] font-mono text-[9px] font-semibold text-cyan-200">
+                <span className="grid h-6 w-6 place-items-center rounded-full border border-blue-200 bg-blue-500/[0.08] font-mono text-[9px] font-semibold text-blue-700">
                   {auth.name ? auth.name.slice(0, 2).toUpperCase() : "OP"}
                 </span>
-                <span className="hidden text-[10px] font-medium text-slate-300 xl:block">
+                <span className="hidden text-[10px] font-medium text-slate-700 xl:block">
                   {auth.role === "admin" ? "Admin" : auth.role === "viewer" ? "Viewer" : "Sign in"}
                 </span>
               </Link>
             </div>
           </div>
-          <div className="flex items-center gap-3 overflow-x-auto border-t border-white/[0.04] px-4 py-1.5 sm:hidden">
+          <div className="flex items-center gap-3 overflow-x-auto border-t border-blue-100 px-4 py-1.5 sm:hidden">
             <span className="font-mono text-[9px] text-slate-500">{simClock(simTime)}</span>
-            <span className="h-1 w-1 rounded-full bg-slate-700" />
-            <span className={cn("font-mono text-[9px]", running ? "text-emerald-300" : "text-amber-300")}>
+            <span className="h-1 w-1 rounded-full bg-slate-200" />
+            <span className={cn("font-mono text-[9px]", running ? "text-emerald-700" : "text-amber-700")}>
               {running ? "SIMULATION LIVE" : "PAUSED"}
             </span>
-            <button type="button" onClick={openDemo} className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] text-cyan-300">
+            <button type="button" onClick={openDemo} className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] text-blue-700">
               <Sparkles size={10} /> Demo
             </button>
           </div>
@@ -372,7 +372,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <main className="mx-auto w-full max-w-[1680px] px-3.5 py-4 sm:px-5 sm:py-5 lg:px-6">{children}</main>
 
-        <footer className="mx-auto flex w-full max-w-[1680px] flex-wrap items-center justify-between gap-2 px-4 pb-6 pt-2 text-[9px] text-slate-700 sm:px-6">
+        <footer className="mx-auto flex w-full max-w-[1680px] flex-wrap items-center justify-between gap-2 px-4 pb-6 pt-2 text-[9px] text-slate-400 sm:px-6">
           <span className="font-mono uppercase tracking-[0.16em]">
             Smart City Traffic Management using Graph Theory
           </span>

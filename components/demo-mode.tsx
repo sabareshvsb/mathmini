@@ -254,7 +254,7 @@ export function DemoMode() {
     <AnimatePresence>
       {demo.open ? (
         <motion.div
-          className="fixed inset-0 z-[85] overflow-y-auto bg-ink-950/92 p-3 backdrop-blur-xl sm:p-5"
+          className="fixed inset-0 z-[85] overflow-y-auto bg-white/90 p-3 backdrop-blur-xl sm:p-5"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -266,16 +266,16 @@ export function DemoMode() {
             transition={{ duration: 0.28 }}
             className="glass-strong mx-auto w-full max-w-6xl overflow-hidden"
           >
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.07] px-4 py-3 sm:px-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-blue-100 px-4 py-3 sm:px-5">
               <div className="flex items-center gap-2.5">
-                <span className="grid h-8 w-8 place-items-center rounded-lg border border-cyan-400/25 bg-cyan-400/10 text-cyan-200">
+                <span className="grid h-8 w-8 place-items-center rounded-lg border border-blue-200 bg-blue-50 text-blue-700">
                   <Sparkles size={15} />
                 </span>
                 <div>
-                  <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-cyan-300/60">
+                  <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-blue-700/60">
                     Guided presentation
                   </p>
-                  <p className="text-[13px] font-semibold text-slate-100">Project Demonstration Mode</p>
+                  <p className="text-[13px] font-semibold text-slate-900">Project Demonstration Mode</p>
                 </div>
                 <Badge tone="cyan" dot className="ml-2 hidden sm:inline-flex">
                   Simulation
@@ -285,13 +285,13 @@ export function DemoMode() {
                 <span className="font-mono text-[9px] text-slate-500">
                   STEP {String(step + 1).padStart(2, "0")} / {demoSteps.length}
                 </span>
-                <span className="hidden items-center gap-1 rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 font-mono text-[8px] text-slate-500 sm:flex">
+                <span className="hidden items-center gap-1 rounded-md border border-blue-100 bg-slate-50 px-2 py-1 font-mono text-[8px] text-slate-500 sm:flex">
                   {simClock(useTrafficStore.getState().simTime)} SIM
                 </span>
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-slate-400 transition hover:text-slate-100"
+                  className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-blue-50 text-slate-600 transition hover:text-slate-900"
                   aria-label="Exit demo mode"
                 >
                   <X size={14} />
@@ -300,12 +300,12 @@ export function DemoMode() {
             </div>
 
             <div className="grid max-h-[calc(100vh-150px)] gap-0 overflow-y-auto lg:grid-cols-[1.02fr_1.25fr]">
-              <div className="flex flex-col border-b border-white/[0.07] p-4 sm:p-5 lg:border-b-0 lg:border-r">
+              <div className="flex flex-col border-b border-blue-100 p-4 sm:p-5 lg:border-b-0 lg:border-r">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] text-cyan-300/70">
+                  <span className="font-mono text-[10px] text-blue-700/70">
                     {String(step + 1).padStart(2, "0")}
                   </span>
-                  <div className="h-px flex-1 bg-gradient-to-r from-cyan-400/40 to-transparent" />
+                  <div className="h-px flex-1 bg-gradient-to-r from-blue-50 to-transparent" />
                 </div>
                 <motion.div
                   key={step}
@@ -313,15 +313,15 @@ export function DemoMode() {
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <h2 className="mt-3 text-lg font-semibold tracking-tight text-slate-50 sm:text-xl">{content.title}</h2>
-                  <p className="mt-2 text-[12.5px] leading-relaxed text-slate-400">{content.body}</p>
+                  <h2 className="mt-3 text-lg font-semibold tracking-tight text-slate-900 sm:text-xl">{content.title}</h2>
+                  <p className="mt-2 text-[12.5px] leading-relaxed text-slate-600">{content.body}</p>
                 </motion.div>
 
                 <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-2">
                   <DemoStat label="Vehicles" value={String(metrics.activeVehicles)} />
-                  <DemoStat label="Congested" value={String(metrics.congestedRoads)} tone="text-orange-300" />
-                  <DemoStat label="Efficiency" value={`${efficiency.toFixed(0)}%`} tone="text-emerald-300" />
-                  <DemoStat label="Emergency" value={String(metrics.emergencyVehicles)} tone="text-rose-300" />
+                  <DemoStat label="Congested" value={String(metrics.congestedRoads)} tone="text-orange-700" />
+                  <DemoStat label="Efficiency" value={`${efficiency.toFixed(0)}%`} tone="text-emerald-700" />
+                  <DemoStat label="Emergency" value={String(metrics.emergencyVehicles)} tone="text-rose-700" />
                 </div>
 
                 <div className="mt-4 space-y-2">
@@ -394,8 +394,8 @@ export function DemoMode() {
                     />
                   ) : null}
                   {step === 13 && baseline ? (
-                    <div className="rounded-xl border border-emerald-400/20 bg-emerald-400/[0.04] p-3">
-                      <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-emerald-300/70">
+                    <div className="rounded-xl border border-emerald-200 bg-emerald-400/[0.04] p-3">
+                      <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-emerald-700/70">
                         Before / after · measured in this simulation
                       </p>
                       <div className="mt-2 grid grid-cols-3 gap-2 text-center">
@@ -411,7 +411,7 @@ export function DemoMode() {
                 </div>
 
                 <div className="mt-4 hidden flex-1 overflow-hidden lg:block">
-                  <p className="mb-1.5 font-mono text-[8px] uppercase tracking-[0.18em] text-slate-600">
+                  <p className="mb-1.5 font-mono text-[8px] uppercase tracking-[0.18em] text-slate-500">
                     Demonstration timeline
                   </p>
                   <div className="scroll-area max-h-[150px] space-y-1 overflow-y-auto pr-1">
@@ -423,20 +423,20 @@ export function DemoMode() {
                         className={cn(
                           "flex w-full items-center gap-2 rounded-md px-2 py-1 text-left text-[10px] transition",
                           index === step
-                            ? "bg-cyan-400/10 text-cyan-200"
+                            ? "bg-blue-50 text-blue-700"
                             : index < step
-                              ? "text-slate-500 hover:bg-white/[0.03] hover:text-slate-300"
-                              : "text-slate-600 hover:bg-white/[0.03] hover:text-slate-400",
+                              ? "text-slate-500 hover:bg-blue-50 hover:text-slate-700"
+                              : "text-slate-500 hover:bg-blue-50 hover:text-slate-600",
                         )}
                       >
                         <span
                           className={cn(
                             "grid h-4 w-4 shrink-0 place-items-center rounded-full border font-mono text-[7px]",
                             index < step
-                              ? "border-emerald-400/30 bg-emerald-400/10 text-emerald-300"
+                              ? "border-emerald-200 bg-emerald-50 text-emerald-700"
                               : index === step
-                                ? "border-cyan-400/40 bg-cyan-400/15 text-cyan-200"
-                                : "border-white/10 text-slate-600",
+                                ? "border-blue-200 bg-blue-50 text-blue-700"
+                                : "border-blue-100 text-slate-500",
                           )}
                         >
                           {index < step ? <Check size={8} /> : index + 1}
@@ -469,17 +469,17 @@ export function DemoMode() {
                   />
                 </div>
                 <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                  <span className="rounded-md border border-cyan-400/15 bg-cyan-400/[0.05] px-2 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-cyan-300/70">
+                  <span className="rounded-md border border-blue-200 bg-blue-500/[0.05] px-2 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-blue-700/70">
                     Emergency route highlighted
                   </span>
-                  <span className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+                  <span className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
                     All values simulated
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/[0.07] px-4 py-3 sm:px-5">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-blue-100 px-4 py-3 sm:px-5">
               <div className="flex items-center gap-2">
                 <Button size="sm" variant="ghost" onClick={() => goTo(0)} title="Restart demonstration">
                   <RotateCcw size={12} /> Reset
@@ -493,10 +493,10 @@ export function DemoMode() {
                       className={cn(
                         "h-1.5 rounded-full transition-all",
                         index === step
-                          ? "w-5 bg-cyan-300 shadow-[0_0_8px_#22d3ee]"
+                          ? "w-5 bg-blue-600 shadow-[0_0_8px_#2563eb]"
                           : index < step
-                            ? "w-1.5 bg-emerald-400/70"
-                            : "w-1.5 bg-white/15",
+                            ? "w-1.5 bg-emerald-400"
+                            : "w-1.5 bg-slate-100",
                       )}
                       aria-label={`Go to step ${index + 1}`}
                     />
@@ -527,10 +527,10 @@ export function DemoMode() {
   );
 }
 
-function DemoStat({ label, value, tone = "text-slate-100" }: { label: string; value: string; tone?: string }) {
+function DemoStat({ label, value, tone = "text-slate-900" }: { label: string; value: string; tone?: string }) {
   return (
-    <div className="rounded-lg border border-white/[0.06] bg-white/[0.025] px-2.5 py-2">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.14em] text-slate-600">{label}</p>
+    <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+      <p className="font-mono text-[7.5px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
       <p className={cn("mt-0.5 font-mono text-[15px] font-semibold tabular-nums", tone)}>{value}</p>
     </div>
   );
@@ -538,9 +538,9 @@ function DemoStat({ label, value, tone = "text-slate-100" }: { label: string; va
 
 function MiniDetail({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-white/[0.06] bg-white/[0.02] px-2 py-1.5">
-      <p className="font-mono text-[7px] uppercase tracking-[0.14em] text-slate-600">{label}</p>
-      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-300">{value}</p>
+    <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
+      <p className="font-mono text-[7px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
+      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-700">{value}</p>
     </div>
   );
 }
@@ -559,9 +559,9 @@ function ResultCard({
   footer?: React.ReactNode;
 }) {
   const tones = {
-    cyan: "border-cyan-400/20 bg-cyan-400/[0.04] text-cyan-200",
-    green: "border-emerald-400/20 bg-emerald-400/[0.04] text-emerald-200",
-    red: "border-rose-400/20 bg-rose-400/[0.04] text-rose-200",
+    cyan: "border-blue-200 bg-blue-500/[0.04] text-blue-700",
+    green: "border-emerald-200 bg-emerald-400/[0.04] text-emerald-700",
+    red: "border-rose-200 bg-rose-400/[0.04] text-rose-700",
   };
   return (
     <div className={cn("rounded-xl border p-3", tones[tone])}>
@@ -573,7 +573,7 @@ function ResultCard({
         {rows.map(([label, value]) => (
           <div key={label} className="flex items-baseline justify-between gap-2 text-[10px]">
             <span className="text-slate-500">{label}</span>
-            <span className="truncate font-mono text-slate-200">{value}</span>
+            <span className="truncate font-mono text-slate-800">{value}</span>
           </div>
         ))}
       </div>
@@ -585,7 +585,7 @@ function ResultCard({
 function ComparisonCard({ comparison }: { comparison: Comparison | null }) {
   if (!comparison) {
     return (
-      <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3 text-[10px] text-slate-500">
+      <div className="rounded-xl border border-blue-100 bg-slate-50 p-3 text-[10px] text-slate-500">
         Run Dijkstra and A* to generate the comparison.
       </div>
     );
@@ -593,7 +593,7 @@ function ComparisonCard({ comparison }: { comparison: Comparison | null }) {
   const rows = [
     {
       name: "Dijkstra",
-      color: "#22d3ee",
+      color: "#2563eb",
       explored: comparison.dijkstra.explored,
       ms: comparison.dijkstra.executionMs,
       cost: comparison.dijkstra.totalCost,
@@ -609,14 +609,14 @@ function ComparisonCard({ comparison }: { comparison: Comparison | null }) {
     },
   ];
   return (
-    <div className="rounded-xl border border-violet-400/20 bg-violet-400/[0.04] p-3">
-      <div className="flex items-center gap-1.5 text-violet-200">
+    <div className="rounded-xl border border-violet-200 bg-violet-400/[0.04] p-3">
+      <div className="flex items-center gap-1.5 text-violet-700">
         <Cpu size={12} />
         <p className="font-mono text-[8.5px] uppercase tracking-[0.16em]">Algorithm comparison · same query</p>
       </div>
-      <div className="mt-2 overflow-hidden rounded-lg border border-white/[0.07]">
+      <div className="mt-2 overflow-hidden rounded-lg border border-blue-100">
         <table className="w-full text-left">
-          <thead className="bg-white/[0.03] font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-600">
+          <thead className="bg-slate-50 font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">
             <tr>
               <th className="px-2 py-1.5">Algo</th>
               <th className="px-2 py-1.5">Explored</th>
@@ -625,9 +625,9 @@ function ComparisonCard({ comparison }: { comparison: Comparison | null }) {
               <th className="px-2 py-1.5">Time</th>
             </tr>
           </thead>
-          <tbody className="font-mono text-[9.5px] text-slate-300">
+          <tbody className="font-mono text-[9.5px] text-slate-700">
             {rows.map((row) => (
-              <tr key={row.name} className="border-t border-white/[0.04]">
+              <tr key={row.name} className="border-t border-blue-100">
                 <td className="px-2 py-1.5" style={{ color: row.color }}>
                   {row.name}
                 </td>
@@ -651,11 +651,11 @@ function ComparisonCard({ comparison }: { comparison: Comparison | null }) {
 function BeforeAfterCell({ label, before, after }: { label: string; before: string; after: string }) {
   return (
     <div>
-      <p className="font-mono text-[7px] uppercase tracking-[0.12em] text-slate-600">{label}</p>
+      <p className="font-mono text-[7px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
       <div className="mt-0.5 flex items-center justify-center gap-1 font-mono text-[10px]">
         <span className="text-slate-500">{before}</span>
-        <ChevronRight size={8} className="text-slate-600" />
-        <span className="text-emerald-300">{after}</span>
+        <ChevronRight size={8} className="text-slate-500" />
+        <span className="text-emerald-700">{after}</span>
       </div>
     </div>
   );

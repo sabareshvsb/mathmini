@@ -93,7 +93,7 @@ export default function SimulationPage() {
         }
       >
         <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
-          <Mini label="Engine" value={running ? "LIVE" : "PAUSED"} tone={running ? "text-emerald-300" : "text-amber-300"} />
+          <Mini label="Engine" value={running ? "LIVE" : "PAUSED"} tone={running ? "text-emerald-700" : "text-amber-700"} />
           <Mini label="Sim clock" value={simClock(simTime)} />
           <Mini label="Speed" value={`${config.speedMultiplier}×`} />
           <Mini label="Vehicles" value={String(metrics.activeVehicles)} />
@@ -103,7 +103,7 @@ export default function SimulationPage() {
       </PageHeader>
 
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
-        <StatCard label="Active vehicles" value={metrics.activeVehicles} icon={Car} accent="#22d3ee" hint={`Max ${config.maxVehicles}`} />
+        <StatCard label="Active vehicles" value={metrics.activeVehicles} icon={Car} accent="#2563eb" hint={`Max ${config.maxVehicles}`} />
         <StatCard label="Completed trips" value={metrics.completedTrips} icon={Route} accent="#34d399" hint={`${metrics.totalRouteTrips} routed`} delay={1} />
         <StatCard label="Average speed" value={metrics.avgSpeedKmh.toFixed(0)} unit="km/h" icon={Gauge} accent="#a78bfa" hint="Traffic-adjusted" delay={2} />
         <StatCard label="Avg waiting" value={metrics.avgWaitingSec.toFixed(0)} unit="s" icon={Timer} accent="#fbbf24" hint="Per simulated vehicle" delay={3} />
@@ -198,7 +198,7 @@ export default function SimulationPage() {
                 </Select>
               </Field>
               {road && selectedEdge ? (
-                <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
+                <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-[9px] text-slate-500">Live density</span>
                     <Badge tone={CONGESTION_META[road.level].tone}>{road.level}</Badge>
@@ -229,7 +229,7 @@ export default function SimulationPage() {
 
         <div className="space-y-4">
           <Card className="overflow-hidden">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] px-4 py-3">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-blue-100 px-4 py-3">
               <SectionHeader eyebrow="Live state" title="Simulation map" className="flex-1" />
               <div className="flex items-center gap-1.5">
                 <Badge tone="cyan" dot>
@@ -249,7 +249,7 @@ export default function SimulationPage() {
                 height={190}
                 labels={labels}
                 series={[
-                  { name: "Avg speed", color: "#22d3ee", values: recent.map((point) => point.avgSpeedKmh), fill: true },
+                  { name: "Avg speed", color: "#2563eb", values: recent.map((point) => point.avgSpeedKmh), fill: true },
                   { name: "Congestion %", color: "#fb923c", values: recent.map((point) => point.congestion) },
                 ]}
                 min={0}
@@ -286,9 +286,9 @@ export default function SimulationPage() {
               .map((item) => {
                 const edge = network.edges.find((entry) => entry.id === item.edgeId);
                 return (
-                  <div key={item.edgeId} className="rounded-lg border border-white/[0.06] bg-white/[0.02] px-2.5 py-2">
+                  <div key={item.edgeId} className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="min-w-0 truncate font-mono text-[9px] text-slate-400">
+                      <span className="min-w-0 truncate font-mono text-[9px] text-slate-600">
                         {item.edgeId} · {edge?.name ?? "Road"}
                       </span>
                       <span className="font-mono text-[9px]" style={{ color: CONGESTION_META[item.level].color }}>
@@ -321,10 +321,10 @@ export default function SimulationPage() {
   );
 }
 
-function Mini({ label, value, tone = "text-slate-200" }: { label: string; value: string; tone?: string }) {
+function Mini({ label, value, tone = "text-slate-800" }: { label: string; value: string; tone?: string }) {
   return (
-    <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.14em] text-slate-600">{label}</p>
+    <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+      <p className="font-mono text-[7.5px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
       <p className={`mt-0.5 font-mono text-[10.5px] ${tone}`}>{value}</p>
     </div>
   );
@@ -332,9 +332,9 @@ function Mini({ label, value, tone = "text-slate-200" }: { label: string; value:
 
 function Row({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between gap-2 border-b border-white/[0.04] pb-1.5 last:border-0 last:pb-0">
+    <div className="flex items-center justify-between gap-2 border-b border-blue-100 pb-1.5 last:border-0 last:pb-0">
       <span className="text-slate-500">{label}</span>
-      <span className="font-mono capitalize text-slate-300">{value}</span>
+      <span className="font-mono capitalize text-slate-700">{value}</span>
     </div>
   );
 }

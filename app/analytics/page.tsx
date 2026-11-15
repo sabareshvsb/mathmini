@@ -75,7 +75,7 @@ export default function AnalyticsPage() {
       const url = URL.createObjectURL(blob);
       const anchor = document.createElement("a");
       anchor.href = url;
-      anchor.download = `nova-city-${range}-report.csv`;
+      anchor.download = `bengaluru-${range}-report.csv`;
       anchor.click();
       URL.revokeObjectURL(url);
       pushToast(`Simulated ${range} CSV report exported`, "success");
@@ -113,7 +113,7 @@ export default function AnalyticsPage() {
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
         <StatCard label="Flow efficiency" value={metrics.flowEfficiency.toFixed(0)} unit="%" icon={Gauge} accent="#34d399" hint="Composite simulation score" />
         <StatCard label="Avg waiting" value={metrics.avgWaitingSec.toFixed(0)} unit="s" icon={Clock} accent="#fbbf24" hint="Per vehicle" delay={1} />
-        <StatCard label="Throughput" value={metrics.throughputPerHour} unit="/h" icon={TrendingUp} accent="#22d3ee" hint="Completed trips / hour" delay={2} />
+        <StatCard label="Throughput" value={metrics.throughputPerHour} unit="/h" icon={TrendingUp} accent="#2563eb" hint="Completed trips / hour" delay={2} />
         <StatCard label="Congested roads" value={metrics.congestedRoads} icon={BarChart3} accent="#fb923c" hint={`${metrics.blockedRoads} blocked`} delay={3} />
         <StatCard label="Reroutes" value={metrics.reroutes} icon={LineChartIcon} accent="#a78bfa" hint="Dynamic route changes" delay={4} />
         <StatCard label="Completed trips" value={metrics.completedTrips} icon={CalendarDays} accent="#fb7185" hint={`${metrics.totalRouteTrips} routed`} delay={5} />
@@ -132,7 +132,7 @@ export default function AnalyticsPage() {
             labels={hourlyLabels}
             values={analytics.hourlyVolume}
             height={190}
-            color="#22d3ee"
+            color="#2563eb"
             highlightIndex={new Date().getHours()}
           />
         </Card>
@@ -148,7 +148,7 @@ export default function AnalyticsPage() {
               thickness={16}
             />
           </div>
-          <p className="mt-3 text-[10px] leading-relaxed text-slate-600">
+          <p className="mt-3 text-[10px] leading-relaxed text-slate-500">
             {metrics.congestedRoads} of {metrics.totalRoads} segments exceed the moderate density threshold in the
             current simulated snapshot.
           </p>
@@ -199,15 +199,15 @@ export default function AnalyticsPage() {
             color="#a78bfa"
           />
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-              <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">Average congestion</p>
-              <p className="mt-0.5 font-mono text-sm text-orange-300">
+            <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+              <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Average congestion</p>
+              <p className="mt-0.5 font-mono text-sm text-orange-700">
                 {percent(dataset.reduce((sum, entry) => sum + entry.congestion, 0) / Math.max(1, dataset.length))}
               </p>
             </div>
-            <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-              <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">Average waiting</p>
-              <p className="mt-0.5 font-mono text-sm text-amber-300">
+            <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+              <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Average waiting</p>
+              <p className="mt-0.5 font-mono text-sm text-amber-700">
                 {(dataset.reduce((sum, entry) => sum + entry.waiting, 0) / Math.max(1, dataset.length)).toFixed(0)}s
               </p>
             </div>
@@ -227,14 +227,14 @@ export default function AnalyticsPage() {
             className="mt-3"
             height={180}
             labels={forecastLabels}
-            series={[{ name: "Projected vehicles", color: "#38bdf8", values: analytics.forecast, dashed: true }]}
+            series={[{ name: "Projected vehicles", color: "#3b82f6", values: analytics.forecast, dashed: true }]}
             min={0}
           />
           <div className="mt-3">
             <BarList
               items={[
-                { label: "Current vehicles", value: metrics.activeVehicles, color: "#22d3ee" },
-                { label: "Projected peak", value: Math.max(0, ...analytics.forecast), color: "#38bdf8" },
+                { label: "Current vehicles", value: metrics.activeVehicles, color: "#2563eb" },
+                { label: "Projected peak", value: Math.max(0, ...analytics.forecast), color: "#3b82f6" },
                 { label: "Waiting (rolling)", value: recentWaiting[recentWaiting.length - 1] ?? 0, color: "#fbbf24", display: `${(recentWaiting[recentWaiting.length - 1] ?? 0).toFixed(0)}s` },
               ]}
               max={Math.max(metrics.activeVehicles, ...analytics.forecast, 1)}
@@ -260,7 +260,7 @@ export default function AnalyticsPage() {
           />
           {baseline ? (
             <div className="mt-3 space-y-2.5">
-              <div className="grid grid-cols-[1fr_auto_auto] gap-2 rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">
+              <div className="grid grid-cols-[1fr_auto_auto] gap-2 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
                 <span>Metric</span>
                 <span className="text-right">Before</span>
                 <span className="text-right">After</span>
@@ -271,16 +271,16 @@ export default function AnalyticsPage() {
                 { label: "Avg speed", before: `${baseline.before.avgSpeed.toFixed(0)} km/h`, after: `${baseline.after.avgSpeed.toFixed(0)} km/h`, good: baseline.after.avgSpeed >= baseline.before.avgSpeed },
                 { label: "Congested roads", before: String(baseline.before.congested), after: String(baseline.after.congested), good: baseline.after.congested <= baseline.before.congested },
               ].map((row) => (
-                <div key={row.label} className="grid grid-cols-[1fr_auto_auto] gap-2 border-b border-white/[0.04] pb-1.5 text-[10px] last:border-0">
+                <div key={row.label} className="grid grid-cols-[1fr_auto_auto] gap-2 border-b border-blue-100 pb-1.5 text-[10px] last:border-0">
                   <span className="text-slate-500">{row.label}</span>
                   <span className="text-right font-mono text-slate-500">{row.before}</span>
-                  <span className={`text-right font-mono ${row.good ? "text-emerald-300" : "text-rose-300"}`}>{row.after}</span>
+                  <span className={`text-right font-mono ${row.good ? "text-emerald-700" : "text-rose-700"}`}>{row.after}</span>
                 </div>
               ))}
               <div>
                 <div className="flex justify-between text-[10px]">
                   <span className="text-slate-500">Efficiency delta</span>
-                  <span className="font-mono text-emerald-300">
+                  <span className="font-mono text-emerald-700">
                     {(baseline.after.efficiency - baseline.before.efficiency >= 0 ? "+" : "") +
                       (baseline.after.efficiency - baseline.before.efficiency).toFixed(1)}%
                   </span>
@@ -294,9 +294,9 @@ export default function AnalyticsPage() {
               </div>
             </div>
           ) : (
-            <div className="mt-3 rounded-xl border border-dashed border-white/10 px-4 py-8 text-center">
+            <div className="mt-3 rounded-xl border border-dashed border-blue-100 px-4 py-8 text-center">
               <p className="text-[10.5px] text-slate-500">
-                No baseline captured. Use <span className="text-cyan-300">Capture</span> before applying signal or
+                No baseline captured. Use <span className="text-blue-700">Capture</span> before applying signal or
                 routing changes.
               </p>
             </div>
@@ -335,7 +335,7 @@ export default function AnalyticsPage() {
           />
           <div className="scroll-area mt-3 max-h-[330px] overflow-y-auto">
             <table className="w-full border-collapse text-left">
-              <thead className="sticky top-0 bg-ink-950/95 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600 backdrop-blur">
+              <thead className="sticky top-0 bg-white font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500 backdrop-blur">
                 <tr>
                   <th className="px-2 py-1.5">Junction</th>
                   <th className="px-2 py-1.5 text-right">Queue</th>
@@ -349,15 +349,15 @@ export default function AnalyticsPage() {
                   .sort((a, b) => b.efficiency - a.efficiency)
                   .slice(0, 14)
                   .map((entry) => (
-                    <tr key={entry.nodeId} className="border-t border-white/[0.04] text-[10px] text-slate-400">
+                    <tr key={entry.nodeId} className="border-t border-blue-100 text-[10px] text-slate-600">
                       <td className="px-2 py-1.5">
-                        <span className="font-mono text-cyan-200/70">{entry.nodeId}</span>{" "}
+                        <span className="font-mono text-blue-700/70">{entry.nodeId}</span>{" "}
                         <span className="text-slate-500">{entry.name}</span>
                       </td>
                       <td className="px-2 py-1.5 text-right font-mono">{entry.queue}</td>
                       <td className="px-2 py-1.5 text-right font-mono">{entry.greenDuration}s</td>
                       <td className="px-2 py-1.5 text-right font-mono">{entry.throughput}</td>
-                      <td className="px-2 py-1.5 text-right font-mono text-emerald-300">{entry.efficiency}%</td>
+                      <td className="px-2 py-1.5 text-right font-mono text-emerald-700">{entry.efficiency}%</td>
                     </tr>
                   ))}
               </tbody>
@@ -375,7 +375,7 @@ export default function AnalyticsPage() {
         />
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-left">
-            <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">
+            <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
               <tr>
                 <th className="px-2 py-2">Query</th>
                 <th className="px-2 py-2">Mode</th>
@@ -389,20 +389,20 @@ export default function AnalyticsPage() {
             <tbody>
               {analytics.optimizationStats.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-2 py-6 text-center text-[10.5px] text-slate-600">
+                  <td colSpan={7} className="px-2 py-6 text-center text-[10.5px] text-slate-500">
                     No routing queries yet — run an optimization from the routing or demo console.
                   </td>
                 </tr>
               ) : (
                 analytics.optimizationStats.map((stat) => (
-                  <tr key={stat.id} className="border-t border-white/[0.04] text-[10px] text-slate-400">
+                  <tr key={stat.id} className="border-t border-blue-100 text-[10px] text-slate-600">
                     <td className="px-2 py-1.5 font-mono">
                       {stat.source} → {stat.destination}
                     </td>
                     <td className="px-2 py-1.5 capitalize">{stat.mode}</td>
                     <td className="px-2 py-1.5 text-right font-mono">{stat.distanceKm} km</td>
                     <td className="px-2 py-1.5 text-right font-mono">{stat.timeMin} min</td>
-                    <td className="px-2 py-1.5 text-right font-mono text-emerald-300">+{stat.timeSavedMin} min</td>
+                    <td className="px-2 py-1.5 text-right font-mono text-emerald-700">+{stat.timeSavedMin} min</td>
                     <td className="px-2 py-1.5 text-right font-mono">{stat.congestionAvoided.toFixed(2)}</td>
                     <td className="px-2 py-1.5 text-right font-mono text-slate-500">{stat.algorithm}</td>
                   </tr>
@@ -415,7 +415,7 @@ export default function AnalyticsPage() {
 
       <div className="grid gap-3 lg:grid-cols-[1fr_auto]">
         <SimulationNote />
-        <div className="flex items-center gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-3 py-2 text-[9px] text-slate-600">
+        <div className="flex items-center gap-2 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 text-[9px] text-slate-500">
           <Database size={12} /> Reports are recorded locally in SQLite · snapshot {simClock(history[history.length - 1]?.wallTime ?? 0)}
         </div>
       </div>

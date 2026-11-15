@@ -1,11 +1,11 @@
 import type { CityEdge, CityNetwork, CityNode } from "./types";
 
 /**
- * Sample city: "Nova City" road network.
- * 30 signalised intersections, 70+ bidirectional road segments.
- * Coordinates are schematic canvas positions (1200 x 820) plus a synthetic
- * geographic projection. The dataset is deterministic so server and client
- * render identical geometry.
+ * Bengaluru road network model.
+ * 30 signalised intersections, 69 bidirectional road segments.
+ * Coordinates are schematic canvas positions (1200 x 820) plus an approximate
+ * geographic projection. Place names and corridors are inspired by Bengaluru;
+ * the dataset is deterministic so server and client render identical geometry.
  */
 
 const COLS = 6;
@@ -15,84 +15,84 @@ const X = [135, 330, 520, 720, 910, 1085];
 const Y = [115, 290, 455, 625, 765];
 
 const NAMES = [
-  "Northgate Terminal",
-  "Airport Road",
-  "Tech Park",
-  "University Gate",
-  "Hillview",
-  "East Terminal",
-  "Riverside",
-  "Old Town",
-  "Central Square",
-  "Museum Road",
-  "Greenfield",
-  "Stadium",
-  "Harbor Point",
-  "Market Street",
-  "City Center",
-  "Business Bay",
-  "Lakeview",
-  "East Market",
-  "Dockyard",
-  "Rail Yard",
-  "Convention Centre",
-  "Medical District",
-  "Industrial Park",
-  "Freight Terminal",
-  "South Gate",
-  "Garden City",
-  "Sunrise Colony",
-  "Ring Road South",
-  "Logistics Hub",
-  "South Terminal",
+  "Yelahanka",
+  "Hebbal",
+  "Nagawara",
+  "Hennur",
+  "Banaswadi",
+  "KR Puram",
+  "Peenya",
+  "Yeshwanthpur",
+  "Malleshwaram",
+  "Sadashivanagar",
+  "Jayamahal",
+  "Indiranagar",
+  "Nagarbhavi",
+  "Rajajinagar",
+  "Majestic",
+  "MG Road",
+  "Domlur",
+  "Marathahalli",
+  "Kengeri",
+  "Vijayanagar",
+  "Chamrajpet",
+  "KR Market",
+  "Koramangala",
+  "Bellandur",
+  "Electronic City",
+  "JP Nagar",
+  "Jayanagar",
+  "Lalbagh",
+  "HSR Layout",
+  "Sarjapur Road",
 ];
 
 const DISTRICTS = [
-  "North", "North", "Tech", "North", "East", "East",
-  "West", "Old Town", "Central", "Central", "East", "East",
-  "West", "Old Town", "Central", "Central", "East", "East",
-  "West", "South", "Central", "South", "South", "East",
-  "South", "South", "South", "South", "East", "South",
+  "North", "North", "North East", "North East", "East", "East",
+  "West", "North West", "Central", "Central", "Central", "East",
+  "West", "West", "Central", "Central", "East", "East",
+  "South West", "South West", "South", "South", "South East", "South East",
+  "South", "South", "South", "South", "South East", "South East",
 ];
 
 const HORIZONTAL = [
-  "Airport Expressway",
-  "Heritage Avenue",
-  "Central Boulevard",
-  "Commerce Link Road",
-  "Southern Ring Road",
+  "Bellary Road · North Corridor",
+  "Tumkur Road · West Link",
+  "Old Airport Road · Central Corridor",
+  "Outer Ring Road · South",
+  "Bannerghatta Road · South Link",
 ];
 
 const VERTICAL = [
-  "West River Link",
-  "Riverside Drive",
-  "Central Spine",
-  "Tech Corridor",
-  "Lakeview Avenue",
-  "East Connector",
+  "Mysore Road",
+  "Magadi Road",
+  "Chord Road · Bellary Road",
+  "Hosur Road",
+  "Old Airport Road",
+  "Old Madras Road · Sarjapur Link",
 ];
 
 const EXTRA_ROADS: Array<[number, number, string]> = [
-  [3, 10, "Innovation Flyover"],
-  [8, 15, "Civic Loop"],
-  [9, 16, "Metro Link"],
-  [14, 21, "Exhibition Link"],
-  [15, 22, "Medical Relief Road"],
-  [20, 27, "Garden Bypass"],
-  [21, 28, "South Crosstown"],
-  [2, 8, "Airport Connector"],
-  [11, 17, "Lakeview Link"],
-  [17, 23, "Industrial Connector"],
-  [12, 18, "Stadium Approach"],
-  [24, 30, "Freight Corridor"],
-  [4, 11, "Campus Link"],
-  [6, 12, "East Bypass"],
-  [1, 8, "Northgate Link"],
-  [19, 26, "Dockyard Bypass"],
-  [10, 17, "Park Avenue"],
-  [22, 29, "Emergency Relief Road"],
-  [5, 12, "Hillview Link"],
-  [18, 24, "Harbor East Link"],
+  [3, 10, "Hebbal Flyover"],
+  [8, 15, "Cubbon Park Link"],
+  [9, 16, "MG Road Underpass"],
+  [14, 21, "KR Market Connector"],
+  [15, 22, "Hosur Road Flyover"],
+  [20, 27, "Jayanagar Link"],
+  [21, 28, "Silk Board Flyover"],
+  [2, 8, "Yelahanka Link"],
+  [11, 17, "Domlur Flyover"],
+  [17, 23, "Bellandur Link"],
+  [12, 18, "NICE Road Connector"],
+  [24, 30, "Electronic City Flyover"],
+  [4, 11, "Hennur · Indiranagar Link"],
+  [6, 12, "Nagarbhavi Link"],
+  [1, 8, "Hebbal · Yeshwanthpur Link"],
+  [19, 26, "Kengeri · JP Nagar Link"],
+  [10, 17, "Sadashivanagar Link"],
+  [22, 29, "Sarjapur Road Connector"],
+  [5, 12, "Banaswadi · KR Puram Link"],
+  [18, 24, "Bommanahalli Link"],
 ];
 
 function pseudoRandom(seed: number): number {
@@ -106,8 +106,8 @@ function nodeId(index: number): string {
 
 function projectGeo(x: number, y: number) {
   return {
-    lat: Number((13.02 - (y / 820) * 0.075).toFixed(6)),
-    lng: Number((77.545 + (x / 1200) * 0.09).toFixed(6)),
+    lat: Number((13.12 - (y / 820) * 0.24).toFixed(6)),
+    lng: Number((77.44 + (x / 1200) * 0.3).toFixed(6)),
   };
 }
 
@@ -218,10 +218,10 @@ export function buildCityNetwork(): CityNetwork {
   }
 
   return {
-    name: "Nova City · Central Traffic District",
-    version: 1,
+    name: "Bengaluru · Central Traffic Grid",
+    version: 2,
     description:
-      "Synthetic 30-intersection weighted road graph used by the simulation engine. All traffic, incidents and travel times in this application are simulated.",
+      "Bengaluru-inspired synthetic road graph used by the simulation engine. Intersections and corridors reference real areas, but all traffic, incidents and travel times in this application are simulated.",
     nodes,
     edges,
   };

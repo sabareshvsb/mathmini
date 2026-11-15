@@ -8,30 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        ink: {
-          950: "#050b16",
-          900: "#07101f",
-          850: "#0a1526",
-          800: "#0d1a2f",
-          700: "#12233c",
-          600: "#1a2f4d",
-        },
-        neon: {
-          cyan: "#22d3ee",
-          blue: "#38bdf8",
-          green: "#34d399",
-          lime: "#a3e635",
-          amber: "#fbbf24",
-          orange: "#fb923c",
-          red: "#f87171",
-          violet: "#a78bfa",
-        },
-      },
       boxShadow: {
-        glow: "0 0 24px rgba(34, 211, 238, 0.18)",
-        "glow-lg": "0 0 60px rgba(34, 211, 238, 0.22)",
-        card: "0 18px 45px -20px rgba(0, 0, 0, 0.85)",
+        glow: "0 10px 30px -14px rgba(37, 99, 235, 0.35)",
+        "glow-lg": "0 18px 55px -20px rgba(37, 99, 235, 0.38)",
+        card: "0 18px 45px -26px rgba(30, 64, 175, 0.24)",
       },
       fontFamily: {
         sans: [

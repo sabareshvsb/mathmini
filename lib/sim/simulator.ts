@@ -47,7 +47,7 @@ const MAX_LOGS = 80;
 const PUBLISH_MS = 140;
 
 export const VEHICLE_COLORS: Record<VehicleType, string> = {
-  car: "#38bdf8",
+  car: "#3b82f6",
   bus: "#fbbf24",
   truck: "#a78bfa",
   motorcycle: "#34d399",
@@ -209,7 +209,7 @@ export class TrafficSimulator {
     this.seedVehicles(72);
     this.metrics = this.computeMetrics();
     this.analytics = this.computeAnalytics();
-    this.log("sim", "Simulation engine initialised · Nova City network loaded", "info");
+    this.log("sim", "Simulation engine initialised · Bengaluru network loaded", "info");
     this.log("sim", "72 synthetic vehicles generated across the network", "info");
     this.log("signal", "Adaptive signal controller online for 30 intersections", "success");
     this.log("data", "All traffic values are simulation data — not live city traffic", "warning");

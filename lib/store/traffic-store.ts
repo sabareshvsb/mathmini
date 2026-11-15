@@ -126,7 +126,7 @@ export interface TrafficStore extends SimSnapshot, UiState {
 }
 
 const initialUi: UiState = {
-  mapView: "graph",
+  mapView: "geo",
   showWeights: true,
   showLabels: true,
   showHeatmap: false,
@@ -157,7 +157,7 @@ export const useTrafficStore = create<TrafficStore>()((set, get) => ({
     set({ initialized: true });
     if (typeof window !== "undefined") {
       try {
-        const saved = window.localStorage.getItem("nova-city-auth");
+        const saved = window.localStorage.getItem("bengaluru-traffic-auth");
         if (saved) {
           const parsed = JSON.parse(saved) as { role: "admin" | "viewer"; name: string };
           if (parsed.role) set({ auth: { role: parsed.role, name: parsed.name, checked: true } });
@@ -493,14 +493,14 @@ export const useTrafficStore = create<TrafficStore>()((set, get) => ({
     if (normalized === "admin" && password === "admin123") {
       const auth = { role: "admin" as const, name: "Traffic Administrator", checked: true };
       set({ auth });
-      if (typeof window !== "undefined") window.localStorage.setItem("nova-city-auth", JSON.stringify(auth));
+      if (typeof window !== "undefined") window.localStorage.setItem("bengaluru-traffic-auth", JSON.stringify(auth));
       get().pushToast("Administrator session started", "success");
       return true;
     }
     if (normalized === "viewer" && password === "viewer123") {
       const auth = { role: "viewer" as const, name: "Operations Viewer", checked: true };
       set({ auth });
-      if (typeof window !== "undefined") window.localStorage.setItem("nova-city-auth", JSON.stringify(auth));
+      if (typeof window !== "undefined") window.localStorage.setItem("bengaluru-traffic-auth", JSON.stringify(auth));
       get().pushToast("Viewer session started · read-only access", "info");
       return true;
     }
@@ -509,7 +509,7 @@ export const useTrafficStore = create<TrafficStore>()((set, get) => ({
   },
   logout: () => {
     set({ auth: { role: null, name: null, checked: true } });
-    if (typeof window !== "undefined") window.localStorage.removeItem("nova-city-auth");
+    if (typeof window !== "undefined") window.localStorage.removeItem("bengaluru-traffic-auth");
     get().pushToast("Session ended", "info");
   },
 
@@ -538,7 +538,7 @@ export const useTrafficStore = create<TrafficStore>()((set, get) => ({
 export const demoSteps = [
   {
     title: "Load the sample city graph",
-    body: "Nova City is modelled as a weighted graph G = (V, E). Thirty signalised intersections form the vertex set V, and 70+ road segments form the edge set E. Every road carries a live simulation weight.",
+    body: "Bengaluru is modelled as a weighted graph G = (V, E). Thirty signalised intersections form the vertex set V, and 69 road segments form the edge set E. Every road carries a live simulation weight.",
     action: "load",
   },
   {

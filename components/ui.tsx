@@ -45,7 +45,7 @@ export function SectionHeader({
     <div className={cn("flex flex-wrap items-end justify-between gap-3", className)}>
       <div className="min-w-0">
         {eyebrow ? <p className="eyebrow mb-1.5">{eyebrow}</p> : null}
-        <h2 className="text-lg font-semibold tracking-tight text-slate-100">{title}</h2>
+        <h2 className="text-lg font-semibold tracking-tight text-slate-900">{title}</h2>
         {subtitle ? <p className="mt-1 max-w-2xl text-xs leading-relaxed text-slate-500">{subtitle}</p> : null}
       </div>
       {actions ? <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div> : null}
@@ -67,17 +67,17 @@ export function PageHeader({
   children?: ReactNode;
 }) {
   return (
-    <div className="mb-5 overflow-hidden rounded-2xl border border-white/[0.07] bg-gradient-to-br from-white/[0.045] via-white/[0.015] to-cyan-400/[0.03] p-5 shadow-card sm:p-6">
+    <div className="mb-5 overflow-hidden rounded-2xl border border-blue-100 bg-gradient-to-br from-white via-white to-blue-600/[0.03] p-5 shadow-card sm:p-6">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <p className="eyebrow">{eyebrow}</p>
-            <span className="rounded-full border border-cyan-400/20 bg-cyan-400/[0.07] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-cyan-200/80">
+            <span className="rounded-full border border-blue-200 bg-blue-500/[0.07] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-blue-700/80">
               Simulation data
             </span>
           </div>
-          <h1 className="mt-2 text-xl font-semibold tracking-tight text-slate-50 sm:text-2xl">{title}</h1>
-          <p className="mt-1.5 max-w-3xl text-[13px] leading-relaxed text-slate-400">{description}</p>
+          <h1 className="mt-2 text-xl font-semibold tracking-tight text-slate-900 sm:text-2xl">{title}</h1>
+          <p className="mt-1.5 max-w-3xl text-[13px] leading-relaxed text-slate-600">{description}</p>
         </div>
         {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
       </div>
@@ -92,7 +92,7 @@ export function StatCard({
   unit,
   hint,
   icon: Icon,
-  accent = "#22d3ee",
+  accent = "#2563eb",
   delay = 0,
   trend,
 }: {
@@ -144,13 +144,13 @@ export function StatCard({
 export type BadgeTone = "cyan" | "green" | "amber" | "orange" | "red" | "violet" | "slate";
 
 const badgeTones: Record<BadgeTone, string> = {
-  cyan: "border-cyan-400/25 bg-cyan-400/[0.08] text-cyan-200",
-  green: "border-emerald-400/25 bg-emerald-400/[0.08] text-emerald-200",
-  amber: "border-amber-400/25 bg-amber-400/[0.08] text-amber-200",
-  orange: "border-orange-400/25 bg-orange-400/[0.08] text-orange-200",
-  red: "border-rose-400/25 bg-rose-400/[0.08] text-rose-200",
-  violet: "border-violet-400/25 bg-violet-400/[0.08] text-violet-200",
-  slate: "border-white/10 bg-white/[0.04] text-slate-300",
+  cyan: "border-blue-200 bg-blue-500/[0.08] text-blue-700",
+  green: "border-emerald-200 bg-emerald-400/[0.08] text-emerald-700",
+  amber: "border-amber-200 bg-amber-400/[0.08] text-amber-700",
+  orange: "border-orange-200 bg-orange-400/[0.08] text-orange-700",
+  red: "border-rose-200 bg-rose-400/[0.08] text-rose-700",
+  violet: "border-violet-200 bg-violet-400/[0.08] text-violet-700",
+  slate: "border-blue-100 bg-blue-50 text-slate-700",
 };
 
 export function Badge({
@@ -191,8 +191,8 @@ export function StatusDot({
     green: "bg-emerald-400",
     amber: "bg-amber-400",
     red: "bg-rose-400",
-    cyan: "bg-cyan-400",
-    slate: "bg-slate-500",
+    cyan: "bg-blue-500",
+    slate: "bg-slate-300",
   };
   return (
     <span className={cn("relative flex h-2 w-2 shrink-0", className)}>
@@ -209,12 +209,12 @@ type ButtonSize = "sm" | "md" | "lg" | "icon";
 
 const buttonVariants: Record<ButtonVariant, string> = {
   primary:
-    "bg-cyan-300 text-ink-950 hover:bg-cyan-200 shadow-[0_0_24px_-6px_rgba(34,211,238,0.55)] border border-cyan-200/60",
-  secondary: "bg-white/[0.06] text-slate-200 hover:bg-white/[0.1] border border-white/10",
-  outline: "bg-transparent text-cyan-200 hover:bg-cyan-400/[0.08] border border-cyan-400/30",
-  ghost: "bg-transparent text-slate-400 hover:bg-white/[0.06] hover:text-slate-100 border border-transparent",
-  danger: "bg-rose-500/[0.12] text-rose-200 hover:bg-rose-500/[0.2] border border-rose-400/30",
-  success: "bg-emerald-500/[0.12] text-emerald-200 hover:bg-emerald-500/[0.2] border border-emerald-400/30",
+    "bg-blue-600 text-white hover:bg-blue-700 shadow-[0_8px_24px_-8px_rgba(37,99,235,0.7)] border border-blue-500/20",
+  secondary: "bg-blue-50 text-slate-800 hover:bg-blue-100 border border-blue-100",
+  outline: "bg-transparent text-blue-700 hover:bg-blue-50 border border-blue-200",
+  ghost: "bg-transparent text-slate-600 hover:bg-blue-50 hover:text-slate-900 border border-transparent",
+  danger: "bg-rose-500/[0.12] text-rose-700 hover:bg-rose-500/[0.2] border border-rose-200",
+  success: "bg-emerald-500/[0.12] text-emerald-700 hover:bg-emerald-500/[0.2] border border-emerald-200",
 };
 
 const buttonSizes: Record<ButtonSize, string> = {
@@ -234,7 +234,7 @@ export function Button({
   return (
     <button
       className={cn(
-        "inline-flex select-none items-center justify-center font-medium transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40 disabled:cursor-not-allowed disabled:opacity-40",
+        "inline-flex select-none items-center justify-center font-medium transition duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 disabled:cursor-not-allowed disabled:opacity-40",
         buttonVariants[variant],
         buttonSizes[size],
         className,
@@ -257,7 +257,7 @@ export function IconButton({
       title={label}
       aria-label={label}
       className={cn(
-        "grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-white/[0.04] text-slate-300 transition hover:border-cyan-400/30 hover:bg-cyan-400/10 hover:text-cyan-200",
+        "grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-blue-50 text-slate-700 transition hover:border-blue-200 hover:bg-blue-100 hover:text-blue-700",
         className,
       )}
       {...props}
@@ -283,7 +283,7 @@ export function Toggle({
   return (
     <div className="flex items-center justify-between gap-3">
       <div className="min-w-0">
-        <p className="text-xs font-medium text-slate-200">{label}</p>
+        <p className="text-xs font-medium text-slate-800">{label}</p>
         {description ? <p className="mt-0.5 text-[10.5px] leading-snug text-slate-500">{description}</p> : null}
       </div>
       <button
@@ -295,13 +295,13 @@ export function Toggle({
         onClick={() => onChange(!checked)}
         className={cn(
           "relative h-6 w-11 shrink-0 rounded-full border transition duration-200 disabled:opacity-40",
-          checked ? "border-cyan-300/60 bg-cyan-400/30" : "border-white/10 bg-white/[0.06]",
+          checked ? "border-blue-600 bg-blue-600" : "border-blue-200 bg-blue-100",
         )}
       >
         <span
           className={cn(
             "absolute top-0.5 h-[18px] w-[18px] rounded-full shadow transition-all duration-200",
-            checked ? "left-[22px] bg-cyan-200 shadow-[0_0_10px_rgba(34,211,238,0.8)]" : "left-0.5 bg-slate-400",
+            checked ? "left-[22px] bg-white shadow-[0_2px_8px_rgba(15,23,42,0.25)]" : "left-0.5 bg-white shadow-sm",
           )}
         />
       </button>
@@ -332,7 +332,7 @@ export function Slider({
     <div>
       <div className="mb-1.5 flex items-center justify-between gap-2">
         <span className="label-xs">{label}</span>
-        <span className="font-mono text-[11px] text-cyan-200">{display ?? value}</span>
+        <span className="font-mono text-[11px] text-blue-700">{display ?? value}</span>
       </div>
       <input
         type="range"
@@ -344,7 +344,7 @@ export function Slider({
         className="w-full cursor-pointer"
         aria-label={label}
       />
-      {hint ? <p className="mt-1 text-[10px] text-slate-600">{hint}</p> : null}
+      {hint ? <p className="mt-1 text-[10px] text-slate-500">{hint}</p> : null}
     </div>
   );
 }
@@ -364,7 +364,7 @@ export function Field({
     <label className={cn("block", className)}>
       <span className="label-xs mb-1.5 block">{label}</span>
       {children}
-      {hint ? <span className="mt-1 block text-[10px] text-slate-600">{hint}</span> : null}
+      {hint ? <span className="mt-1 block text-[10px] text-slate-500">{hint}</span> : null}
     </label>
   );
 }
@@ -397,7 +397,7 @@ export function Segmented<T extends string>({
   size?: "xs" | "sm";
 }) {
   return (
-    <div className="inline-flex rounded-lg border border-white/10 bg-ink-950/50 p-0.5">
+    <div className="inline-flex rounded-lg border border-blue-100 bg-slate-50 p-0.5">
       {options.map((option) => {
         const Icon = option.icon;
         const active = option.value === value;
@@ -410,8 +410,8 @@ export function Segmented<T extends string>({
               "inline-flex items-center gap-1.5 rounded-md font-medium transition",
               size === "xs" ? "px-2 py-1 text-[10px]" : "px-2.5 py-1.5 text-[11px]",
               active
-                ? "bg-cyan-400/15 text-cyan-100 shadow-[inset_0_0_0_1px_rgba(34,211,238,0.2)]"
-                : "text-slate-500 hover:text-slate-200",
+                ? "bg-blue-50 text-blue-700 shadow-[inset_0_0_0_1px_rgba(37,99,235,0.2)]"
+                : "text-slate-500 hover:text-slate-800",
             )}
           >
             {Icon ? <Icon size={12} /> : null}
@@ -425,10 +425,10 @@ export function Segmented<T extends string>({
 
 export function Progress({
   value,
-  color = "#22d3ee",
+  color = "#2563eb",
   height = 6,
   className,
-  track = "rgba(255,255,255,0.07)",
+  track = "rgba(37,99,235,0.12)",
 }: {
   value: number;
   color?: string;
@@ -487,7 +487,7 @@ export function Modal({
     <AnimatePresence>
       {open ? (
         <motion.div
-          className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-ink-950/80 p-4 backdrop-blur-md"
+          className="fixed inset-0 z-[80] flex items-center justify-center overflow-y-auto bg-slate-900/35 p-4 backdrop-blur-sm"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -502,9 +502,9 @@ export function Modal({
             transition={{ duration: 0.22 }}
             className={cn("glass-strong my-6 w-full overflow-hidden", wide ? "max-w-5xl" : "max-w-lg")}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-white/[0.07] px-5 py-4">
+            <div className="flex items-start justify-between gap-4 border-b border-blue-100 px-5 py-4">
               <div>
-                <h3 className="text-sm font-semibold text-slate-100">{title}</h3>
+                <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
                 {subtitle ? <p className="mt-0.5 text-[11px] text-slate-500">{subtitle}</p> : null}
               </div>
               <IconButton label="Close" onClick={onClose}>
@@ -513,7 +513,7 @@ export function Modal({
             </div>
             <div className="p-5">{children}</div>
             {footer ? (
-              <div className="flex justify-end gap-2 border-t border-white/[0.07] px-5 py-3">{footer}</div>
+              <div className="flex justify-end gap-2 border-t border-blue-100 px-5 py-3">{footer}</div>
             ) : null}
           </motion.div>
         </motion.div>
@@ -526,11 +526,11 @@ export function SimulationNote({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "flex items-start gap-2 rounded-lg border border-amber-400/15 bg-amber-400/[0.045] px-3 py-2 text-[10.5px] leading-relaxed text-amber-100/70",
+        "flex items-start gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-[10.5px] leading-relaxed text-amber-800",
         className,
       )}
     >
-      <Info size={13} className="mt-0.5 shrink-0 text-amber-300/80" />
+      <Info size={13} className="mt-0.5 shrink-0 text-amber-700/80" />
       <span>
         All traffic figures are generated by the local simulation engine for academic demonstration. They are not
         real-world measurements or live city traffic.
@@ -551,12 +551,12 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-white/10 bg-white/[0.015] px-6 py-10 text-center">
-      <span className="mb-3 grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-slate-500">
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-blue-100 bg-slate-50 px-6 py-10 text-center">
+      <span className="mb-3 grid h-10 w-10 place-items-center rounded-full border border-blue-100 bg-slate-50 text-slate-500">
         <Icon size={17} />
       </span>
-      <p className="text-xs font-medium text-slate-300">{title}</p>
-      {description ? <p className="mt-1 max-w-sm text-[11px] leading-relaxed text-slate-600">{description}</p> : null}
+      <p className="text-xs font-medium text-slate-700">{title}</p>
+      {description ? <p className="mt-1 max-w-sm text-[11px] leading-relaxed text-slate-500">{description}</p> : null}
       {action ? <div className="mt-4">{action}</div> : null}
     </div>
   );
@@ -565,14 +565,14 @@ export function EmptyState({
 export function InlineStat({
   label,
   value,
-  tone = "text-slate-100",
+  tone = "text-slate-900",
 }: {
   label: string;
   value: ReactNode;
   tone?: string;
 }) {
   return (
-    <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
+    <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
       <p className="label-xs">{label}</p>
       <p className={cn("mt-1 font-mono text-sm tabular-nums", tone)}>{value}</p>
     </div>
@@ -593,10 +593,10 @@ export function ToastViewport({
     critical: AlertCircle,
   };
   const tones = {
-    info: "border-cyan-400/25 text-cyan-100",
-    success: "border-emerald-400/25 text-emerald-100",
-    warning: "border-amber-400/25 text-amber-100",
-    critical: "border-rose-400/30 text-rose-100",
+    info: "border-blue-200 text-blue-700",
+    success: "border-emerald-200 text-emerald-700",
+    warning: "border-amber-200 text-amber-700",
+    critical: "border-rose-200 text-rose-700",
   };
   return (
     <div className="pointer-events-none fixed bottom-4 right-4 z-[90] flex w-[min(360px,calc(100vw-2rem))] flex-col gap-2">
@@ -611,7 +611,7 @@ export function ToastViewport({
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: 20, scale: 0.98 }}
               className={cn(
-                "pointer-events-auto flex items-start gap-2.5 rounded-xl border bg-ink-900/95 px-3.5 py-3 shadow-card backdrop-blur-xl",
+                "pointer-events-auto flex items-start gap-2.5 rounded-xl border bg-white px-3.5 py-3 shadow-card backdrop-blur-xl",
                 tones[toast.kind],
               )}
             >
@@ -620,7 +620,7 @@ export function ToastViewport({
               <button
                 type="button"
                 onClick={() => onDismiss(toast.id)}
-                className="text-slate-500 transition hover:text-slate-200"
+                className="text-slate-500 transition hover:text-slate-800"
                 aria-label="Dismiss notification"
               >
                 <X size={13} />

@@ -54,7 +54,7 @@ export function clamp(value: number, min: number, max: number) {
 export type Tone = "cyan" | "green" | "amber" | "orange" | "red" | "violet" | "slate";
 
 export const TONE_HEX: Record<Tone, string> = {
-  cyan: "#22d3ee",
+  cyan: "#2563eb",
   green: "#34d399",
   amber: "#fbbf24",
   orange: "#fb923c",
@@ -75,7 +75,7 @@ export const CONGESTION_META: Record<
 };
 
 export const VEHICLE_META = {
-  car: { label: "Cars", color: "#38bdf8" },
+  car: { label: "Cars", color: "#3b82f6" },
   bus: { label: "Buses", color: "#fbbf24" },
   truck: { label: "Trucks", color: "#a78bfa" },
   motorcycle: { label: "Motorcycles", color: "#34d399" },
@@ -100,6 +100,6 @@ export function severityColor(severity: string): string {
     case "critical":
       return "#fb7185";
     default:
-      return "#22d3ee";
+      return "#2563eb";
   }
 }

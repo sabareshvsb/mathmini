@@ -69,7 +69,7 @@ export async function POST(request: Request) {
       status: 200,
       headers: {
         "Content-Type": "text/csv; charset=utf-8",
-        "Content-Disposition": `attachment; filename="nova-city-${range}-report.csv"`,
+        "Content-Disposition": `attachment; filename="bengaluru-${range}-report.csv"`,
       },
     });
   } catch (error) {

@@ -242,22 +242,22 @@ export function NetworkMap({
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
       >
-        <svg viewBox="0 0 1200 820" className="h-full w-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive city road graph">
+        <svg viewBox="0 0 1200 820" className="h-full w-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive Bengaluru road graph">
           <defs>
             <radialGradient id={`${uid}-glow`} cx="60%" cy="38%" r="65%">
-              <stop offset="0%" stopColor="#0e7490" stopOpacity="0.22" />
-              <stop offset="60%" stopColor="#0c4a6e" stopOpacity="0.06" />
-              <stop offset="100%" stopColor="#050b16" stopOpacity="0" />
+              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.22" />
+              <stop offset="60%" stopColor="#bfdbfe" stopOpacity="0.06" />
+              <stop offset="100%" stopColor="#f8fbff" stopOpacity="0" />
             </radialGradient>
             <pattern id={`${uid}-dots`} width="34" height="34" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="1" fill="rgba(56,189,248,0.16)" />
+              <circle cx="1" cy="1" r="1" fill="rgba(59,130,246,0.16)" />
             </pattern>
             <pattern id={`${uid}-blocks`} width="46" height="46" patternUnits="userSpaceOnUse">
               <rect width="46" height="46" fill="transparent" />
-              <rect x="5" y="5" width="15" height="12" rx="1.5" fill="#0b1d33" />
-              <rect x="26" y="9" width="12" height="16" rx="1.5" fill="#0a1a2e" />
-              <rect x="8" y="27" width="10" height="12" rx="1.5" fill="#0a1a2e" />
-              <rect x="28" y="31" width="14" height="9" rx="1.5" fill="#0b1d33" />
+              <rect x="5" y="5" width="15" height="12" rx="1.5" fill="#dbeafe" />
+              <rect x="26" y="9" width="12" height="16" rx="1.5" fill="#eff6ff" />
+              <rect x="8" y="27" width="10" height="12" rx="1.5" fill="#eff6ff" />
+              <rect x="28" y="31" width="14" height="9" rx="1.5" fill="#dbeafe" />
             </pattern>
             <radialGradient id={`${uid}-heat-red`}>
               <stop offset="0%" stopColor="#ef4444" stopOpacity="0.38" />
@@ -268,12 +268,12 @@ export function NetworkMap({
               <stop offset="100%" stopColor="#fbbf24" stopOpacity="0" />
             </radialGradient>
             <linearGradient id={`${uid}-geo`} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#071426" />
-              <stop offset="55%" stopColor="#06101f" />
-              <stop offset="100%" stopColor="#040b16" />
+              <stop offset="0%" stopColor="#eff6ff" />
+              <stop offset="55%" stopColor="#f8fbff" />
+              <stop offset="100%" stopColor="#ffffff" />
             </linearGradient>
             <linearGradient id={`${uid}-river`} x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#0e7490" stopOpacity="0.65" />
+              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.65" />
               <stop offset="100%" stopColor="#1d4ed8" stopOpacity="0.4" />
             </linearGradient>
             <filter id={`${uid}-softglow`} x="-50%" y="-50%" width="200%" height="200%">
@@ -292,7 +292,7 @@ export function NetworkMap({
             </filter>
           </defs>
 
-          <rect width="1200" height="820" fill="#040b16" />
+          <rect width="1200" height="820" fill="#ffffff" />
           <rect width="1200" height="820" fill={`url(#${uid}-glow)`} />
           <rect width="1200" height="820" fill={`url(#${uid}-dots)`} opacity="0.55" />
 
@@ -348,7 +348,7 @@ export function NetworkMap({
                       y1={from.y}
                       x2={to.x}
                       y2={to.y}
-                      stroke="#13243a"
+                      stroke="#cbd5e1"
                       strokeWidth={width + 3.4}
                       strokeLinecap="round"
                     />
@@ -369,7 +369,7 @@ export function NetworkMap({
                         y1={from.y}
                         x2={to.x}
                         y2={to.y}
-                        stroke="#22d3ee"
+                        stroke="#2563eb"
                         strokeWidth={1.2}
                         strokeOpacity={0.45}
                       />
@@ -407,7 +407,7 @@ export function NetworkMap({
                           y1={from.y}
                           x2={to.x}
                           y2={to.y}
-                          stroke="#22d3ee"
+                          stroke="#2563eb"
                           strokeWidth={7}
                           strokeLinecap="round"
                           opacity={0.28}
@@ -418,7 +418,7 @@ export function NetworkMap({
                           y1={from.y}
                           x2={to.x}
                           y2={to.y}
-                          stroke="#67e8f9"
+                          stroke="#1d4ed8"
                           strokeWidth={3.4}
                           strokeLinecap="round"
                         />
@@ -464,12 +464,12 @@ export function NetworkMap({
                     ) : null}
                     {road?.blocked ? (
                       <g transform={`translate(${(from.x + to.x) / 2} ${(from.y + to.y) / 2})`}>
-                        <circle r="10" fill="#2a0a10" stroke="#fb7185" strokeWidth="1.4" />
+                        <circle r="10" fill="#fee2e2" stroke="#fb7185" strokeWidth="1.4" />
                         <path d="M -3.5 -3.5 L 3.5 3.5 M 3.5 -3.5 L -3.5 3.5" stroke="#fb7185" strokeWidth="1.8" />
                       </g>
                     ) : road?.incident ? (
                       <g transform={`translate(${(from.x + to.x) / 2} ${(from.y + to.y) / 2})`}>
-                        <circle r="9" fill="#2a1a05" stroke="#fbbf24" strokeWidth="1.2" />
+                        <circle r="9" fill="#fef3c7" stroke="#fbbf24" strokeWidth="1.2" />
                         <text textAnchor="middle" y="3.2" fontSize="9" fill="#fbbf24" fontWeight="700">
                           !
                         </text>
@@ -482,7 +482,7 @@ export function NetworkMap({
                         textAnchor="middle"
                         fontSize={compact ? 7.5 : 8.5}
                         fill="#94a3b8"
-                        stroke="#040b16"
+                        stroke="#ffffff"
                         strokeWidth="3"
                         paintOrder="stroke"
                         pointerEvents="none"
@@ -563,10 +563,10 @@ export function NetworkMap({
                 const isVisited = visitedNodeSet.has(node.id);
                 const fill =
                   node.type === "terminal"
-                    ? "#0e7490"
+                    ? "#60a5fa"
                     : node.type === "roundabout"
                       ? "#7c3aed"
-                      : "#0f2a44";
+                      : "#1e40af";
                 return (
                   <g
                     key={node.id}
@@ -579,10 +579,10 @@ export function NetworkMap({
                     onMouseEnter={() => setHoveredEdge(null)}
                   >
                     {isVisited ? (
-                      <circle r={radius + 6} fill="none" stroke="#22d3ee" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.9" />
+                      <circle r={radius + 6} fill="none" stroke="#2563eb" strokeWidth="1.2" strokeDasharray="3 3" opacity="0.9" />
                     ) : null}
                     {isSource ? (
-                      <circle r={radius + 6.5} fill="none" stroke="#22d3ee" strokeWidth="1.8" opacity="0.9" className="animate-pulse" />
+                      <circle r={radius + 6.5} fill="none" stroke="#2563eb" strokeWidth="1.8" opacity="0.9" className="animate-pulse" />
                     ) : null}
                     {isDestination ? (
                       <>
@@ -594,11 +594,11 @@ export function NetworkMap({
                       <circle r={radius + 9} fill="none" stroke="#fbbf24" strokeWidth="1" strokeDasharray="2 2" opacity="0.9" />
                     ) : null}
                     <circle r={radius + 2.5} fill={fill} opacity="0.3" />
-                    <circle r={radius} fill={fill} stroke="#67e8f9" strokeWidth="1.1" />
-                    <circle r={Math.max(1.6, radius * 0.32)} fill="#e0f2fe" opacity="0.9" />
+                    <circle r={radius} fill={fill} stroke="#1d4ed8" strokeWidth="1.1" />
+                    <circle r={Math.max(1.6, radius * 0.32)} fill="#ffffff" opacity="0.9" />
                     {showSignalDots && signal ? (
                       <g transform={`translate(${radius + 3} ${-radius - 3})`}>
-                        <circle r="3.6" fill="#040b16" stroke={SIGNAL_COLORS[signal.phase]} strokeWidth="1.2" />
+                        <circle r="3.6" fill="#ffffff" stroke={SIGNAL_COLORS[signal.phase]} strokeWidth="1.2" />
                         <circle r="1.7" fill={SIGNAL_COLORS[signal.phase]}>
                           {signal.phase === "RED" ? null : null}
                         </circle>
@@ -610,7 +610,7 @@ export function NetworkMap({
                         textAnchor="middle"
                         fontSize="7.5"
                         fontWeight="700"
-                        fill={isSource ? "#67e8f9" : "#6ee7b7"}
+                        fill={isSource ? "#1d4ed8" : "#6ee7b7"}
                         style={{ fontFamily: "monospace", letterSpacing: "0.1em" }}
                       >
                         {isSource ? "SOURCE" : "DEST"}
@@ -622,7 +622,7 @@ export function NetworkMap({
                         textAnchor="middle"
                         fontSize={compact ? 7 : 8.4}
                         fill="#94a3b8"
-                        stroke="#040b16"
+                        stroke="#ffffff"
                         strokeWidth="3"
                         paintOrder="stroke"
                         style={{ fontFamily: "ui-sans-serif, system-ui" }}
@@ -652,15 +652,15 @@ export function NetworkMap({
       </div>
 
       <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap items-center gap-1.5">
-        <span className="pointer-events-auto inline-flex items-center gap-1.5 rounded-md border border-white/10 bg-ink-950/80 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-400 backdrop-blur">
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 shadow-[0_0_6px_#22d3ee]" />
-          {mapView === "graph" ? "Graph View · G = (V,E)" : "Geographic View · Nova City"}
+        <span className="pointer-events-auto inline-flex items-center gap-1.5 rounded-md border border-blue-100 bg-white/80 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-600 backdrop-blur">
+          <span className="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_6px_#2563eb]" />
+          {mapView === "graph" ? "Graph View · G = (V,E)" : "Geographic View · Bengaluru"}
         </span>
-        <span className="pointer-events-auto rounded-md border border-white/10 bg-ink-950/80 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-500 backdrop-blur">
+        <span className="pointer-events-auto rounded-md border border-blue-100 bg-white/80 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-500 backdrop-blur">
           V {network.nodes.length} · E {network.edges.length}
         </span>
         {!compact ? (
-          <span className="pointer-events-auto rounded-md border border-cyan-400/15 bg-cyan-400/[0.06] px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-cyan-300/80 backdrop-blur">
+          <span className="pointer-events-auto rounded-md border border-blue-200 bg-blue-500/[0.06] px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-blue-700/80 backdrop-blur">
             simulated
           </span>
         ) : null}
@@ -672,7 +672,7 @@ export function NetworkMap({
             type="button"
             onClick={() => setMapView(mapView === "graph" ? "geo" : "graph")}
             title={mapView === "graph" ? "Switch to geographic map" : "Switch to graph view"}
-            className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-ink-950/85 text-slate-300 backdrop-blur transition hover:border-cyan-400/30 hover:text-cyan-200"
+            className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
           >
             {mapView === "graph" ? <MapIcon size={14} /> : <NetworkIcon size={14} />}
           </button>
@@ -680,7 +680,7 @@ export function NetworkMap({
             type="button"
             onClick={() => zoomBy(1.25)}
             title="Zoom in"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-ink-950/85 text-slate-300 backdrop-blur transition hover:border-cyan-400/30 hover:text-cyan-200"
+            className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
           >
             <ZoomIn size={14} />
           </button>
@@ -688,7 +688,7 @@ export function NetworkMap({
             type="button"
             onClick={() => zoomBy(0.8)}
             title="Zoom out"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-ink-950/85 text-slate-300 backdrop-blur transition hover:border-cyan-400/30 hover:text-cyan-200"
+            className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
           >
             <ZoomOut size={14} />
           </button>
@@ -696,18 +696,18 @@ export function NetworkMap({
             type="button"
             onClick={() => setViewport({ x: 0, y: 0, k: 1 })}
             title="Reset view"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-white/10 bg-ink-950/85 text-slate-300 backdrop-blur transition hover:border-cyan-400/30 hover:text-cyan-200"
+            className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
           >
             {viewport.k !== 1 ? <Maximize2 size={14} /> : <Crosshair size={14} />}
           </button>
-          <span className="grid h-6 place-items-center rounded-md border border-white/10 bg-ink-950/85 font-mono text-[8px] text-slate-500 backdrop-blur">
+          <span className="grid h-6 place-items-center rounded-md border border-blue-100 bg-white/90 font-mono text-[8px] text-slate-500 backdrop-blur">
             {viewport.k.toFixed(1)}×
           </span>
         </div>
       ) : null}
 
       {legendVisible ? (
-        <div className="pointer-events-none absolute bottom-3 left-3 rounded-lg border border-white/10 bg-ink-950/85 px-2.5 py-2 backdrop-blur">
+        <div className="pointer-events-none absolute bottom-3 left-3 rounded-lg border border-blue-100 bg-white/90 px-2.5 py-2 backdrop-blur">
           <div className="mb-1.5 flex items-center gap-1.5 font-mono text-[7.5px] uppercase tracking-[0.16em] text-slate-500">
             <Layers size={9} /> Road status
           </div>
@@ -715,27 +715,27 @@ export function NetworkMap({
             {(["low", "moderate", "heavy", "severe"] as const).map((level) => (
               <div key={level} className="flex items-center gap-1.5">
                 <span className="h-1 w-3 rounded-full" style={{ background: CONGESTION_META[level].color }} />
-                <span className="text-[8px] text-slate-400">{CONGESTION_META[level].label}</span>
+                <span className="text-[8px] text-slate-600">{CONGESTION_META[level].label}</span>
               </div>
             ))}
             <div className="flex items-center gap-1.5">
-              <span className="h-1 w-3 rounded-full bg-cyan-300" />
-              <span className="text-[8px] text-slate-400">Optimal route</span>
+              <span className="h-1 w-3 rounded-full bg-blue-600" />
+              <span className="text-[8px] text-slate-600">Optimal route</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="h-1 w-3 rounded-full bg-rose-400" />
-              <span className="text-[8px] text-slate-400">Emergency</span>
+              <span className="text-[8px] text-slate-600">Emergency</span>
             </div>
           </div>
         </div>
       ) : null}
 
       {hoveredEdge && interactive ? (
-        <div className="pointer-events-none absolute bottom-3 right-3 w-[190px] rounded-lg border border-cyan-400/20 bg-ink-950/92 px-3 py-2 backdrop-blur">
-          <p className="truncate font-mono text-[9px] uppercase tracking-[0.12em] text-cyan-300/80">
+        <div className="pointer-events-none absolute bottom-3 right-3 w-[190px] rounded-lg border border-blue-200 bg-white/90 px-3 py-2 backdrop-blur">
+          <p className="truncate font-mono text-[9px] uppercase tracking-[0.12em] text-blue-700/80">
             {hoveredEdge.id} · {hoveredEdge.corridor}
           </p>
-          <p className="mt-0.5 text-[10px] text-slate-300">
+          <p className="mt-0.5 text-[10px] text-slate-700">
             {nodeMap.get(hoveredEdge.from)?.name} ↔ {nodeMap.get(hoveredEdge.to)?.name}
           </p>
           <div className="mt-1.5 grid grid-cols-2 gap-1 font-mono text-[9px] text-slate-500">
@@ -747,13 +747,13 @@ export function NetworkMap({
             </span>
           </div>
           {roads[hoveredEdge.id]?.blocked ? (
-            <p className="mt-1 font-mono text-[8.5px] uppercase tracking-wide text-rose-300">Road blocked</p>
+            <p className="mt-1 font-mono text-[8.5px] uppercase tracking-wide text-rose-700">Road blocked</p>
           ) : null}
         </div>
       ) : null}
 
       {!network.nodes.length && emptyHint ? (
-        <div className="absolute inset-0 grid place-items-center bg-ink-950/70 text-xs text-slate-500">{emptyHint}</div>
+        <div className="absolute inset-0 grid place-items-center bg-white/80 text-xs text-slate-500">{emptyHint}</div>
       ) : null}
     </div>
   );
@@ -762,8 +762,8 @@ export function NetworkMap({
 function GraphBackdrop({ uid }: { uid: string }) {
   return (
     <g pointerEvents="none" opacity="0.9">
-      <circle cx="600" cy="410" r="390" fill="none" stroke="rgba(34,211,238,0.05)" strokeWidth="1" strokeDasharray="2 8" />
-      <circle cx="600" cy="410" r="300" fill="none" stroke="rgba(34,211,238,0.04)" strokeWidth="1" strokeDasharray="2 8" />
+      <circle cx="600" cy="410" r="390" fill="none" stroke="rgba(37,99,235,0.05)" strokeWidth="1" strokeDasharray="2 8" />
+      <circle cx="600" cy="410" r="300" fill="none" stroke="rgba(37,99,235,0.04)" strokeWidth="1" strokeDasharray="2 8" />
       <path
         d="M 40 710 Q 280 640 520 700 T 1160 650"
         fill="none"
@@ -773,7 +773,7 @@ function GraphBackdrop({ uid }: { uid: string }) {
         opacity="0.08"
       />
       <text x="60" y="790" fill="rgba(100,116,139,0.35)" fontSize="9" fontFamily="monospace" letterSpacing="4">
-        NOVA CITY · CENTRAL TRAFFIC DISTRICT · SAMPLE GRAPH
+        BENGALURU · CENTRAL TRAFFIC DISTRICT · SAMPLE GRAPH
       </text>
       <text x="1140" y="790" textAnchor="end" fill="rgba(100,116,139,0.28)" fontSize="8" fontFamily="monospace">
         1200 × 820 schematic canvas
@@ -786,56 +786,94 @@ function GeoBackdrop({ uid }: { uid: string }) {
   return (
     <g pointerEvents="none">
       <rect width="1200" height="820" fill={`url(#${uid}-geo)`} />
-      <rect width="1200" height="820" fill={`url(#${uid}-blocks)`} opacity="0.5" />
+      <rect width="1200" height="820" fill={`url(#${uid}-blocks)`} opacity="0.45" />
+
       <path
-        d="M 0 486 C 170 430 300 520 455 512 C 640 502 720 610 900 606 C 1035 603 1120 642 1200 668 L 1200 820 L 0 820 Z"
-        fill="#071a2a"
-        opacity="0.55"
+        d="M 0 500 C 170 440 320 520 470 515 C 650 508 760 610 930 606 C 1050 603 1130 645 1200 670 L 1200 820 L 0 820 Z"
+        fill="#eff6ff"
+        opacity="0.65"
       />
-      <path
-        d="M 60 -20 C 150 150 275 220 320 350 C 365 480 540 585 700 615 C 850 643 1010 725 1080 840"
+
+      <g fill="#dcfce7" opacity="0.7">
+        <ellipse cx="710" cy="420" rx="48" ry="32" />
+        <ellipse cx="640" cy="565" rx="58" ry="34" />
+        <ellipse cx="330" cy="630" rx="44" ry="26" />
+        <ellipse cx="520" cy="735" rx="110" ry="42" />
+        <ellipse cx="150" cy="210" rx="62" ry="38" />
+      </g>
+
+      <g fill="#bfdbfe" stroke="#93c5fd" strokeWidth="1">
+        <ellipse cx="620" cy="130" rx="56" ry="28" />
+        <ellipse cx="600" cy="300" rx="30" ry="18" />
+        <ellipse cx="735" cy="380" rx="46" ry="24" />
+        <ellipse cx="890" cy="545" rx="80" ry="42" />
+        <ellipse cx="760" cy="620" rx="40" ry="22" />
+        <ellipse cx="210" cy="560" rx="34" ry="20" />
+      </g>
+
+      <g fill="none" stroke="rgba(37,99,235,0.18)" strokeWidth="3" strokeLinecap="round">
+        <path d="M 610 -20 L 610 430" />
+        <path d="M 210 -20 L 560 430" />
+        <path d="M 150 840 L 500 460" />
+        <path d="M 660 840 L 720 450" />
+        <path d="M 1220 250 L 730 400" />
+        <path d="M 1220 440 L 750 440" />
+        <path d="M 1220 640 L 820 510" />
+        <path d="M 560 840 L 590 530" />
+      </g>
+
+      <ellipse
+        cx="600"
+        cy="420"
+        rx="430"
+        ry="285"
         fill="none"
-        stroke={`url(#${uid}-river)`}
-        strokeWidth="34"
-        strokeLinecap="round"
-        opacity="0.8"
+        stroke="rgba(37,99,235,0.22)"
+        strokeWidth="10"
+        strokeDasharray="18 10"
       />
-      <path
-        d="M 60 -20 C 150 150 275 220 320 350 C 365 480 540 585 700 615 C 850 643 1010 725 1080 840"
+      <ellipse
+        cx="600"
+        cy="420"
+        rx="414"
+        ry="270"
         fill="none"
-        stroke="rgba(103,232,249,0.18)"
+        stroke="rgba(255,255,255,0.85)"
         strokeWidth="3"
-        strokeLinecap="round"
-        strokeDasharray="1 10"
+        strokeDasharray="18 10"
       />
-      <ellipse cx="888" cy="470" rx="84" ry="48" fill="#0c3a4a" opacity="0.55" />
-      <ellipse cx="888" cy="470" rx="62" ry="31" fill="#0e7490" opacity="0.14" />
-      <ellipse cx="952" cy="490" rx="26" ry="14" fill="#0e7490" opacity="0.18" />
-      <ellipse cx="705" cy="585" rx="58" ry="26" fill="#052e16" opacity="0.7" />
-      <ellipse cx="160" cy="210" rx="62" ry="38" fill="#052e16" opacity="0.6" />
-      <ellipse cx="470" cy="720" rx="90" ry="34" fill="#052e16" opacity="0.45" />
-      <g fontFamily="monospace" fill="rgba(125,211,252,0.16)" fontSize="13" letterSpacing="5">
-        <text x="120" y="70">NORTH DISTRICT</text>
-        <text x="500" y="400">CENTRAL</text>
-        <text x="100" y="600">WEST BANK</text>
-        <text x="900" y="720">SOUTH INDUSTRIAL</text>
-        <text x="880" y="120">EAST RIDGE</text>
+
+      <g fontFamily="monospace" fill="rgba(37,99,235,0.2)" fontSize="13" letterSpacing="5">
+        <text x="120" y="78">NORTH BENGALURU</text>
+        <text x="470" y="430">CENTRAL BENGALURU</text>
+        <text x="100" y="660">KENGERI</text>
+        <text x="430" y="778">ELECTRONIC CITY</text>
+        <text x="900" y="710">SOUTH BENGALURU</text>
+        <text x="910" y="250">WHITEFIELD</text>
+        <text x="930" y="640">SARJAPUR ROAD</text>
       </g>
-      <g fontFamily="monospace" fill="rgba(103,232,249,0.3)" fontSize="8" letterSpacing="2">
-        <text x="250" y="330" transform="rotate(56 250 330)">NOVA RIVER</text>
-        <text x="850" y="475">LAKE MERIDIAN</text>
+
+      <g fontFamily="monospace" fill="rgba(29,78,216,0.4)" fontSize="8" letterSpacing="2">
+        <text x="520" y="132">HEBBAL LAKE</text>
+        <text x="700" y="383">ULSOOR LAKE</text>
+        <text x="850" y="548">BELLANDUR LAKE</text>
+        <text x="678" y="418">CUBBON PARK</text>
+        <text x="610" y="568">LALBAGH</text>
+        <text x="590" y="132" transform="rotate(90 590 132)">BELLARY ROAD</text>
+        <text x="760" y="286">OUTER RING ROAD</text>
       </g>
-      <g stroke="rgba(148,163,184,0.1)" strokeWidth="1">
+
+      <g stroke="rgba(37,99,235,0.12)" strokeWidth="1">
         <line x1="0" y1="70" x2="1200" y2="70" strokeDasharray="2 10" />
         <line x1="0" y1="750" x2="1200" y2="750" strokeDasharray="2 10" />
         <line x1="70" y1="0" x2="70" y2="820" strokeDasharray="2 10" />
         <line x1="1130" y1="0" x2="1130" y2="820" strokeDasharray="2 10" />
       </g>
-      <g fontFamily="monospace" fill="rgba(100,116,139,0.5)" fontSize="7">
-        <text x="16" y="72">13.017° N</text>
-        <text x="16" y="752">12.950° N</text>
-        <text x="76" y="812">77.548° E</text>
-        <text x="1090" y="812">77.634° E</text>
+      <g fontFamily="monospace" fill="rgba(71,85,105,0.55)" fontSize="7">
+        <text x="16" y="72">13.12° N</text>
+        <text x="16" y="752">12.88° N</text>
+        <text x="76" y="812">77.44° E</text>
+        <text x="1080" y="812">77.74° E</text>
       </g>
     </g>
   );
@@ -845,9 +883,9 @@ function GeoOverlay({ uid }: { uid: string }) {
   return (
     <g pointerEvents="none">
       <g transform="translate(1110 70)">
-        <circle r="20" fill="rgba(3,10,20,0.65)" stroke="rgba(103,232,249,0.25)" strokeWidth="0.8" />
-        <path d="M 0 -12 L 5 7 L 0 3 L -5 7 Z" fill="#67e8f9" opacity="0.8" />
-        <text y="-23" textAnchor="middle" fontSize="7" fill="#67e8f9" opacity="0.7" fontFamily="monospace">
+        <circle r="20" fill="#ffffff" stroke="rgba(37,99,235,0.28)" strokeWidth="0.8" />
+        <path d="M 0 -12 L 5 7 L 0 3 L -5 7 Z" fill="#1d4ed8" opacity="0.85" />
+        <text y="-23" textAnchor="middle" fontSize="7" fill="#1d4ed8" opacity="0.8" fontFamily="monospace">
           N
         </text>
       </g>

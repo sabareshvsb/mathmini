@@ -29,7 +29,7 @@ function validNetwork(value: unknown): value is CityNetwork {
 export async function GET() {
   try {
     const stored = loadNetwork();
-    if (stored && validNetwork(stored)) {
+    if (stored && validNetwork(stored) && stored.version === DEFAULT_NETWORK.version) {
       return NextResponse.json({ network: stored, source: "database" });
     }
     saveNetwork(DEFAULT_NETWORK);

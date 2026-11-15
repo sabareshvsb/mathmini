@@ -9,7 +9,7 @@ export async function GET() {
     const stats = databaseStats();
     return NextResponse.json({
       ok: true,
-      service: "Nova City Traffic API",
+      service: "Bengaluru Traffic API",
       time: new Date().toISOString(),
       websocket: `ws://localhost:${process.env.WS_PORT ?? 4001}`,
       database: stats,

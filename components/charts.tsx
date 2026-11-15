@@ -71,7 +71,7 @@ export function LineChart({
             {item.name}
           </span>
         ))}
-        {unit ? <span className="ml-auto font-mono text-[9px] text-slate-600">{unit}</span> : null}
+        {unit ? <span className="ml-auto font-mono text-[9px] text-slate-500">{unit}</span> : null}
       </div>
       <svg viewBox={`0 0 ${width} ${height}`} className="h-auto w-full overflow-visible" role="img" aria-label="Line chart">
         <defs>
@@ -91,10 +91,10 @@ export function LineChart({
               x2={width - pad.right}
               y1={y(value)}
               y2={y(value)}
-              stroke="rgba(148,163,184,0.1)"
+              stroke="rgba(37,99,235,0.12)"
               strokeDasharray={index === 0 ? "0" : "3 5"}
             />
-            <text x={pad.left - 8} y={y(value) + 3} textAnchor="end" className="fill-slate-600" fontSize="8.5">
+            <text x={pad.left - 8} y={y(value) + 3} textAnchor="end" className="fill-slate-500" fontSize="8.5">
               {format(value)}
             </text>
           </g>
@@ -125,7 +125,7 @@ export function LineChart({
                 cy={y(item.values[item.values.length - 1])}
                 r="2.8"
                 fill={item.color}
-                stroke="#050b16"
+                stroke="#ffffff"
                 strokeWidth="1.4"
               />
             ) : null}
@@ -138,7 +138,7 @@ export function LineChart({
               x={x(index)}
               y={height - 8}
               textAnchor={index === 0 ? "start" : index === maxLen - 1 ? "end" : "middle"}
-              className="fill-slate-600"
+              className="fill-slate-500"
               fontSize="8.5"
             >
               {label}
@@ -153,7 +153,7 @@ export function LineChart({
 export function BarChart({
   labels,
   values,
-  color = "#22d3ee",
+  color = "#2563eb",
   height = 170,
   className,
   highlightIndex,
@@ -190,7 +190,7 @@ export function BarChart({
                 }}
                 title={`${labels[index]}: ${format(value)}${unit}`}
               >
-                <span className="pointer-events-none absolute inset-x-0 -top-5 hidden text-center font-mono text-[8.5px] text-slate-300 group-hover:block">
+                <span className="pointer-events-none absolute inset-x-0 -top-5 hidden text-center font-mono text-[8.5px] text-slate-700 group-hover:block">
                   {format(value)}
                 </span>
               </div>
@@ -204,7 +204,7 @@ export function BarChart({
             key={`${label}-l-${index}`}
             className={cn(
               "flex-1 truncate text-center font-mono text-[7.5px]",
-              highlightIndex === index ? "text-amber-300" : "text-slate-600",
+              highlightIndex === index ? "text-amber-700" : "text-slate-500",
             )}
           >
             {label}
@@ -243,7 +243,7 @@ export function Donut({
             cy={size / 2}
             r={radius}
             fill="none"
-            stroke="rgba(255,255,255,0.05)"
+            stroke="#dbeafe"
             strokeWidth={thickness}
           />
           {data.map((item) => {
@@ -270,7 +270,7 @@ export function Donut({
           })}
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="font-mono text-xl font-semibold text-slate-100">{centerValue ?? total}</span>
+          <span className="font-mono text-xl font-semibold text-slate-900">{centerValue ?? total}</span>
           <span className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">
             {centerLabel ?? "total"}
           </span>
@@ -279,13 +279,13 @@ export function Donut({
       <div className="min-w-0 flex-1 space-y-1.5">
         {data.map((item) => (
           <div key={item.label} className="flex items-center justify-between gap-2 text-[10.5px]">
-            <span className="flex min-w-0 items-center gap-1.5 text-slate-400">
+            <span className="flex min-w-0 items-center gap-1.5 text-slate-600">
               <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: item.color }} />
               <span className="truncate">{item.label}</span>
             </span>
-            <span className="shrink-0 font-mono text-slate-300">
+            <span className="shrink-0 font-mono text-slate-700">
               {item.value}
-              <span className="ml-1.5 text-[8.5px] text-slate-600">
+              <span className="ml-1.5 text-[8.5px] text-slate-500">
                 {total ? `${Math.round((item.value / total) * 100)}%` : "0%"}
               </span>
             </span>
@@ -323,7 +323,7 @@ export function Gauge({
         <path
           d="M 20 100 A 80 80 0 0 1 180 100"
           fill="none"
-          stroke="rgba(255,255,255,0.07)"
+          stroke="#dbeafe"
           strokeWidth="12"
           strokeLinecap="round"
           pathLength={100}
@@ -338,7 +338,7 @@ export function Gauge({
           strokeDasharray={`${v} 100`}
           style={{ filter: `drop-shadow(0 0 8px ${tint}77)`, transition: "stroke-dasharray .6s ease" }}
         />
-        <text x="100" y="82" textAnchor="middle" className="fill-slate-100" fontSize="26" fontWeight="600" fontFamily="monospace">
+        <text x="100" y="82" textAnchor="middle" className="fill-slate-900" fontSize="26" fontWeight="600" fontFamily="monospace">
           {v.toFixed(0)}
           <tspan fontSize="12" fill="#64748b">
             {suffix}
@@ -354,7 +354,7 @@ export function Gauge({
 
 export function Sparkline({
   values,
-  color = "#22d3ee",
+  color = "#2563eb",
   width = 100,
   height = 28,
   className,
@@ -408,21 +408,21 @@ export function BarList({
       {items.map((item) => (
         <div key={item.label}>
           <div className="mb-1 flex items-baseline justify-between gap-2">
-            <span className="min-w-0 truncate text-[11px] text-slate-300">{item.label}</span>
-            <span className="shrink-0 font-mono text-[10.5px] text-slate-400">
+            <span className="min-w-0 truncate text-[11px] text-slate-700">{item.label}</span>
+            <span className="shrink-0 font-mono text-[10.5px] text-slate-600">
               {item.display ?? (formatter ? formatter(item.value) : formatNumber(item.value))}
             </span>
           </div>
-          <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.06]">
+          <div className="h-1.5 overflow-hidden rounded-full bg-blue-50">
             <div
               className="h-full rounded-full transition-all duration-500"
               style={{
                 width: `${Math.max(1, Math.min(100, (item.value / ceiling) * 100))}%`,
-                background: `linear-gradient(90deg, ${item.color ?? "#22d3ee"}66, ${item.color ?? "#22d3ee"})`,
+                background: `linear-gradient(90deg, ${item.color ?? "#2563eb"}66, ${item.color ?? "#2563eb"})`,
               }}
             />
           </div>
-          {item.sub ? <p className="mt-0.5 text-[9px] text-slate-600">{item.sub}</p> : null}
+          {item.sub ? <p className="mt-0.5 text-[9px] text-slate-500">{item.sub}</p> : null}
         </div>
       ))}
     </div>

@@ -2,13 +2,13 @@ import { DatabaseSync } from "node:sqlite";
 import fs from "node:fs";
 import path from "node:path";
 
-const globalForDb = globalThis as unknown as { __novaCityDb?: DatabaseSync };
+const globalForDb = globalThis as unknown as { __bengaluruTrafficDb?: DatabaseSync };
 
 export function getDb(): DatabaseSync {
-  if (globalForDb.__novaCityDb) return globalForDb.__novaCityDb;
+  if (globalForDb.__bengaluruTrafficDb) return globalForDb.__bengaluruTrafficDb;
   const dir = path.join(process.cwd(), "data");
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const db = new DatabaseSync(path.join(dir, "nova-city.db"));
+  const db = new DatabaseSync(path.join(dir, "bengaluru-traffic.db"));
   db.exec(`
     PRAGMA journal_mode = WAL;
     CREATE TABLE IF NOT EXISTS network (
@@ -35,7 +35,7 @@ export function getDb(): DatabaseSync {
       rows INTEGER NOT NULL
     );
   `);
-  globalForDb.__novaCityDb = db;
+  globalForDb.__bengaluruTrafficDb = db;
   return db;
 }
 

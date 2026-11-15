@@ -25,7 +25,7 @@ wss.on("connection", (socket) => {
     JSON.stringify({
       type: "welcome",
       peers,
-      message: "Nova City live telemetry channel",
+      message: "Bengaluru live telemetry channel",
       disclaimer: "Simulation data only",
       at: Date.now(),
     }),
@@ -77,7 +77,7 @@ const heartbeat = setInterval(() => {
 wss.on("close", () => clearInterval(heartbeat));
 
 wss.on("listening", () => {
-  console.log(`[ws] Nova City telemetry server listening on ws://localhost:${PORT}`);
+  console.log(`[ws] Bengaluru telemetry server listening on ws://localhost:${PORT}`);
 });
 
 wss.on("error", (error) => {

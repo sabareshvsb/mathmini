@@ -66,7 +66,7 @@ export default function OverviewPage() {
   return (
     <div className="space-y-4">
       <PageHeader
-        eyebrow="Nova City Command Center"
+        eyebrow="Bengaluru Command Center"
         title="Live city traffic overview"
         description="A single operational picture of the simulated road network: vehicle flow, congestion, adaptive signals and emergency corridors, all driven by graph algorithms running locally."
         actions={
@@ -82,37 +82,37 @@ export default function OverviewPage() {
         }
       >
         <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="flex items-center gap-2.5 rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
+          <div className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
             <StatusDot tone={running ? "green" : "amber"} />
             <div>
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">Engine</p>
-              <p className="text-[11px] text-slate-300">
+              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Engine</p>
+              <p className="text-[11px] text-slate-700">
                 {running ? "Streaming live simulation" : "Simulation paused"}
               </p>
             </div>
-            <span className="ml-auto font-mono text-[10px] text-cyan-200">{simClock(simTime)}</span>
+            <span className="ml-auto font-mono text-[10px] text-blue-700">{simClock(simTime)}</span>
           </div>
-          <div className="flex items-center gap-2.5 rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
-            <TrafficCone size={14} className="text-cyan-300/70" />
+          <div className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
+            <TrafficCone size={14} className="text-blue-700/70" />
             <div>
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">Signal plan</p>
-              <p className="text-[11px] text-slate-300">
+              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Signal plan</p>
+              <p className="text-[11px] text-slate-700">
                 {config.coordinatedSignals ? "Coordinated green wave" : config.adaptiveSignals ? "Adaptive demand" : "Fixed cycle"}
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2.5 rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
-            <Activity size={14} className="text-emerald-300/70" />
+          <div className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
+            <Activity size={14} className="text-emerald-700/70" />
             <div>
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">Weather model</p>
-              <p className="text-[11px] capitalize text-slate-300">{config.weather} conditions</p>
+              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Weather model</p>
+              <p className="text-[11px] capitalize text-slate-700">{config.weather} conditions</p>
             </div>
           </div>
-          <div className="flex items-center gap-2.5 rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2">
-            <Siren size={14} className="text-rose-300/70" />
+          <div className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
+            <Siren size={14} className="text-rose-700/70" />
             <div>
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-600">Priority missions</p>
-              <p className="text-[11px] text-slate-300">{activeMissions.length} active corridor{activeMissions.length === 1 ? "" : "s"}</p>
+              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Priority missions</p>
+              <p className="text-[11px] text-slate-700">{activeMissions.length} active corridor{activeMissions.length === 1 ? "" : "s"}</p>
             </div>
           </div>
         </div>
@@ -124,9 +124,9 @@ export default function OverviewPage() {
           value={formatNumber(metrics.activeVehicles)}
           unit="units"
           icon={Car}
-          accent="#22d3ee"
+          accent="#2563eb"
           hint={`${metrics.completedTrips} trips completed`}
-          trend={<span className="text-cyan-300">{metrics.vehiclesPerType.car} cars</span>}
+          trend={<span className="text-blue-700">{metrics.vehiclesPerType.car} cars</span>}
         />
         <StatCard
           label="Flow efficiency"
@@ -168,7 +168,7 @@ export default function OverviewPage() {
 
       <div className="grid gap-4 xl:grid-cols-[1.65fr_1fr]">
         <Card className="overflow-hidden">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-blue-100 px-4 py-3">
             <SectionHeader eyebrow="Real-time simulation" title="Network operations map" className="flex-1" />
             <div className="flex items-center gap-1.5">
               <Badge tone="cyan" dot>
@@ -201,13 +201,13 @@ export default function OverviewPage() {
               />
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
-              <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-600">Avg waiting</p>
-                <p className="mt-0.5 font-mono text-sm text-slate-200">{metrics.avgWaitingSec.toFixed(0)}s</p>
+              <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">Avg waiting</p>
+                <p className="mt-0.5 font-mono text-sm text-slate-800">{metrics.avgWaitingSec.toFixed(0)}s</p>
               </div>
-              <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-600">Signal state</p>
-                <p className="mt-0.5 font-mono text-sm text-emerald-300">{metrics.signalEfficiency}%</p>
+              <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">Signal state</p>
+                <p className="mt-0.5 font-mono text-sm text-emerald-700">{metrics.signalEfficiency}%</p>
               </div>
             </div>
           </Card>
@@ -220,17 +220,17 @@ export default function OverviewPage() {
                 return (
                   <div key={signal.nodeId}>
                     <div className="flex items-center justify-between gap-2 text-[10.5px]">
-                      <span className="min-w-0 truncate text-slate-300">
+                      <span className="min-w-0 truncate text-slate-700">
                         <span className="font-mono text-slate-500">{signal.nodeId}</span> {node?.name ?? "Intersection"}
                       </span>
                       <span className="flex shrink-0 items-center gap-1.5 font-mono">
                         <span
                           className={
                             signal.phase === "GREEN"
-                              ? "text-emerald-300"
+                              ? "text-emerald-700"
                               : signal.phase === "YELLOW"
-                                ? "text-amber-300"
-                                : "text-rose-300"
+                                ? "text-amber-700"
+                                : "text-rose-700"
                           }
                         >
                           {signal.phase}
@@ -240,7 +240,7 @@ export default function OverviewPage() {
                     </div>
                     <Progress
                       value={(signal.queue / Math.max(1, metrics.activeVehicles * 0.35)) * 100}
-                      color={signal.queue > 14 ? "#fb923c" : "#22d3ee"}
+                      color={signal.queue > 14 ? "#fb923c" : "#2563eb"}
                       height={4}
                       className="mt-1"
                     />
@@ -272,7 +272,7 @@ export default function OverviewPage() {
             series={[
               {
                 name: "Avg speed (km/h)",
-                color: "#22d3ee",
+                color: "#2563eb",
                 values: recentHistory.map((point) => point.avgSpeedKmh),
                 fill: true,
               },
@@ -293,12 +293,12 @@ export default function OverviewPage() {
             {Object.entries(metrics.vehiclesPerType).map(([type, value]) => {
               const meta = VEHICLE_META[type as keyof typeof VEHICLE_META];
               return (
-                <div key={type} className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-2.5 py-2">
-                  <p className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-600">
+                <div key={type} className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
+                  <p className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
                     <span className="h-1.5 w-1.5 rounded-full" style={{ background: meta.color }} />
                     {meta.label}
                   </p>
-                  <p className="mt-0.5 font-mono text-sm text-slate-200">{value}</p>
+                  <p className="mt-0.5 font-mono text-sm text-slate-800">{value}</p>
                 </div>
               );
             })}
@@ -311,7 +311,7 @@ export default function OverviewPage() {
               color="#a78bfa"
               highlightIndex={new Date().getHours()}
             />
-            <p className="mt-1 text-center font-mono text-[8px] uppercase tracking-[0.14em] text-slate-600">
+            <p className="mt-1 text-center font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">
               Simulated 24-hour volume profile
             </p>
           </div>
@@ -327,14 +327,14 @@ export default function OverviewPage() {
           />
           <div className="mt-3 space-y-2">
             {activeIncidents.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-white/10 px-3 py-6 text-center text-[11px] text-slate-600">
+              <p className="rounded-lg border border-dashed border-blue-100 px-3 py-6 text-center text-[11px] text-slate-500">
                 No simulated incidents on the network.
               </p>
             ) : (
               activeIncidents.slice(0, 4).map((incident) => (
-                <div key={incident.id} className="rounded-lg border border-rose-400/15 bg-rose-400/[0.04] px-3 py-2">
+                <div key={incident.id} className="rounded-lg border border-rose-200 bg-rose-400/[0.04] px-3 py-2">
                   <div className="flex items-center justify-between gap-2">
-                    <p className="text-[11px] font-medium text-rose-100">{incident.note}</p>
+                    <p className="text-[11px] font-medium text-rose-700">{incident.note}</p>
                     <Badge tone="red">{incident.kind}</Badge>
                   </div>
                   <p className="mt-0.5 font-mono text-[9px] text-slate-500">
@@ -359,15 +359,15 @@ export default function OverviewPage() {
           />
           <div className="mt-3 space-y-2">
             {activeMissions.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-white/10 px-3 py-6 text-center text-[11px] text-slate-600">
+              <p className="rounded-lg border border-dashed border-blue-100 px-3 py-6 text-center text-[11px] text-slate-500">
                 Fleet idle. Dispatch from the emergency console.
               </p>
             ) : (
               activeMissions.slice(0, 3).map((mission) => (
-                <div key={mission.id} className="rounded-lg border border-white/[0.07] bg-ink-950/30 px-3 py-2">
+                <div key={mission.id} className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
                   <div className="flex items-center justify-between gap-2">
-                    <p className="truncate text-[11px] font-medium text-slate-200">{mission.label}</p>
-                    <span className="font-mono text-[9px] text-rose-300">{Math.round(mission.progress * 100)}%</span>
+                    <p className="truncate text-[11px] font-medium text-slate-800">{mission.label}</p>
+                    <span className="font-mono text-[9px] text-rose-700">{Math.round(mission.progress * 100)}%</span>
                   </div>
                   <p className="font-mono text-[9px] text-slate-500">
                     {mission.origin} → {mission.destination} · ETA {Math.max(0, Math.round(mission.etaSec / 60))} min
@@ -393,10 +393,10 @@ export default function OverviewPage() {
           <div className="scroll-area mt-3 max-h-[196px] space-y-1.5 overflow-y-auto pr-1">
             {logs.slice(0, 10).map((log) => (
               <div key={log.id} className="flex items-start gap-2 text-[10px]">
-                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: log.severity === "critical" ? "#fb7185" : log.severity === "warning" ? "#fbbf24" : log.severity === "success" ? "#34d399" : "#22d3ee" }} />
+                <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: log.severity === "critical" ? "#fb7185" : log.severity === "warning" ? "#fbbf24" : log.severity === "success" ? "#34d399" : "#2563eb" }} />
                 <div className="min-w-0">
-                  <p className="text-slate-400">{log.message}</p>
-                  <p className="font-mono text-[8px] text-slate-600">
+                  <p className="text-slate-600">{log.message}</p>
+                  <p className="font-mono text-[8px] text-slate-500">
                     {simClock(log.simSec)} · {log.kind}
                   </p>
                 </div>
@@ -424,8 +424,8 @@ export default function OverviewPage() {
             {utilization.map((road) => (
               <div key={road.edgeId}>
                 <div className="flex items-baseline justify-between gap-2">
-                  <span className="min-w-0 truncate text-[11px] text-slate-300">{road.name}</span>
-                  <span className="font-mono text-[10px] text-slate-400">{road.utilizationPct.toFixed(0)}%</span>
+                  <span className="min-w-0 truncate text-[11px] text-slate-700">{road.name}</span>
+                  <span className="font-mono text-[10px] text-slate-600">{road.utilizationPct.toFixed(0)}%</span>
                 </div>
                 <Progress
                   value={road.utilizationPct}
@@ -435,7 +435,7 @@ export default function OverviewPage() {
                   height={5}
                   className="mt-1"
                 />
-                <p className="mt-0.5 font-mono text-[8px] text-slate-600">
+                <p className="mt-0.5 font-mono text-[8px] text-slate-500">
                   {road.from} ↔ {road.to} · {road.vehicles} vehicles
                 </p>
               </div>
@@ -447,7 +447,7 @@ export default function OverviewPage() {
           <Card className="flex flex-col items-center p-4">
             <SectionHeader eyebrow="Composite score" title="Simulation health" className="w-full" />
             <GaugeChart value={metrics.flowEfficiency} label="Flow efficiency" size={190} />
-            <p className="mt-1 max-w-[240px] text-center text-[10px] leading-relaxed text-slate-600">
+            <p className="mt-1 max-w-[240px] text-center text-[10px] leading-relaxed text-slate-500">
               Composite of speed, waiting time and network distribution. Calculated entirely from simulated values.
             </p>
           </Card>
@@ -455,7 +455,7 @@ export default function OverviewPage() {
         </div>
       </div>
 
-      <div className="grid gap-2 text-[9px] text-slate-600 sm:grid-cols-3">
+      <div className="grid gap-2 text-[9px] text-slate-500 sm:grid-cols-3">
         <span className="flex items-center gap-1.5">
           <Waypoints size={10} /> {metrics.totalIntersections} intersections · {metrics.totalRoads} road segments
         </span>

@@ -89,12 +89,12 @@ export default function EmergencyPage() {
         <StatCard label="Fleet available" value={`${idle.length}/${fleet.length}`} icon={Ambulance} accent="#34d399" hint="Idle response units" delay={1} />
         <StatCard label="Preempted signals" value={preemptedSignals} icon={TrafficCone} accent="#fbbf24" hint="Forced green phases" delay={2} />
         <StatCard label="Emergency vehicles" value={metrics.emergencyVehicles} icon={RouteIcon} accent="#a78bfa" hint="In the network now" delay={3} />
-        <StatCard label="Avg response" value={Number.isFinite(avgResponse) ? avgResponse.toFixed(0) : "—"} unit="s" icon={Timer} accent="#22d3ee" hint="Completed simulated calls" delay={4} />
+        <StatCard label="Avg response" value={Number.isFinite(avgResponse) ? avgResponse.toFixed(0) : "—"} unit="s" icon={Timer} accent="#2563eb" hint="Completed simulated calls" delay={4} />
       </div>
 
       <div className="grid gap-4 xl:grid-cols-[1.55fr_1fr]">
         <Card className="overflow-hidden">
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-white/[0.06] px-4 py-3">
+          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-blue-100 px-4 py-3">
             <SectionHeader eyebrow="Priority overlay" title="Emergency corridor map" className="flex-1" />
             <div className="flex items-center gap-1.5">
               <Badge tone="red" dot>
@@ -104,7 +104,7 @@ export default function EmergencyPage() {
             </div>
           </div>
           <NetworkMap height="clamp(380px, 54vh, 620px)" />
-          <div className="grid gap-2 border-t border-white/[0.06] px-4 py-3 sm:grid-cols-3">
+          <div className="grid gap-2 border-t border-blue-100 px-4 py-3 sm:grid-cols-3">
             <Mini label="Priority route" value={`${active.reduce((sum, mission) => sum + mission.routeEdges.length, 0)} segments`} />
             <Mini label="Intersections cleared" value={String(active.reduce((sum, mission) => sum + mission.preemptedNodes.length, 0))} />
             <Mini label="Average ETA" value={active.length ? formatEta(active.reduce((sum, mission) => sum + mission.etaSec, 0) / active.length) : "—"} />
@@ -134,16 +134,16 @@ export default function EmergencyPage() {
                 </Select>
               </Field>
               {activeFleet ? (
-                <div className="rounded-lg border border-white/[0.06] bg-ink-950/30 px-3 py-2 text-[10px]">
+                <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 text-[10px]">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Origin base</span>
-                    <span className="font-mono text-slate-300">
+                    <span className="font-mono text-slate-700">
                       {activeFleet.baseNode} · {nodeName(activeFleet.baseNode)}
                     </span>
                   </div>
                   <div className="mt-1 flex items-center justify-between">
                     <span className="text-slate-500">Status</span>
-                    <span className={activeFleet.status === "idle" ? "text-emerald-300" : "text-rose-300"}>
+                    <span className={activeFleet.status === "idle" ? "text-emerald-700" : "text-rose-700"}>
                       {activeFleet.status}
                     </span>
                   </div>
@@ -152,7 +152,7 @@ export default function EmergencyPage() {
               <Button variant="danger" className="w-full" onClick={dispatch} disabled={!idle.length}>
                 <Siren size={13} /> Dispatch with priority corridor
               </Button>
-              <p className="text-[9.5px] leading-relaxed text-slate-600">
+              <p className="text-[9.5px] leading-relaxed text-slate-500">
                 The fastest available route is computed with Dijkstra using emergency weights. All signals on the route
                 are forced green while the unit approaches.
               </p>
@@ -169,14 +169,14 @@ export default function EmergencyPage() {
                     key={unit.id}
                     type="button"
                     onClick={() => unit.status === "idle" && setFleetId(unit.id)}
-                    className="flex w-full items-center gap-2.5 rounded-lg border border-white/[0.06] bg-white/[0.02] px-2.5 py-2 text-left transition hover:border-white/15"
+                    className="flex w-full items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2 text-left transition hover:border-blue-200"
                   >
-                    <span className="grid h-7 w-7 place-items-center rounded-md border border-white/10 bg-white/[0.03] text-slate-400">
+                    <span className="grid h-7 w-7 place-items-center rounded-md border border-blue-100 bg-slate-50 text-slate-600">
                       <Icon size={13} />
                     </span>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-[10.5px] text-slate-300">{unit.label}</p>
-                      <p className="font-mono text-[8px] text-slate-600">
+                      <p className="truncate text-[10.5px] text-slate-700">{unit.label}</p>
+                      <p className="font-mono text-[8px] text-slate-500">
                         {unit.callsign} · base {unit.baseNode}
                       </p>
                     </div>
@@ -211,19 +211,19 @@ export default function EmergencyPage() {
                     key={mission.id}
                     className={`rounded-xl border px-3 py-2.5 ${
                       mission.status === "enroute"
-                        ? "border-rose-400/20 bg-rose-400/[0.04]"
-                        : "border-white/[0.06] bg-white/[0.02]"
+                        ? "border-rose-200 bg-rose-400/[0.04]"
+                        : "border-blue-100 bg-slate-50"
                     }`}
                   >
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="grid h-6 w-6 place-items-center rounded-md border border-white/10 bg-white/[0.03] text-rose-300">
+                      <span className="grid h-6 w-6 place-items-center rounded-md border border-blue-100 bg-slate-50 text-rose-700">
                         <Icon size={12} />
                       </span>
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-[11px] font-medium text-slate-200">
+                        <p className="truncate text-[11px] font-medium text-slate-800">
                           {mission.label} <span className="font-mono text-[9px] text-slate-500">· {mission.id}</span>
                         </p>
-                        <p className="font-mono text-[8.5px] text-slate-600">
+                        <p className="font-mono text-[8.5px] text-slate-500">
                           {mission.origin} → {mission.destination} · {mission.routeEdges.length} segments ·{" "}
                           {mission.preemptedNodes.length} signals
                         </p>
@@ -246,10 +246,10 @@ export default function EmergencyPage() {
                         {mission.status === "enroute" ? `ETA ${formatEta(mission.etaSec)}` : `${mission.progress * 100}%`}
                       </span>
                     </div>
-                    <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-0.5 font-mono text-[8px] text-slate-600">
+                    <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-0.5 font-mono text-[8px] text-slate-500">
                       <span>dispatched {simClock(mission.startedAt)}</span>
                       <span>baseline {mission.baselineTimeMin.toFixed(1)} min</span>
-                      <span className="text-emerald-300/70">priority {mission.estimatedTimeMin.toFixed(1)} min</span>
+                      <span className="text-emerald-700/70">priority {mission.estimatedTimeMin.toFixed(1)} min</span>
                       {mission.responseSec ? <span>response {mission.responseSec}s</span> : null}
                     </div>
                   </div>
@@ -264,19 +264,19 @@ export default function EmergencyPage() {
             <SectionHeader eyebrow="Preemption" title="How priority works" />
             <ol className="mt-3 space-y-2 text-[10px] leading-relaxed text-slate-500">
               <li className="flex gap-2">
-                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-400/30 bg-rose-400/10 font-mono text-[7px] text-rose-300">1</span>
+                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-mono text-[7px] text-rose-700">1</span>
                 Emergency weight context is built with a higher congestion penalty and incident avoidance.
               </li>
               <li className="flex gap-2">
-                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-400/30 bg-rose-400/10 font-mono text-[7px] text-rose-300">2</span>
+                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-mono text-[7px] text-rose-700">2</span>
                 Dijkstra returns the fastest available corridor from the unit&apos;s base intersection.
               </li>
               <li className="flex gap-2">
-                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-400/30 bg-rose-400/10 font-mono text-[7px] text-rose-300">3</span>
+                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-mono text-[7px] text-rose-700">3</span>
                 Signals on the route switch to preempted green and restore their adaptive plan after the pass.
               </li>
               <li className="flex gap-2">
-                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-400/30 bg-rose-400/10 font-mono text-[7px] text-rose-300">4</span>
+                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-mono text-[7px] text-rose-700">4</span>
                 On arrival the mission is marked complete, the unit returns to idle, and response time is recorded.
               </li>
             </ol>
@@ -286,14 +286,14 @@ export default function EmergencyPage() {
             <SectionHeader eyebrow="Radio log" title="Emergency events" />
             <div className="scroll-area mt-3 max-h-[190px] space-y-1.5 overflow-y-auto pr-1">
               {emergencyLogs.length === 0 ? (
-                <p className="text-[10px] text-slate-600">No emergency events yet.</p>
+                <p className="text-[10px] text-slate-500">No emergency events yet.</p>
               ) : (
                 emergencyLogs.map((log) => (
                   <div key={log.id} className="flex items-start gap-2 text-[10px]">
-                    <Radio size={10} className="mt-0.5 shrink-0 text-rose-300/70" />
+                    <Radio size={10} className="mt-0.5 shrink-0 text-rose-700/70" />
                     <div className="min-w-0">
-                      <p className="text-slate-400">{log.message}</p>
-                      <p className="font-mono text-[8px] text-slate-600">{simClock(log.simSec)}</p>
+                      <p className="text-slate-600">{log.message}</p>
+                      <p className="font-mono text-[8px] text-slate-500">{simClock(log.simSec)}</p>
                     </div>
                   </div>
                 ))
@@ -305,7 +305,7 @@ export default function EmergencyPage() {
         </div>
       </div>
 
-      <div className="grid gap-2 text-[9px] text-slate-600 sm:grid-cols-3">
+      <div className="grid gap-2 text-[9px] text-slate-500 sm:grid-cols-3">
         <span className="flex items-center gap-1.5">
           <MapPin size={10} /> Destination {destination} · {nodeName(destination)}
         </span>
@@ -322,9 +322,9 @@ export default function EmergencyPage() {
 
 function Mini({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-md border border-white/[0.06] bg-ink-950/30 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-600">{label}</p>
-      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-300">{value}</p>
+    <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
+      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-700">{value}</p>
     </div>
   );
 }
