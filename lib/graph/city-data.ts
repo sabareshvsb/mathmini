@@ -1,227 +1,183 @@
-import type { CityEdge, CityNetwork, CityNode } from "./types";
+﻿import type { CityEdge, CityNetwork, CityNode } from "./types";
 
 /**
- * Bengaluru road network model.
- * 30 signalised intersections, 69 bidirectional road segments.
- * Coordinates are schematic canvas positions (1200 x 820) plus an approximate
- * geographic projection. Place names and corridors are inspired by Bengaluru;
- * the dataset is deterministic so server and client render identical geometry.
+ * Bengaluru major road network model.
+ * 30 key intersections/junctions and 52 bidirectional corridors inspired by
+ * Bengaluru's primary road network (ORR, Hosur Rd, Bellary Rd, Tumkur Rd, etc.).
+ * Node positions are projected from geographic coordinates so the graph view
+ * reflects actual city layout. Traffic, incidents and travel times are simulated.
  */
 
-const COLS = 6;
-const ROWS = 5;
+const LAT_TOP = 13.12;
+const LAT_BOTTOM = 12.88;
+const LNG_LEFT = 77.44;
+const LNG_RIGHT = 77.74;
 
-const X = [135, 330, 520, 720, 910, 1085];
-const Y = [115, 290, 455, 625, 765];
-
-const NAMES = [
-  "Yelahanka",
-  "Hebbal",
-  "Nagawara",
-  "Hennur",
-  "Banaswadi",
-  "KR Puram",
-  "Peenya",
-  "Yeshwanthpur",
-  "Malleshwaram",
-  "Sadashivanagar",
-  "Jayamahal",
-  "Indiranagar",
-  "Nagarbhavi",
-  "Rajajinagar",
-  "Majestic",
-  "MG Road",
-  "Domlur",
-  "Marathahalli",
-  "Kengeri",
-  "Vijayanagar",
-  "Chamrajpet",
-  "KR Market",
-  "Koramangala",
-  "Bellandur",
-  "Electronic City",
-  "JP Nagar",
-  "Jayanagar",
-  "Lalbagh",
-  "HSR Layout",
-  "Sarjapur Road",
-];
-
-const DISTRICTS = [
-  "North", "North", "North East", "North East", "East", "East",
-  "West", "North West", "Central", "Central", "Central", "East",
-  "West", "West", "Central", "Central", "East", "East",
-  "South West", "South West", "South", "South", "South East", "South East",
-  "South", "South", "South", "South", "South East", "South East",
-];
-
-const HORIZONTAL = [
-  "Bellary Road · North Corridor",
-  "Tumkur Road · West Link",
-  "Old Airport Road · Central Corridor",
-  "Outer Ring Road · South",
-  "Bannerghatta Road · South Link",
-];
-
-const VERTICAL = [
-  "Mysore Road",
-  "Magadi Road",
-  "Chord Road · Bellary Road",
-  "Hosur Road",
-  "Old Airport Road",
-  "Old Madras Road · Sarjapur Link",
-];
-
-const EXTRA_ROADS: Array<[number, number, string]> = [
-  [3, 10, "Hebbal Flyover"],
-  [8, 15, "Cubbon Park Link"],
-  [9, 16, "MG Road Underpass"],
-  [14, 21, "KR Market Connector"],
-  [15, 22, "Hosur Road Flyover"],
-  [20, 27, "Jayanagar Link"],
-  [21, 28, "Silk Board Flyover"],
-  [2, 8, "Yelahanka Link"],
-  [11, 17, "Domlur Flyover"],
-  [17, 23, "Bellandur Link"],
-  [12, 18, "NICE Road Connector"],
-  [24, 30, "Electronic City Flyover"],
-  [4, 11, "Hennur · Indiranagar Link"],
-  [6, 12, "Nagarbhavi Link"],
-  [1, 8, "Hebbal · Yeshwanthpur Link"],
-  [19, 26, "Kengeri · JP Nagar Link"],
-  [10, 17, "Sadashivanagar Link"],
-  [22, 29, "Sarjapur Road Connector"],
-  [5, 12, "Banaswadi · KR Puram Link"],
-  [18, 24, "Bommanahalli Link"],
-];
-
-function pseudoRandom(seed: number): number {
-  const x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
-  return x - Math.floor(x);
-}
-
-function nodeId(index: number): string {
-  return `J${String(index + 1).padStart(2, "0")}`;
-}
-
-function projectGeo(x: number, y: number) {
+function geoToXY(lat: number, lng: number) {
   return {
-    lat: Number((13.12 - (y / 820) * 0.24).toFixed(6)),
-    lng: Number((77.44 + (x / 1200) * 0.3).toFixed(6)),
+    x: Math.round(((lng - LNG_LEFT) / (LNG_RIGHT - LNG_LEFT)) * 1200),
+    y: Math.round(((LAT_TOP - lat) / (LAT_TOP - LAT_BOTTOM)) * 820),
   };
 }
 
+type NodeSeed = {
+  id: string;
+  name: string;
+  district: string;
+  lat: number;
+  lng: number;
+  type?: CityNode["type"];
+};
+
+const NODE_SEEDS: NodeSeed[] = [
+  { id: "J01", name: "Hebbal", district: "North", lat: 13.0358, lng: 77.5970 },
+  { id: "J02", name: "Yelahanka", district: "North", lat: 13.1007, lng: 77.5963, type: "terminal" },
+  { id: "J03", name: "Yeshwanthpur", district: "North West", lat: 13.0280, lng: 77.5400 },
+  { id: "J04", name: "Peenya", district: "West", lat: 13.0285, lng: 77.5195, type: "terminal" },
+  { id: "J05", name: "KR Puram", district: "East", lat: 13.0096, lng: 77.6960 },
+  { id: "J06", name: "Whitefield", district: "East", lat: 12.9698, lng: 77.7499, type: "terminal" },
+  { id: "J07", name: "Majestic", district: "Central", lat: 12.9776, lng: 77.5713 },
+  { id: "J08", name: "Malleshwaram", district: "Central", lat: 13.0031, lng: 77.5643 },
+  { id: "J09", name: "MG Road", district: "Central", lat: 12.9758, lng: 77.6045 },
+  { id: "J10", name: "Indiranagar", district: "East", lat: 12.9784, lng: 77.6408 },
+  { id: "J11", name: "Domlur", district: "East", lat: 12.9607, lng: 77.6387 },
+  { id: "J12", name: "Marathahalli", district: "East", lat: 12.9592, lng: 77.6974 },
+  { id: "J13", name: "Rajajinagar", district: "West", lat: 12.9916, lng: 77.5523 },
+  { id: "J14", name: "Vijayanagar", district: "West", lat: 12.9719, lng: 77.5300 },
+  { id: "J15", name: "KR Market", district: "Central", lat: 12.9654, lng: 77.5776 },
+  { id: "J16", name: "Shivajinagar", district: "Central", lat: 12.9857, lng: 77.6057 },
+  { id: "J17", name: "Koramangala", district: "South East", lat: 12.9352, lng: 77.6245 },
+  { id: "J18", name: "Silk Board", district: "South East", lat: 12.9177, lng: 77.6238, type: "roundabout" },
+  { id: "J19", name: "HSR Layout", district: "South East", lat: 12.9121, lng: 77.6446 },
+  { id: "J20", name: "Bellandur", district: "South East", lat: 12.9260, lng: 77.6762 },
+  { id: "J21", name: "Sarjapur Road", district: "South East", lat: 12.9103, lng: 77.6822, type: "terminal" },
+  { id: "J22", name: "Jayanagar", district: "South", lat: 12.9308, lng: 77.5838 },
+  { id: "J23", name: "JP Nagar", district: "South", lat: 12.9063, lng: 77.5857 },
+  { id: "J24", name: "Banashankari", district: "South", lat: 12.9250, lng: 77.5468 },
+  { id: "J25", name: "Kengeri", district: "South West", lat: 12.8996, lng: 77.4827, type: "terminal" },
+  { id: "J26", name: "Electronic City", district: "South", lat: 12.8399, lng: 77.6770, type: "terminal" },
+  { id: "J27", name: "BTM Layout", district: "South", lat: 12.9166, lng: 77.6101 },
+  { id: "J28", name: "Richmond Town", district: "Central", lat: 12.9662, lng: 77.5993 },
+  { id: "J29", name: "Mysore Road", district: "South West", lat: 12.9462, lng: 77.5298 },
+  { id: "J30", name: "Tin Factory", district: "East", lat: 12.9960, lng: 77.6685 },
+];
+
+type EdgeSeed = [from: string, to: string, corridor: string, speedLimit: number, lanes: number];
+
+const EDGE_SEEDS: EdgeSeed[] = [
+  ["J02", "J01", "Bellary Road", 70, 4],
+  ["J01", "J08", "Bellary Road", 60, 4],
+  ["J08", "J16", "CV Raman Road", 50, 3],
+  ["J16", "J09", "Cubbon Road", 45, 3],
+  ["J09", "J28", "MG Road - Residency", 40, 3],
+  ["J28", "J15", "JC Road", 40, 3],
+  ["J15", "J22", "KR Road", 45, 3],
+  ["J22", "J23", "Kanakapura Road", 50, 3],
+  ["J23", "J27", "Bannerghatta Road", 50, 3],
+  ["J27", "J18", "Hosur Road", 55, 4],
+  ["J18", "J19", "Outer Ring Road", 60, 4],
+  ["J19", "J20", "Outer Ring Road", 60, 4],
+  ["J20", "J12", "Outer Ring Road", 60, 4],
+  ["J12", "J30", "Varthur - HAL Road", 55, 3],
+  ["J30", "J05", "Old Madras Road", 60, 4],
+  ["J05", "J01", "Outer Ring Road", 65, 4],
+  ["J04", "J03", "Tumkur Road", 60, 4],
+  ["J03", "J13", "Tumkur Road", 55, 4],
+  ["J13", "J07", "Dr Rajkumar Road", 45, 3],
+  ["J07", "J15", "KG Road", 40, 4],
+  ["J14", "J29", "Magadi Road", 50, 3],
+  ["J29", "J24", "Mysore Road Connector", 50, 3],
+  ["J24", "J22", "Outer Ring Road", 55, 3],
+  ["J25", "J29", "Mysore Road", 70, 4],
+  ["J07", "J08", "Seshadri Road", 40, 3],
+  ["J03", "J08", "Yeshwanthpur Link", 45, 3],
+  ["J09", "J10", "Swami Vivekananda Road", 45, 3],
+  ["J10", "J11", "100 Feet Road", 45, 3],
+  ["J11", "J17", "Inner Ring Road", 50, 3],
+  ["J17", "J27", "Hosur Road", 55, 4],
+  ["J17", "J18", "Hosur Road", 60, 4],
+  ["J18", "J26", "Hosur Road Elevated", 70, 6],
+  ["J11", "J12", "HAL Airport Road", 55, 3],
+  ["J10", "J30", "Old Madras Road Link", 55, 3],
+  ["J20", "J21", "Sarjapur Road", 55, 3],
+  ["J19", "J21", "Sarjapur Main Road", 50, 3],
+  ["J13", "J14", "Chord Road", 45, 3],
+  ["J14", "J07", "Magadi Road", 45, 3],
+  ["J16", "J01", "Mekhri Circle Road", 55, 4],
+  ["J28", "J17", "Richmond - Adugodi Road", 45, 3],
+  ["J24", "J23", "Outer Ring Road", 55, 3],
+  ["J29", "J15", "Mysore Road Flyover", 55, 4],
+  ["J09", "J11", "Old Airport Road", 50, 3],
+  ["J12", "J06", "Whitefield Main Road", 55, 3],
+  ["J05", "J06", "ITPL Main Road", 55, 3],
+  ["J01", "J03", "Outer Ring Road", 60, 4],
+  ["J23", "J18", "Bannerghatta - Hosur Link", 50, 3],
+  ["J27", "J22", "Bannerghatta Road", 45, 3],
+  ["J15", "J14", "Mysore Road", 45, 3],
+  ["J16", "J07", "Palace Road", 40, 3],
+  ["J10", "J05", "Old Madras Road", 55, 3],
+  ["J20", "J11", "Intermediate Ring Road", 50, 3],
+];
+
 function buildNodes(): CityNode[] {
-  const nodes: CityNode[] = [];
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS; c++) {
-      const index = r * COLS + c;
-      const jitterX = Math.sin(index * 1.71) * 10;
-      const jitterY = Math.cos(index * 2.33) * 9;
-      const x = Math.round(X[c] + jitterX);
-      const y = Math.round(Y[r] + jitterY);
-      const geo = projectGeo(x, y);
-      nodes.push({
-        id: nodeId(index),
-        name: NAMES[index],
-        district: DISTRICTS[index],
-        x,
-        y,
-        lat: geo.lat,
-        lng: geo.lng,
-        type: index === 0 || index === 5 || index === 24 || index === 29 ? "terminal" : "signalized",
-        signalized: true,
-      });
-    }
-  }
-  return nodes;
+  return NODE_SEEDS.map((seed) => {
+    const { x, y } = geoToXY(seed.lat, seed.lng);
+    return {
+      id: seed.id,
+      name: seed.name,
+      district: seed.district,
+      x,
+      y,
+      lat: Number(seed.lat.toFixed(6)),
+      lng: Number(seed.lng.toFixed(6)),
+      type: seed.type ?? "signalized",
+      signalized: true,
+    };
+  });
 }
 
-function distanceKm(a: CityNode, b: CityNode): number {
-  const px = Math.hypot(a.x - b.x, a.y - b.y);
-  return Number((px * 0.0125).toFixed(2));
+function corridorDemand(corridor: string, speedLimit: number, lanes: number, seed: number) {
+  const high = /Outer Ring|Hosur|Bellary|Tumkur|Old Madras|Airport/i.test(corridor);
+  const base = high ? 0.34 : 0.24;
+  return Number(Math.min(0.62, base + (lanes - 3) * 0.03 + (70 - speedLimit) * 0.0015 + (seed % 7) * 0.01).toFixed(3));
+}
+
+export function haversineKm(a: Pick<CityNode, "lat" | "lng">, b: Pick<CityNode, "lat" | "lng">): number {
+  const R = 6371;
+  const dLat = ((b.lat - a.lat) * Math.PI) / 180;
+  const dLng = ((b.lng - a.lng) * Math.PI) / 180;
+  const lat1 = (a.lat * Math.PI) / 180;
+  const lat2 = (b.lat * Math.PI) / 180;
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
 }
 
 export function buildCityNetwork(): CityNetwork {
   const nodes = buildNodes();
-  const edges: CityEdge[] = [];
-  let edgeCounter = 0;
-
-  const addEdge = (
-    fromIdx: number,
-    toIdx: number,
-    corridor: string,
-    speedLimit: number,
-    lanes: number,
-  ) => {
-    const from = nodes[fromIdx];
-    const to = nodes[toIdx];
-    const midX = (from.x + to.x) / 2;
-    const midY = (from.y + to.y) / 2;
-    const centrality = Math.max(
-      0,
-      Math.min(1, 1 - Math.hypot((midX - 600) / 620, (midY - 410) / 430)),
-    );
-    const jitter = pseudoRandom(edgeCounter + 3);
-    const baseDemand = Number(
-      Math.min(
-        0.62,
-        0.14 + centrality * 0.32 + (lanes - 2) * 0.018 + jitter * 0.06,
-      ).toFixed(3),
-    );
-    edgeCounter += 1;
-    edges.push({
-      id: `E${String(edgeCounter).padStart(3, "0")}`,
-      from: from.id,
-      to: to.id,
-      name: `${corridor}`,
+  const byId = new Map(nodes.map((n) => [n.id, n]));
+  const edges: CityEdge[] = EDGE_SEEDS.map(([from, to, corridor, speedLimit, lanes], i) => {
+    const a = byId.get(from)!;
+    const b = byId.get(to)!;
+    return {
+      id: `E${String(i + 1).padStart(3, "0")}`,
+      from,
+      to,
+      name: corridor,
       corridor,
-      lengthKm: distanceKm(from, to),
+      lengthKm: Number(haversineKm(a, b).toFixed(2)),
       speedLimit,
       lanes,
-      baseDemand,
-    });
-  };
-
-  for (let r = 0; r < ROWS; r++) {
-    for (let c = 0; c < COLS - 1; c++) {
-      addEdge(
-        r * COLS + c,
-        r * COLS + c + 1,
-        HORIZONTAL[r],
-        r === 0 ? 65 : r === 2 ? 55 : 50,
-        r === 2 ? 4 : 3,
-      );
-    }
-  }
-
-  for (let c = 0; c < COLS; c++) {
-    for (let r = 0; r < ROWS - 1; r++) {
-      addEdge(
-        r * COLS + c,
-        (r + 1) * COLS + c,
-        VERTICAL[c],
-        c === 2 ? 55 : 45,
-        c === 2 ? 4 : 3,
-      );
-    }
-  }
-
-  for (const [from, to, name] of EXTRA_ROADS) {
-    addEdge(from - 1, to - 1, name, 65, 3);
-  }
-
-  for (const node of nodes) {
-    const degree = edges.filter((e) => e.from === node.id || e.to === node.id).length;
-    if (node.type !== "terminal" && node.id === "J15") node.type = "roundabout";
-    else if (node.type !== "terminal" && degree >= 5) node.type = "signalized";
-  }
+      baseDemand: corridorDemand(corridor, speedLimit, lanes, i),
+    };
+  });
 
   return {
-    name: "Bengaluru · Central Traffic Grid",
-    version: 2,
+    name: "Bengaluru Major Road Network",
+    version: 3,
     description:
-      "Bengaluru-inspired synthetic road graph used by the simulation engine. Intersections and corridors reference real areas, but all traffic, incidents and travel times in this application are simulated.",
+      "Bengaluru-inspired road graph of major intersections and primary corridors (ORR, Hosur Road, Bellary Road, Tumkur Road and key arterials). Node locations are geographically projected; traffic, incidents and travel times are simulated.",
     nodes,
     edges,
   };
@@ -252,16 +208,4 @@ export function networkStats(network: CityNetwork) {
     totalLengthKm: Number(totalLength.toFixed(1)),
     districts: new Set(network.nodes.map((n) => n.district)).size,
   };
-}
-
-export function haversineKm(a: CityNode, b: CityNode): number {
-  const R = 6371;
-  const dLat = ((b.lat - a.lat) * Math.PI) / 180;
-  const dLng = ((b.lng - a.lng) * Math.PI) / 180;
-  const lat1 = (a.lat * Math.PI) / 180;
-  const lat2 = (b.lat * Math.PI) / 180;
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
 }

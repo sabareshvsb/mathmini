@@ -229,12 +229,12 @@ export function NetworkMap({
     return Math.min(10, 5.4 + degree * 0.55) + (node.type === "terminal" ? 1.2 : 0);
   }
 
-  return (
-    <div
-      className={cn("map-shell group/map", !height && "aspect-[1200/820]", className)}
-      style={height ? { height } : undefined}
-    >
-      {mapView === "geo" ? (
+  if (mapView === "geo") {
+    return (
+      <div
+        className={cn("map-shell group/map overflow-hidden", !height && "aspect-[1200/820]", className)}
+        style={height ? { height } : undefined}
+      >
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.84916296526!2d77.49085452149588!3d12.953997400000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000"
           className="absolute inset-0 h-full w-full border-0"
@@ -243,14 +243,39 @@ export function NetworkMap({
           referrerPolicy="no-referrer-when-downgrade"
           title="Bengaluru map"
         />
-      ) : null}
+        <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap items-center gap-1.5">
+          <span className="pointer-events-auto inline-flex items-center gap-1.5 rounded-md border border-blue-100 bg-white/90 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-600 shadow-sm backdrop-blur">
+            <span className="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_6px_#2563eb]" />
+            Geographic View � Bengaluru
+          </span>
+          <span className="pointer-events-auto rounded-md border border-blue-200 bg-blue-500/[0.06] px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-blue-700/80 backdrop-blur">
+            live map
+          </span>
+        </div>
+        {controlsVisible ? (
+          <div className="absolute right-3 top-3 flex flex-col gap-1.5">
+            <button
+              type="button"
+              onClick={() => setMapView("graph")}
+              title="Switch to road network view"
+              className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 shadow-sm backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
+            >
+              <NetworkIcon size={14} />
+            </button>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={cn("map-shell group/map", !height && "aspect-[1200/820]", className)}
+      style={height ? { height } : undefined}
+    >
       <div
         ref={containerRef}
-        className={cn(
-          "absolute inset-0 touch-none",
-          interactive && "cursor-grab active:cursor-grabbing",
-          mapView === "geo" && "pointer-events-none",
-        )}
+        className={cn("absolute inset-0 touch-none", interactive && "cursor-grab active:cursor-grabbing")}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -306,19 +331,15 @@ export function NetworkMap({
             </filter>
           </defs>
 
-          <rect width="1200" height="820" fill={mapView === "geo" ? "transparent" : "#ffffff"} />
-          {mapView !== "geo" ? (
-            <>
-              <rect width="1200" height="820" fill={`url(#${uid}-glow)`} />
-              <rect width="1200" height="820" fill={`url(#${uid}-dots)`} opacity="0.55" />
-            </>
-          ) : null}
+          <rect width="1200" height="820" fill="#ffffff" />
+          <rect width="1200" height="820" fill={`url(#${uid}-glow)`} />
+          <rect width="1200" height="820" fill={`url(#${uid}-dots)`} opacity="0.55" />
 
           <g
             style={{ transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.k})` }}
             className="transition-transform duration-75"
           >
-            {mapView === "geo" ? null : <GraphBackdrop uid={uid} />}
+            <GraphBackdrop uid={uid} />
 
             {heatmap ? (
               <g pointerEvents="none">
@@ -665,7 +686,6 @@ export function NetworkMap({
             </g>
           </g>
 
-          {mapView === "geo" ? null : null}
         </svg>
       </div>
 

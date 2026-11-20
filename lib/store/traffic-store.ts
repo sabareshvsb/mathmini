@@ -538,7 +538,7 @@ export const useTrafficStore = create<TrafficStore>()((set, get) => ({
 export const demoSteps = [
   {
     title: "Load the sample city graph",
-    body: "Bengaluru is modelled as a weighted graph G = (V, E). Thirty signalised intersections form the vertex set V, and 69 road segments form the edge set E. Every road carries a live simulation weight.",
+      body: "Bengaluru is modelled as a weighted graph G = (V, E). Major intersections form the vertex set V and primary road corridors form the edge set E, laid out to reflect the city's actual geography. Every road carries a live simulation weight.",
     action: "load",
   },
   {
