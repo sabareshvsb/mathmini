@@ -229,7 +229,20 @@ export function NetworkMap({
     return Math.min(10, 5.4 + degree * 0.55) + (node.type === "terminal" ? 1.2 : 0);
   }
 
-  if (mapView === "geo") {
+  const hasOverlay =
+    Boolean(routeEdges?.length) ||
+    Boolean(alternativeEdges?.some((edges) => edges.length > 0)) ||
+    Boolean(emergencyEdges?.length) ||
+    Boolean(mstEdges?.length) ||
+    Boolean(visitedNodes?.length) ||
+    Boolean(visitedEdges?.length) ||
+    Boolean(activeEdge) ||
+    effectiveRoute.length > 0 ||
+    effectiveAlternatives.some((edges) => edges.length > 0) ||
+    effectiveEmergency.length > 0 ||
+    (effectiveMst?.length ?? 0) > 0;
+
+  if (mapView === "geo" && !hasOverlay) {
     return (
       <div
         className={cn("map-shell group/map overflow-hidden", !height && "aspect-[1200/820]", className)}
