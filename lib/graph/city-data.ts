@@ -8,10 +8,10 @@
  * reflects actual city layout. Traffic, incidents and travel times are simulated.
  */
 
-const LAT_TOP = 13.12;
-const LAT_BOTTOM = 12.88;
-const LNG_LEFT = 77.44;
-const LNG_RIGHT = 77.74;
+const LAT_TOP = 13.13;
+const LAT_BOTTOM = 12.82;
+const LNG_LEFT = 77.46;
+const LNG_RIGHT = 77.77;
 
 function geoToXY(lat: number, lng: number) {
   return {

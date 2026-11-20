@@ -153,6 +153,28 @@ export function NetworkMap({
       .slice(0, 14);
   }, [network, roads]);
 
+  const routeKey = effectiveRoute.join(",");
+  useEffect(() => {
+    if (!effectiveRoute.length) return;
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    for (const id of effectiveRoute) {
+      const edge = edgesById.get(id);
+      if (!edge) continue;
+      const a = nodeMap.get(edge.from);
+      const b = nodeMap.get(edge.to);
+      if (a) { minX = Math.min(minX, a.x); minY = Math.min(minY, a.y); maxX = Math.max(maxX, a.x); maxY = Math.max(maxY, a.y); }
+      if (b) { minX = Math.min(minX, b.x); minY = Math.min(minY, b.y); maxX = Math.max(maxX, b.x); maxY = Math.max(maxY, b.y); }
+    }
+    if (!isFinite(minX)) return;
+    const pad = 90;
+    const w = Math.max(1, maxX - minX + pad * 2);
+    const h = Math.max(1, maxY - minY + pad * 2);
+    const k = Math.max(0.7, Math.min(3.2, Math.min(1200 / w, 820 / h)));
+    const cx = (minX + maxX) / 2;
+    const cy = (minY + maxY) / 2;
+    setViewport({ k, x: 600 - cx * k, y: 410 - cy * k });
+  }, [routeKey, edgesById, nodeMap]);
+
   useEffect(() => {
     const element = containerRef.current;
     if (!element || !interactive) return;
@@ -387,133 +409,25 @@ export function NetworkMap({
                 const isEmergency = emergencySet.has(edge.id);
                 const isMst = mstSet.has(edge.id);
                 const isVisited = visitedEdgeSet.has(edge.id);
-                const isActive = activeEdge === edge.id;
                 const dim =
                   (dimNonRoute && hasPrimaryRoute && !isRoute && !isEmergency) ||
                   (effectiveMst && !isMst);
                 const width = 1.4 + edge.lanes * 0.55;
 
                 return (
-                  <g key={edge.id} opacity={dim ? 0.22 : 1}>
+                  <g key={`base-${edge.id}`} opacity={dim ? 0.22 : 1}>
+                    <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#cbd5e1" strokeWidth={width + 3.4} strokeLinecap="round" />
                     <line
-                      x1={from.x}
-                      y1={from.y}
-                      x2={to.x}
-                      y2={to.y}
-                      stroke="#cbd5e1"
-                      strokeWidth={width + 3.4}
-                      strokeLinecap="round"
-                    />
-                    <line
-                      x1={from.x}
-                      y1={from.y}
-                      x2={to.x}
-                      y2={to.y}
+                      x1={from.x} y1={from.y} x2={to.x} y2={to.y}
                       stroke={color}
                       strokeWidth={width + 0.8}
                       strokeLinecap="round"
                       strokeOpacity={road?.blocked ? 0.5 : isVisited ? 0.85 : 0.66}
                       strokeDasharray={road?.blocked ? "7 5" : isMst && !isRoute ? "9 5" : undefined}
                     />
-                    {isVisited ? (
-                      <line
-                        x1={from.x}
-                        y1={from.y}
-                        x2={to.x}
-                        y2={to.y}
-                        stroke="#2563eb"
-                        strokeWidth={1.2}
-                        strokeOpacity={0.45}
-                      />
-                    ) : null}
-                    {isAlt ? (
-                      <line
-                        x1={from.x}
-                        y1={from.y}
-                        x2={to.x}
-                        y2={to.y}
-                        stroke="#a78bfa"
-                        strokeWidth={3.2}
-                        strokeDasharray="6 7"
-                        strokeLinecap="round"
-                        opacity={0.9}
-                      />
-                    ) : null}
-                    {isMst && !isRoute ? (
-                      <line
-                        x1={from.x}
-                        y1={from.y}
-                        x2={to.x}
-                        y2={to.y}
-                        stroke="#a3e635"
-                        strokeWidth={2.6}
-                        strokeDasharray="10 6"
-                        strokeLinecap="round"
-                        opacity={0.9}
-                      />
-                    ) : null}
-                    {isRoute ? (
-                      <>
-                        <line
-                          x1={from.x}
-                          y1={from.y}
-                          x2={to.x}
-                          y2={to.y}
-                          stroke="#2563eb"
-                          strokeWidth={7}
-                          strokeLinecap="round"
-                          opacity={0.28}
-                          filter={`url(#${uid}-strongglow)`}
-                        />
-                        <line
-                          x1={from.x}
-                          y1={from.y}
-                          x2={to.x}
-                          y2={to.y}
-                          stroke="#1d4ed8"
-                          strokeWidth={3.4}
-                          strokeLinecap="round"
-                        />
-                      </>
-                    ) : null}
-                    {isEmergency ? (
-                      <>
-                        <line
-                          x1={from.x}
-                          y1={from.y}
-                          x2={to.x}
-                          y2={to.y}
-                          stroke="#fb7185"
-                          strokeWidth={9}
-                          strokeLinecap="round"
-                          opacity={0.22}
-                          filter={`url(#${uid}-strongglow)`}
-                        />
-                        <line
-                          x1={from.x}
-                          y1={from.y}
-                          x2={to.x}
-                          y2={to.y}
-                          stroke="#fda4af"
-                          strokeWidth={4}
-                          strokeLinecap="round"
-                          strokeDasharray="12 8"
-                          className="animate-dash"
-                        />
-                      </>
-                    ) : null}
-                    {isActive ? (
-                      <line
-                        x1={from.x}
-                        y1={from.y}
-                        x2={to.x}
-                        y2={to.y}
-                        stroke="#fbbf24"
-                        strokeWidth={5.5}
-                        strokeLinecap="round"
-                        opacity={0.95}
-                      />
-                    ) : null}
+                    {isVisited ? <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#2563eb" strokeWidth={1.2} strokeOpacity={0.45} /> : null}
+                    {isAlt ? <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#a78bfa" strokeWidth={3.2} strokeDasharray="6 7" strokeLinecap="round" opacity={0.9} /> : null}
+                    {isMst && !isRoute ? <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#a3e635" strokeWidth={2.6} strokeDasharray="10 6" strokeLinecap="round" opacity={0.9} /> : null}
                     {road?.blocked ? (
                       <g transform={`translate(${(from.x + to.x) / 2} ${(from.y + to.y) / 2})`}>
                         <circle r="10" fill="#fee2e2" stroke="#fb7185" strokeWidth="1.4" />
@@ -522,11 +436,59 @@ export function NetworkMap({
                     ) : road?.incident ? (
                       <g transform={`translate(${(from.x + to.x) / 2} ${(from.y + to.y) / 2})`}>
                         <circle r="9" fill="#fef3c7" stroke="#fbbf24" strokeWidth="1.2" />
-                        <text textAnchor="middle" y="3.2" fontSize="9" fill="#fbbf24" fontWeight="700">
-                          !
-                        </text>
+                        <text textAnchor="middle" y="3.2" fontSize="9" fill="#fbbf24" fontWeight="700">!</text>
                       </g>
                     ) : null}
+                  </g>
+                );
+              })}
+            </g>
+
+            <g pointerEvents="none">
+              {network.edges.map((edge) => {
+                if (!routeSet.has(edge.id)) return null;
+                const from = nodeMap.get(edge.from);
+                const to = nodeMap.get(edge.to);
+                if (!from || !to) return null;
+                return (
+                  <g key={`route-${edge.id}`}>
+                    <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#2563eb" strokeWidth={10} strokeLinecap="round" opacity={0.22} filter={`url(#${uid}-strongglow)`} />
+                    <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#1d4ed8" strokeWidth={5} strokeLinecap="round" opacity={0.95} />
+                    <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#93c5fd" strokeWidth={2} strokeLinecap="round" opacity={0.9} />
+                  </g>
+                );
+              })}
+            </g>
+
+            <g pointerEvents="none">
+              {network.edges.map((edge) => {
+                if (!emergencySet.has(edge.id)) return null;
+                const from = nodeMap.get(edge.from);
+                const to = nodeMap.get(edge.to);
+                if (!from || !to) return null;
+                return (
+                  <g key={`em-${edge.id}`}>
+                    <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#fb7185" strokeWidth={9} strokeLinecap="round" opacity={0.22} filter={`url(#${uid}-strongglow)`} />
+                    <line x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#fda4af" strokeWidth={4} strokeLinecap="round" strokeDasharray="12 8" className="animate-dash" />
+                  </g>
+                );
+              })}
+              {network.edges.map((edge) => {
+                if (activeEdge !== edge.id) return null;
+                const from = nodeMap.get(edge.from);
+                const to = nodeMap.get(edge.to);
+                if (!from || !to) return null;
+                return <line key={`active-${edge.id}`} x1={from.x} y1={from.y} x2={to.x} y2={to.y} stroke="#fbbf24" strokeWidth={5.5} strokeLinecap="round" opacity={0.95} />;
+              })}
+            </g>
+
+            <g>
+              {network.edges.map((edge) => {
+                const from = nodeMap.get(edge.from);
+                const to = nodeMap.get(edge.to);
+                if (!from || !to) return null;
+                return (
+                  <g key={`ui-${edge.id}`}>
                     {edgeLabelsVisible ? (
                       <text
                         x={(from.x + to.x) / 2}
@@ -545,10 +507,7 @@ export function NetworkMap({
                     ) : null}
                     {interactive ? (
                       <line
-                        x1={from.x}
-                        y1={from.y}
-                        x2={to.x}
-                        y2={to.y}
+                        x1={from.x} y1={from.y} x2={to.x} y2={to.y}
                         stroke="transparent"
                         strokeWidth={16}
                         className="cursor-help"
