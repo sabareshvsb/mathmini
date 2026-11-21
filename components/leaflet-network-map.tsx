@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CircleMarker, MapContainer, Polyline, Popup, TileLayer, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -39,11 +39,42 @@ type Props = {
   emptyHint?: string;
 };
 
+type EdgeGeom = [number, number][];
+const GEOM_CACHE_KEY = "bengaluru-edge-geoms-v2";
+
+function readGeomCache(): Record<string, EdgeGeom> {
+  if (typeof window === "undefined") return {};
+  try {
+    return JSON.parse(window.localStorage.getItem(GEOM_CACHE_KEY) || "{}") as Record<string, EdgeGeom>;
+  } catch {
+    return {};
+  }
+}
+
+function writeGeomCache(cache: Record<string, EdgeGeom>) {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(GEOM_CACHE_KEY, JSON.stringify(cache));
+  } catch {
+    /* ignore quota */
+  }
+}
+
+async function fetchEdgeGeometry(from: { lat: number; lng: number }, to: { lat: number; lng: number }): Promise<EdgeGeom | null> {
+  const url = `https://router.project-osrm.org/route/v1/driving/${from.lng},${from.lat};${to.lng},${to.lat}?overview=full&geometries=geojson`;
+  const res = await fetch(url);
+  if (!res.ok) return null;
+  const data = await res.json();
+  const coords = data?.routes?.[0]?.geometry?.coordinates;
+  if (!Array.isArray(coords) || coords.length < 2) return null;
+  return coords.map((c: [number, number]) => [c[1], c[0]] as [number, number]);
+}
+
 function FitRoute({ focus }: { focus: [number, number][] | null }) {
   const map = useMap();
   useEffect(() => {
     if (!focus?.length) return;
-    map.fitBounds(L.latLngBounds(focus), { padding: [40, 40], maxZoom: 14 });
+    map.fitBounds(L.latLngBounds(focus), { padding: [40, 40], maxZoom: 15 });
   }, [focus, map]);
   return null;
 }
@@ -57,6 +88,54 @@ export default function LeafletNetworkMap(props: Props) {
   } = props;
 
   const nodeMap = useMemo(() => new Map(network.nodes.map((n) => [n.id, n])), [network.nodes]);
+  const [edgeGeoms, setEdgeGeoms] = useState<Record<string, EdgeGeom>>({});
+
+  useEffect(() => {
+    let cancelled = false;
+    const cached = readGeomCache();
+    const next: Record<string, EdgeGeom> = {};
+    for (const edge of network.edges) {
+      const key = `${edge.id}:${edge.from}-${edge.to}`;
+      if (cached[key]) next[key] = cached[key];
+    }
+    if (Object.keys(next).length) setEdgeGeoms((prev) => ({ ...next, ...prev }));
+
+    const missing = network.edges.filter((e) => !cached[`${e.id}:${e.from}-${e.to}`]);
+    if (!missing.length) return;
+
+    (async () => {
+      const batchSize = 4;
+      for (let i = 0; i < missing.length; i += batchSize) {
+        if (cancelled) return;
+        const batch = missing.slice(i, i + batchSize);
+        const results = await Promise.all(batch.map(async (edge) => {
+          const a = nodeMap.get(edge.from);
+          const b = nodeMap.get(edge.to);
+          if (!a || !b) return null;
+          try {
+            const geom = await fetchEdgeGeometry(a, b);
+            return geom ? { key: `${edge.id}:${edge.from}-${edge.to}`, geom } : null;
+          } catch {
+            return null;
+          }
+        }));
+        if (cancelled) return;
+        const updates: Record<string, EdgeGeom> = {};
+        for (const r of results) if (r) updates[r.key] = r.geom;
+        if (Object.keys(updates).length) {
+          setEdgeGeoms((prev) => {
+            const merged = { ...prev, ...updates };
+            writeGeomCache({ ...readGeomCache(), ...merged });
+            return merged;
+          });
+        }
+        if (i + batchSize < missing.length) await new Promise((r) => setTimeout(r, 150));
+      }
+    })();
+
+    return () => { cancelled = true; };
+  }, [network.edges, nodeMap]);
+
   const routeSet = useMemo(() => new Set(routeEdges), [routeEdges]);
   const altSet = useMemo(() => new Set(alternativeEdges.flat()), [alternativeEdges]);
   const emergencySet = useMemo(() => new Set(emergencyEdges), [emergencyEdges]);
@@ -72,16 +151,38 @@ export default function LeafletNetworkMap(props: Props) {
     return [lat, lng];
   }, [network.nodes]);
 
+  const edgePositions = (edgeId: string, fromId: string, toId: string): EdgeGeom => {
+    const key = `${edgeId}:${fromId}-${toId}`;
+    if (edgeGeoms[key]) return edgeGeoms[key];
+    const a = nodeMap.get(fromId); const b = nodeMap.get(toId);
+    if (!a || !b) return [];
+    return [[a.lat, a.lng], [b.lat, b.lng]];
+  };
+
+  const routeFocus = useMemo(() => {
+    if (!routeEdges.length) return focus;
+    const pts: EdgeGeom = [];
+    for (const id of routeEdges) {
+      const edge = network.edges.find((e) => e.id === id);
+      if (!edge) continue;
+      pts.push(...edgePositions(edge.id, edge.from, edge.to));
+    }
+    return pts.length ? pts : focus;
+  }, [routeEdges, edgeGeoms, network.edges, focus, nodeMap]);
+
   const vehiclePoints = useMemo(() => {
     if (!showVehicleLayer) return [];
     return vehicles.map((v) => {
-      const a = nodeMap.get(v.from); const b = nodeMap.get(v.to);
-      if (!a || !b) return null;
-      const lat = a.lat + (b.lat - a.lat) * v.progress;
-      const lng = a.lng + (b.lng - a.lng) * v.progress;
+      const geom = edgePositions(v.edgeId, v.from, v.to);
+      if (geom.length < 2) return null;
+      const idx = Math.min(geom.length - 2, Math.floor(v.progress * (geom.length - 1)));
+      const t = (v.progress * (geom.length - 1)) - idx;
+      const p1 = geom[idx]; const p2 = geom[idx + 1] || p1;
+      const lat = p1[0] + (p2[0] - p1[0]) * t;
+      const lng = p1[1] + (p2[1] - p1[1]) * t;
       return { ...v, lat, lng };
     }).filter(Boolean) as Array<Vehicle & { lat: number; lng: number }>;
-  }, [vehicles, nodeMap, showVehicleLayer]);
+  }, [vehicles, edgeGeoms, nodeMap, showVehicleLayer, network.edges]);
 
   return (
     <div className="relative h-full w-full">
@@ -98,9 +199,9 @@ export default function LeafletNetworkMap(props: Props) {
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | Routing: OSRM'
         />
-        <FitRoute focus={focus} />
+        <FitRoute focus={routeFocus} />
 
         {heatmap && network.nodes.map((n) => {
           const density = network.edges
@@ -127,7 +228,8 @@ export default function LeafletNetworkMap(props: Props) {
           const congestionColor = CONGESTION_META[level as keyof typeof CONGESTION_META]?.color ?? "#34d399";
           const color = isEmergency ? "#f43f5e" : isRoute ? "#2563eb" : isAlt ? "#8b5cf6" : isMst ? "#65a30d" : congestionColor;
           const weight = isRoute || isEmergency ? 6 : isAlt || isMst ? 4 : 2 + edge.lanes * 0.6;
-          const positions: [number, number][] = [[a.lat, a.lng], [b.lat, b.lng]];
+          const positions = edgePositions(edge.id, edge.from, edge.to);
+          if (positions.length < 2) return null;
           return (
             <Polyline key={edge.id} positions={positions}
               pathOptions={{ color, weight, opacity: dim ? 0.2 : isRoute ? 0.95 : 0.72, dashArray: isAlt || (isMst && !isRoute) ? "8 8" : road?.blocked ? "6 6" : undefined }}
@@ -190,7 +292,7 @@ export default function LeafletNetworkMap(props: Props) {
       </MapContainer>
 
       <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap gap-1.5 z-[500]">
-        <span className="rounded-md border border-slate-200 bg-white/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-700 shadow-sm">Bengaluru Map · Routes on Map</span>
+        <span className="rounded-md border border-slate-200 bg-white/95 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-slate-700 shadow-sm">Bengaluru Map · Actual Road Routes</span>
         <span className="rounded-md border border-slate-200 bg-white/95 px-2 py-1 text-[10px] font-medium text-slate-500 shadow-sm">V {network.nodes.length} · E {network.edges.length}</span>
       </div>
 
