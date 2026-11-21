@@ -115,20 +115,20 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       <div className="flex h-[76px] shrink-0 items-center gap-3 border-b border-blue-100 px-4">
         <BrandMark />
         <div className="min-w-0">
-          <p className="font-mono text-[13px] font-semibold tracking-[0.14em] text-slate-900">BENGALURU</p>
-          <p className="truncate font-mono text-[8px] uppercase tracking-[0.22em] text-blue-700/60">
+          <p className="font-sans text-[13px] font-semibold tracking-[0.14em] text-slate-900">BENGALURU</p>
+          <p className="truncate font-sans text-[8px] uppercase tracking-[0.22em] text-blue-700/60">
             Traffic Control OS
           </p>
         </div>
       </div>
 
       <div className="scroll-area flex-1 overflow-y-auto px-3 py-4">
-        <p className="mb-2 px-2 font-mono text-[8px] uppercase tracking-[0.2em] text-slate-500">
+        <p className="mb-2 px-2 font-sans text-[8px] uppercase tracking-[0.2em] text-slate-500">
           Smart City · Graph Theory
         </p>
         {NAV_GROUPS.map((group) => (
           <div key={group.label} className="mb-3">
-            <p className="mb-1.5 px-3 font-mono text-[8px] uppercase tracking-[0.22em] text-slate-500/80">
+            <p className="mb-1.5 px-3 font-sans text-[8px] uppercase tracking-[0.22em] text-slate-500/80">
               {group.label}
             </p>
             <nav className="space-y-0.5">
@@ -155,7 +155,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
                     />
                     <span className="truncate">{item.label}</span>
                     {item.href === "/emergency" && metrics.emergencyVehicles > 0 ? (
-                      <span className="ml-auto grid h-4 min-w-4 place-items-center rounded-full bg-rose-50 px-1 font-mono text-[8px] text-rose-700">
+                      <span className="ml-auto grid h-4 min-w-4 place-items-center rounded-full bg-rose-50 px-1 font-sans text-[8px] text-rose-700">
                         {metrics.emergencyVehicles}
                       </span>
                     ) : null}
@@ -179,7 +179,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             <span className="block truncate text-[11px] font-medium text-slate-700">
               {auth.name ?? "Operator sign in"}
             </span>
-            <span className="block font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">
+            <span className="block font-sans text-[8px] uppercase tracking-[0.14em] text-slate-500">
               {auth.role ?? "guest session"}
             </span>
           </span>
@@ -190,7 +190,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
       <div className="shrink-0 border-t border-blue-100 p-3">
         <div className="rounded-xl border border-blue-100 bg-gradient-to-br from-blue-600/[0.05] to-transparent p-3">
           <div className="flex items-center justify-between">
-            <span className="font-mono text-[8px] uppercase tracking-[0.18em] text-slate-500">System status</span>
+            <span className="font-sans text-[8px] uppercase tracking-[0.18em] text-slate-500">System status</span>
             <StatusDot tone={running ? "green" : "amber"} />
           </div>
           <div className="mt-2 space-y-1.5">
@@ -216,7 +216,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
             </div>
           </div>
         </div>
-        <p className="mt-2 px-1 text-center font-mono text-[7.5px] uppercase tracking-[0.16em] text-slate-400">
+        <p className="mt-2 px-1 text-center font-sans text-[7.5px] uppercase tracking-[0.16em] text-slate-400">
           Simulation data · academic build
         </p>
       </div>
@@ -292,11 +292,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
             <div className="min-w-0">
               <div className="flex items-center gap-2">
-                <p className="hidden font-mono text-[8px] uppercase tracking-[0.2em] text-blue-700/50 sm:block">
+                <p className="hidden font-sans text-[8px] uppercase tracking-[0.2em] text-blue-700/50 sm:block">
                   {meta.eyebrow}
                 </p>
                 <ChevronRight size={9} className="hidden text-slate-400 sm:block" />
-                <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Bengaluru</p>
+                <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-slate-500">Bengaluru</p>
               </div>
               <h1 className="truncate text-[14px] font-semibold tracking-tight text-slate-900">{meta.title}</h1>
             </div>
@@ -304,15 +304,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <div className="ml-auto flex items-center gap-1.5 sm:gap-2">
               <div className="hidden items-center gap-1.5 rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-1.5 md:flex">
                 <Clock size={12} className="text-blue-700/70" />
-                <span className="font-mono text-[11px] tabular-nums text-slate-800">{simClock(simTime)}</span>
-                <span className="font-mono text-[7.5px] uppercase tracking-wider text-slate-500">sim</span>
+                <span className="font-sans text-[11px] tabular-nums text-slate-800">{simClock(simTime)}</span>
+                <span className="font-sans text-[7.5px] uppercase tracking-wider text-slate-500">sim</span>
               </div>
 
               <button
                 type="button"
                 onClick={toggle}
                 className={cn(
-                  "hidden items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-[0.12em] transition sm:flex",
+                  "hidden items-center gap-1.5 rounded-lg border px-2.5 py-1.5 font-sans text-[9px] uppercase tracking-[0.12em] transition sm:flex",
                   running
                     ? "border-emerald-200 bg-emerald-400/[0.07] text-emerald-700 hover:bg-emerald-400/[0.12]"
                     : "border-amber-200 bg-amber-400/[0.07] text-amber-700 hover:bg-amber-400/[0.12]",
@@ -334,7 +334,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 title="WebSocket live telemetry"
               >
                 {syncStatus === "connected" ? <Wifi size={11} /> : <WifiOff size={11} />}
-                <span className="font-mono text-[8.5px] uppercase tracking-[0.12em]">
+                <span className="font-sans text-[8.5px] uppercase tracking-[0.12em]">
                   {syncStatus === "connected" ? `Sync · ${Math.max(1, peers)}` : "Offline"}
                 </span>
               </div>
@@ -349,7 +349,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 className="flex items-center gap-1.5 rounded-lg border border-blue-100 bg-slate-50 px-2 py-1.5 transition hover:border-blue-200 hover:bg-blue-500/[0.06]"
                 title={auth.name ? `${auth.name} · ${auth.role}` : "Operator sign in"}
               >
-                <span className="grid h-6 w-6 place-items-center rounded-full border border-blue-200 bg-blue-500/[0.08] font-mono text-[9px] font-semibold text-blue-700">
+                <span className="grid h-6 w-6 place-items-center rounded-full border border-blue-200 bg-blue-500/[0.08] font-sans text-[9px] font-semibold text-blue-700">
                   {auth.name ? auth.name.slice(0, 2).toUpperCase() : "OP"}
                 </span>
                 <span className="hidden text-[10px] font-medium text-slate-700 xl:block">
@@ -359,12 +359,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
           <div className="flex items-center gap-3 overflow-x-auto border-t border-blue-100 px-4 py-1.5 sm:hidden">
-            <span className="font-mono text-[9px] text-slate-500">{simClock(simTime)}</span>
+            <span className="font-sans text-[9px] text-slate-500">{simClock(simTime)}</span>
             <span className="h-1 w-1 rounded-full bg-slate-200" />
-            <span className={cn("font-mono text-[9px]", running ? "text-emerald-700" : "text-amber-700")}>
+            <span className={cn("font-sans text-[9px]", running ? "text-emerald-700" : "text-amber-700")}>
               {running ? "SIMULATION LIVE" : "PAUSED"}
             </span>
-            <button type="button" onClick={openDemo} className="ml-auto inline-flex items-center gap-1 font-mono text-[9px] text-blue-700">
+            <button type="button" onClick={openDemo} className="ml-auto inline-flex items-center gap-1 font-sans text-[9px] text-blue-700">
               <Sparkles size={10} /> Demo
             </button>
           </div>
@@ -373,7 +373,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <main className="mx-auto w-full max-w-[1680px] px-3.5 py-4 sm:px-5 sm:py-5 lg:px-6">{children}</main>
 
         <footer className="mx-auto flex w-full max-w-[1680px] flex-wrap items-center justify-between gap-2 px-4 pb-6 pt-2 text-[11px] text-slate-500 sm:px-6">
-          <span className="font-mono uppercase tracking-[0.16em]">
+          <span className="font-sans uppercase tracking-[0.16em]">
             Smart City Traffic Management using Graph Theory
           </span>
           <span className="flex items-center gap-1.5">

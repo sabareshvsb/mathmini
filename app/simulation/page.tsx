@@ -200,7 +200,7 @@ export default function SimulationPage() {
               {road && selectedEdge ? (
                 <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[9px] text-slate-500">Live density</span>
+                    <span className="font-sans text-[9px] text-slate-500">Live density</span>
                     <Badge tone={CONGESTION_META[road.level].tone}>{road.level}</Badge>
                   </div>
                   <Progress value={road.density * 100} color={CONGESTION_META[road.level].color} height={5} className="mt-1.5" />
@@ -288,10 +288,10 @@ export default function SimulationPage() {
                 return (
                   <div key={item.edgeId} className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="min-w-0 truncate font-mono text-[9px] text-slate-600">
+                      <span className="min-w-0 truncate font-sans text-[9px] text-slate-600">
                         {item.edgeId} · {edge?.name ?? "Road"}
                       </span>
-                      <span className="font-mono text-[9px]" style={{ color: CONGESTION_META[item.level].color }}>
+                      <span className="font-sans text-[9px]" style={{ color: CONGESTION_META[item.level].color }}>
                         {(item.density * 100).toFixed(0)}%
                       </span>
                     </div>
@@ -324,8 +324,8 @@ export default function SimulationPage() {
 function Mini({ label, value, tone = "text-slate-800" }: { label: string; value: string; tone?: string }) {
   return (
     <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
-      <p className={`mt-0.5 font-mono text-[10.5px] ${tone}`}>{value}</p>
+      <p className="font-sans text-[7.5px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
+      <p className={`mt-0.5 font-sans text-[10.5px] ${tone}`}>{value}</p>
     </div>
   );
 }
@@ -334,7 +334,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between gap-2 border-b border-blue-100 pb-1.5 last:border-0 last:pb-0">
       <span className="text-slate-500">{label}</span>
-      <span className="font-mono capitalize text-slate-700">{value}</span>
+      <span className="font-sans capitalize text-slate-700">{value}</span>
     </div>
   );
 }

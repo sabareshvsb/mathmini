@@ -15,7 +15,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-inter)", "Inter", "system-ui", "-apple-system", "sans-serif"],
-        mono: ["Cascadia Code", "Consolas", "ui-monospace", "monospace"],
+        mono: ["var(--font-inter)", "Inter", "system-ui", "-apple-system", "sans-serif"],
       },
       animation: {
         "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",

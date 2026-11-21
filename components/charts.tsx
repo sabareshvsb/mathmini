@@ -71,7 +71,7 @@ export function LineChart({
             {item.name}
           </span>
         ))}
-        {unit ? <span className="ml-auto font-mono text-[9px] text-slate-500">{unit}</span> : null}
+        {unit ? <span className="ml-auto font-sans text-[9px] text-slate-500">{unit}</span> : null}
       </div>
       <svg viewBox={`0 0 ${width} ${height}`} className="h-auto w-full overflow-visible" role="img" aria-label="Line chart">
         <defs>
@@ -190,7 +190,7 @@ export function BarChart({
                 }}
                 title={`${labels[index]}: ${format(value)}${unit}`}
               >
-                <span className="pointer-events-none absolute inset-x-0 -top-5 hidden text-center font-mono text-[8.5px] text-slate-700 group-hover:block">
+                <span className="pointer-events-none absolute inset-x-0 -top-5 hidden text-center font-sans text-[8.5px] text-slate-700 group-hover:block">
                   {format(value)}
                 </span>
               </div>
@@ -203,7 +203,7 @@ export function BarChart({
           <span
             key={`${label}-l-${index}`}
             className={cn(
-              "flex-1 truncate text-center font-mono text-[7.5px]",
+              "flex-1 truncate text-center font-sans text-[7.5px]",
               highlightIndex === index ? "text-amber-700" : "text-slate-500",
             )}
           >
@@ -270,8 +270,8 @@ export function Donut({
           })}
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="font-mono text-xl font-semibold text-slate-900">{centerValue ?? total}</span>
-          <span className="mt-0.5 font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">
+          <span className="font-sans text-xl font-semibold text-slate-900">{centerValue ?? total}</span>
+          <span className="mt-0.5 font-sans text-[8px] uppercase tracking-[0.16em] text-slate-500">
             {centerLabel ?? "total"}
           </span>
         </div>
@@ -283,7 +283,7 @@ export function Donut({
               <span className="h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: item.color }} />
               <span className="truncate">{item.label}</span>
             </span>
-            <span className="shrink-0 font-mono text-slate-700">
+            <span className="shrink-0 font-sans text-slate-700">
               {item.value}
               <span className="ml-1.5 text-[8.5px] text-slate-500">
                 {total ? `${Math.round((item.value / total) * 100)}%` : "0%"}
@@ -409,7 +409,7 @@ export function BarList({
         <div key={item.label}>
           <div className="mb-1 flex items-baseline justify-between gap-2">
             <span className="min-w-0 truncate text-[11px] text-slate-700">{item.label}</span>
-            <span className="shrink-0 font-mono text-[10.5px] text-slate-600">
+            <span className="shrink-0 font-sans text-[10.5px] text-slate-600">
               {item.display ?? (formatter ? formatter(item.value) : formatNumber(item.value))}
             </span>
           </div>

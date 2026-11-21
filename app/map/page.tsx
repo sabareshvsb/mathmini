@@ -103,23 +103,23 @@ export default function MapPage() {
             const meta = CONGESTION_META[level as keyof typeof CONGESTION_META];
             return (
               <div key={level} className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-                <p className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+                <p className="flex items-center gap-1.5 font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
                   <span className="h-1.5 w-1.5 rounded-full" style={{ background: meta.color }} />
                   {meta.label}
                 </p>
-                <p className="mt-0.5 font-mono text-sm" style={{ color: meta.color }}>
+                <p className="mt-0.5 font-sans text-sm" style={{ color: meta.color }}>
                   {count}
                 </p>
               </div>
             );
           })}
           <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Blocked</p>
-            <p className="mt-0.5 font-mono text-sm text-rose-700">{metrics.blockedRoads}</p>
+            <p className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">Blocked</p>
+            <p className="mt-0.5 font-sans text-sm text-rose-700">{metrics.blockedRoads}</p>
           </div>
           <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-            <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Vehicles</p>
-            <p className="mt-0.5 font-mono text-sm text-blue-700">{metrics.activeVehicles}</p>
+            <p className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">Vehicles</p>
+            <p className="mt-0.5 font-sans text-sm text-blue-700">{metrics.activeVehicles}</p>
           </div>
         </div>
       </PageHeader>
@@ -170,24 +170,24 @@ export default function MapPage() {
             {route ? (
               <div className="mt-3 rounded-lg border border-blue-200 bg-blue-500/[0.04] p-3">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-blue-700/70">Dijkstra optimum</p>
+                  <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-blue-700/70">Dijkstra optimum</p>
                   <Badge tone="green">optimal</Badge>
                 </div>
                 <div className="mt-2 grid grid-cols-3 gap-1.5 text-center">
                   <div>
-                    <p className="font-mono text-sm text-slate-900">{route.primary.totalDistanceKm}</p>
-                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-500">km</p>
+                    <p className="font-sans text-sm text-slate-900">{route.primary.totalDistanceKm}</p>
+                    <p className="font-sans text-[7.5px] uppercase tracking-wider text-slate-500">km</p>
                   </div>
                   <div>
-                    <p className="font-mono text-sm text-slate-900">{formatMinutes(route.primary.totalTimeMin, 0)}</p>
-                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-500">est.</p>
+                    <p className="font-sans text-sm text-slate-900">{formatMinutes(route.primary.totalTimeMin, 0)}</p>
+                    <p className="font-sans text-[7.5px] uppercase tracking-wider text-slate-500">est.</p>
                   </div>
                   <div>
-                    <p className="font-mono text-sm text-slate-900">{route.primary.explored}</p>
-                    <p className="font-mono text-[7.5px] uppercase tracking-wider text-slate-500">explored</p>
+                    <p className="font-sans text-sm text-slate-900">{route.primary.explored}</p>
+                    <p className="font-sans text-[7.5px] uppercase tracking-wider text-slate-500">explored</p>
                   </div>
                 </div>
-                <p className="mt-2 truncate font-mono text-[8.5px] text-slate-500">
+                <p className="mt-2 truncate font-sans text-[8.5px] text-slate-500">
                   {route.primary.pathNodes.join(" → ")}
                 </p>
               </div>
@@ -227,10 +227,10 @@ export default function MapPage() {
                 {selectedSignal ? (
                   <div className="rounded-lg border border-blue-100 bg-slate-50 p-2.5">
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-[9px] text-slate-500">Phase</span>
+                      <span className="font-sans text-[9px] text-slate-500">Phase</span>
                       <span
                         className={cn(
-                          "font-mono text-[11px] font-semibold",
+                          "font-sans text-[11px] font-semibold",
                           selectedSignal.phase === "GREEN"
                             ? "text-emerald-700"
                             : selectedSignal.phase === "YELLOW"
@@ -271,7 +271,7 @@ export default function MapPage() {
                   <div>
                     <div className="flex justify-between text-[10px]">
                       <span className="text-slate-500">Live density</span>
-                      <span className="font-mono text-slate-800">{(road.density * 100).toFixed(0)}%</span>
+                      <span className="font-sans text-slate-800">{(road.density * 100).toFixed(0)}%</span>
                     </div>
                     <Progress
                       value={road.density * 100}
@@ -279,7 +279,7 @@ export default function MapPage() {
                       height={5}
                       className="mt-1"
                     />
-                    <p className="mt-1 font-mono text-[8.5px] text-slate-500">
+                    <p className="mt-1 font-sans text-[8.5px] text-slate-500">
                       {road.vehicles} vehicles · {road.avgSpeedKmh.toFixed(0)} km/h avg · {road.level}
                     </p>
                   </div>
@@ -354,7 +354,7 @@ export default function MapPage() {
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
                           <p className="truncate text-[10.5px] text-slate-800">{entry.note}</p>
-                          <p className="font-mono text-[8px] text-slate-500">
+                          <p className="font-sans text-[8px] text-slate-500">
                             {entry.edgeId} · {entry.kind} · {simClock(entry.startedAt)}
                           </p>
                         </div>
@@ -407,8 +407,8 @@ export default function MapPage() {
 function Info({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
-      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-700">{value}</p>
+      <p className="font-sans text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 truncate font-sans text-[9.5px] text-slate-700">{value}</p>
     </div>
   );
 }
@@ -416,8 +416,8 @@ function Info({ label, value }: { label: string; value: string }) {
 function Mini({ label, value }: { label: string; value: string | number }) {
   return (
     <div>
-      <p className="font-mono text-[7px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
-      <p className="font-mono text-[9.5px] text-slate-700">{value}</p>
+      <p className="font-sans text-[7px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="font-sans text-[9.5px] text-slate-700">{value}</p>
     </div>
   );
 }

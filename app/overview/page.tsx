@@ -85,17 +85,17 @@ export default function OverviewPage() {
           <div className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
             <StatusDot tone={running ? "green" : "amber"} />
             <div>
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Engine</p>
+              <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-slate-500">Engine</p>
               <p className="text-[11px] text-slate-700">
                 {running ? "Streaming live simulation" : "Simulation paused"}
               </p>
             </div>
-            <span className="ml-auto font-mono text-[10px] text-blue-700">{simClock(simTime)}</span>
+            <span className="ml-auto font-sans text-[10px] text-blue-700">{simClock(simTime)}</span>
           </div>
           <div className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
             <TrafficCone size={14} className="text-blue-700/70" />
             <div>
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Signal plan</p>
+              <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-slate-500">Signal plan</p>
               <p className="text-[11px] text-slate-700">
                 {config.coordinatedSignals ? "Coordinated green wave" : config.adaptiveSignals ? "Adaptive demand" : "Fixed cycle"}
               </p>
@@ -104,14 +104,14 @@ export default function OverviewPage() {
           <div className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
             <Activity size={14} className="text-emerald-700/70" />
             <div>
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Weather model</p>
+              <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-slate-500">Weather model</p>
               <p className="text-[11px] capitalize text-slate-700">{config.weather} conditions</p>
             </div>
           </div>
           <div className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
             <Siren size={14} className="text-rose-700/70" />
             <div>
-              <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Priority missions</p>
+              <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-slate-500">Priority missions</p>
               <p className="text-[11px] text-slate-700">{activeMissions.length} active corridor{activeMissions.length === 1 ? "" : "s"}</p>
             </div>
           </div>
@@ -202,12 +202,12 @@ export default function OverviewPage() {
             </div>
             <div className="mt-3 grid grid-cols-2 gap-2">
               <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">Avg waiting</p>
-                <p className="mt-0.5 font-mono text-sm text-slate-800">{metrics.avgWaitingSec.toFixed(0)}s</p>
+                <p className="font-sans text-[8px] uppercase tracking-[0.14em] text-slate-500">Avg waiting</p>
+                <p className="mt-0.5 font-sans text-sm text-slate-800">{metrics.avgWaitingSec.toFixed(0)}s</p>
               </div>
               <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">Signal state</p>
-                <p className="mt-0.5 font-mono text-sm text-emerald-700">{metrics.signalEfficiency}%</p>
+                <p className="font-sans text-[8px] uppercase tracking-[0.14em] text-slate-500">Signal state</p>
+                <p className="mt-0.5 font-sans text-sm text-emerald-700">{metrics.signalEfficiency}%</p>
               </div>
             </div>
           </Card>
@@ -221,9 +221,9 @@ export default function OverviewPage() {
                   <div key={signal.nodeId}>
                     <div className="flex items-center justify-between gap-2 text-[10.5px]">
                       <span className="min-w-0 truncate text-slate-700">
-                        <span className="font-mono text-slate-500">{signal.nodeId}</span> {node?.name ?? "Intersection"}
+                        <span className="font-sans text-slate-500">{signal.nodeId}</span> {node?.name ?? "Intersection"}
                       </span>
-                      <span className="flex shrink-0 items-center gap-1.5 font-mono">
+                      <span className="flex shrink-0 items-center gap-1.5 font-sans">
                         <span
                           className={
                             signal.phase === "GREEN"
@@ -294,11 +294,11 @@ export default function OverviewPage() {
               const meta = VEHICLE_META[type as keyof typeof VEHICLE_META];
               return (
                 <div key={type} className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-                  <p className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+                  <p className="flex items-center gap-1.5 font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
                     <span className="h-1.5 w-1.5 rounded-full" style={{ background: meta.color }} />
                     {meta.label}
                   </p>
-                  <p className="mt-0.5 font-mono text-sm text-slate-800">{value}</p>
+                  <p className="mt-0.5 font-sans text-sm text-slate-800">{value}</p>
                 </div>
               );
             })}
@@ -311,7 +311,7 @@ export default function OverviewPage() {
               color="#a78bfa"
               highlightIndex={new Date().getHours()}
             />
-            <p className="mt-1 text-center font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">
+            <p className="mt-1 text-center font-sans text-[8px] uppercase tracking-[0.14em] text-slate-500">
               Simulated 24-hour volume profile
             </p>
           </div>
@@ -337,7 +337,7 @@ export default function OverviewPage() {
                     <p className="text-[11px] font-medium text-rose-700">{incident.note}</p>
                     <Badge tone="red">{incident.kind}</Badge>
                   </div>
-                  <p className="mt-0.5 font-mono text-[9px] text-slate-500">
+                  <p className="mt-0.5 font-sans text-[9px] text-slate-500">
                     {incident.edgeId} · started {simClock(incident.startedAt)}
                   </p>
                 </div>
@@ -367,9 +367,9 @@ export default function OverviewPage() {
                 <div key={mission.id} className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
                   <div className="flex items-center justify-between gap-2">
                     <p className="truncate text-[11px] font-medium text-slate-800">{mission.label}</p>
-                    <span className="font-mono text-[9px] text-rose-700">{Math.round(mission.progress * 100)}%</span>
+                    <span className="font-sans text-[9px] text-rose-700">{Math.round(mission.progress * 100)}%</span>
                   </div>
-                  <p className="font-mono text-[9px] text-slate-500">
+                  <p className="font-sans text-[9px] text-slate-500">
                     {mission.origin} → {mission.destination} · ETA {Math.max(0, Math.round(mission.etaSec / 60))} min
                   </p>
                   <Progress value={mission.progress * 100} color="#fb7185" height={4} className="mt-1.5" />
@@ -388,7 +388,7 @@ export default function OverviewPage() {
           <SectionHeader
             eyebrow="Event stream"
             title="Operations log"
-            actions={<span className="font-mono text-[9px] text-slate-500">{logs.length} events</span>}
+            actions={<span className="font-sans text-[9px] text-slate-500">{logs.length} events</span>}
           />
           <div className="scroll-area mt-3 max-h-[196px] space-y-1.5 overflow-y-auto pr-1">
             {logs.slice(0, 10).map((log) => (
@@ -396,7 +396,7 @@ export default function OverviewPage() {
                 <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: log.severity === "critical" ? "#fb7185" : log.severity === "warning" ? "#fbbf24" : log.severity === "success" ? "#34d399" : "#2563eb" }} />
                 <div className="min-w-0">
                   <p className="text-slate-600">{log.message}</p>
-                  <p className="font-mono text-[8px] text-slate-500">
+                  <p className="font-sans text-[8px] text-slate-500">
                     {simClock(log.simSec)} · {log.kind}
                   </p>
                 </div>
@@ -425,7 +425,7 @@ export default function OverviewPage() {
               <div key={road.edgeId}>
                 <div className="flex items-baseline justify-between gap-2">
                   <span className="min-w-0 truncate text-[11px] text-slate-700">{road.name}</span>
-                  <span className="font-mono text-[10px] text-slate-600">{road.utilizationPct.toFixed(0)}%</span>
+                  <span className="font-sans text-[10px] text-slate-600">{road.utilizationPct.toFixed(0)}%</span>
                 </div>
                 <Progress
                   value={road.utilizationPct}
@@ -435,7 +435,7 @@ export default function OverviewPage() {
                   height={5}
                   className="mt-1"
                 />
-                <p className="mt-0.5 font-mono text-[8px] text-slate-500">
+                <p className="mt-0.5 font-sans text-[8px] text-slate-500">
                   {road.from} ↔ {road.to} · {road.vehicles} vehicles
                 </p>
               </div>

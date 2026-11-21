@@ -156,7 +156,7 @@ export default function AdminPage() {
   if (!auth.checked) {
     return (
       <div className="flex h-[60vh] items-center justify-center">
-        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">Checking session…</p>
+        <p className="font-sans text-[10px] uppercase tracking-[0.2em] text-slate-500">Checking session…</p>
       </div>
     );
   }
@@ -191,7 +191,7 @@ export default function AdminPage() {
               </Button>
             </Link>
           </div>
-          <p className="mt-3 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-500">
+          <p className="mt-3 font-sans text-[8.5px] uppercase tracking-[0.14em] text-slate-500">
             Demo administrator: admin / admin123
           </p>
         </Card>
@@ -322,7 +322,7 @@ export default function AdminPage() {
               </Button>
             </div>
             <p className="mt-2 text-[9px] leading-relaxed text-slate-500">
-              The network and periodic telemetry snapshots are stored in <span className="font-mono">data/bengaluru-traffic.db</span>.
+              The network and periodic telemetry snapshots are stored in <span className="font-sans">data/bengaluru-traffic.db</span>.
               The WebSocket relay is an optional secondary process.
             </p>
           </Card>
@@ -369,12 +369,12 @@ export default function AdminPage() {
           <div className="grid gap-2 sm:grid-cols-2">
             {fleet.map((item) => (
               <div key={item.id} className="flex items-center gap-2.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
-                <span className="grid h-7 w-7 place-items-center rounded-md border border-blue-100 bg-slate-50 font-mono text-[8px] text-slate-600">
+                <span className="grid h-7 w-7 place-items-center rounded-md border border-blue-100 bg-slate-50 font-sans text-[8px] text-slate-600">
                   {item.id.slice(-2)}
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[10.5px] text-slate-700">{item.label}</p>
-                  <p className="font-mono text-[8px] text-slate-500">
+                  <p className="font-sans text-[8px] text-slate-500">
                     {item.type} · {item.callsign} · base {item.baseNode}
                   </p>
                 </div>
@@ -394,7 +394,7 @@ export default function AdminPage() {
             ) : null}
           </div>
           <div className="rounded-xl border border-blue-100 bg-slate-50 p-3">
-            <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">Register unit</p>
+            <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-slate-500">Register unit</p>
             <div className="mt-2 space-y-2">
               <Field label="Label">
                 <Input value={unit.label} onChange={(event) => setUnit({ ...unit, label: event.target.value })} placeholder="Ambulance A-310" />
@@ -448,7 +448,7 @@ function Row({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between gap-2 border-b border-blue-100 pb-1.5 last:border-0 last:pb-0">
       <span className="capitalize text-slate-500">{label.replace(/([A-Z])/g, " $1")}</span>
-      <span className="max-w-[58%] truncate font-mono text-slate-700">{value}</span>
+      <span className="max-w-[58%] truncate font-sans text-slate-700">{value}</span>
     </div>
   );
 }

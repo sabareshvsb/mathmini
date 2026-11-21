@@ -198,7 +198,7 @@ export default function LabPage() {
                   </span>
                   <span className="min-w-0 flex-1">
                     <span className="block text-[10.5px] text-slate-700">{entry.label}</span>
-                    <span className="block font-mono text-[8px] text-slate-500">{entry.short}</span>
+                    <span className="block font-sans text-[8px] text-slate-500">{entry.short}</span>
                   </span>
                   {algorithm === entry.key ? <Badge tone="cyan">active</Badge> : null}
                 </button>
@@ -240,12 +240,12 @@ export default function LabPage() {
             <SectionHeader eyebrow="Complexity" title={info?.name ?? "Algorithm"} />
             <div className="mt-2 grid grid-cols-2 gap-2">
               <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
-                <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">Time</p>
-                <p className="mt-0.5 font-mono text-[10px] text-blue-700">{info?.complexity}</p>
+                <p className="font-sans text-[7.5px] uppercase tracking-[0.12em] text-slate-500">Time</p>
+                <p className="mt-0.5 font-sans text-[10px] text-blue-700">{info?.complexity}</p>
               </div>
               <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
-                <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">Space</p>
-                <p className="mt-0.5 font-mono text-[10px] text-violet-700">{info?.space}</p>
+                <p className="font-sans text-[7.5px] uppercase tracking-[0.12em] text-slate-500">Space</p>
+                <p className="mt-0.5 font-sans text-[10px] text-violet-700">{info?.space}</p>
               </div>
             </div>
             <p className="mt-2 text-[10px] leading-relaxed text-slate-500">{info?.description}</p>
@@ -276,7 +276,7 @@ export default function LabPage() {
               dimNonRoute={Boolean(routeEdges)}
               showVehicleLayer={false}
             />
-            <div className="flex flex-wrap items-center gap-3 border-t border-blue-100 px-4 py-2 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+            <div className="flex flex-wrap items-center gap-3 border-t border-blue-100 px-4 py-2 font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
               <span className="flex items-center gap-1.5"><span className="h-1.5 w-3 rounded-full bg-amber-300" /> visited node</span>
               <span className="flex items-center gap-1.5"><span className="h-1.5 w-3 rounded-full bg-blue-500" /> relaxed edge</span>
               <span className="flex items-center gap-1.5"><span className="h-1.5 w-3 rounded-full bg-emerald-400" /> optimal path</span>
@@ -311,12 +311,12 @@ export default function LabPage() {
                         <Metric label="Memory" value={`${pathResult.memoryKb} KB`} />
                       </div>
                       <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-                        <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Path</p>
-                        <p className="mt-1 break-words font-mono text-[9px] leading-relaxed text-slate-700">
+                        <p className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">Path</p>
+                        <p className="mt-1 break-words font-sans text-[9px] leading-relaxed text-slate-700">
                           {pathResult.pathNodes.join(" → ") || "No route"}
                         </p>
                       </div>
-                      <p className="font-mono text-[8.5px] text-slate-500">{pathResult.heuristic}</p>
+                      <p className="font-sans text-[8.5px] text-slate-500">{pathResult.heuristic}</p>
                     </>
                   ) : traversalResult ? (
                     <>
@@ -327,8 +327,8 @@ export default function LabPage() {
                         <Metric label="Edges scanned" value={String(traversalResult.visitedEdges.length)} />
                       </div>
                       <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-                        <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Traversal order</p>
-                        <p className="mt-1 break-words font-mono text-[9px] leading-relaxed text-slate-700">
+                        <p className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">Traversal order</p>
+                        <p className="mt-1 break-words font-sans text-[9px] leading-relaxed text-slate-700">
                           {traversalResult.order.join(" → ")}
                         </p>
                       </div>
@@ -342,8 +342,8 @@ export default function LabPage() {
                         <Metric label="Execution" value={`${mstResult.executionMs} ms`} />
                       </div>
                       <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-                        <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Tree edges</p>
-                        <p className="mt-1 break-words font-mono text-[9px] leading-relaxed text-slate-700">
+                        <p className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">Tree edges</p>
+                        <p className="mt-1 break-words font-sans text-[9px] leading-relaxed text-slate-700">
                           {mstResult.edges.join(", ") || "None"}
                         </p>
                       </div>
@@ -370,7 +370,7 @@ export default function LabPage() {
                   </p>
                 ) : (
                   trace.map((step) => (
-                    <div key={step.step} className="flex gap-2 font-mono text-[8.5px] leading-relaxed">
+                    <div key={step.step} className="flex gap-2 font-sans text-[8.5px] leading-relaxed">
                       <span className="w-7 shrink-0 text-right text-slate-400">{step.step}</span>
                       <span
                         className={cn(
@@ -414,7 +414,7 @@ export default function LabPage() {
         {comparison ? (
           <div className="mt-3 overflow-x-auto">
             <table className="w-full min-w-[720px] border-collapse text-left">
-              <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+              <thead className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
                 <tr>
                   <th className="px-2 py-2">Algorithm</th>
                   <th className="px-2 py-2 text-right">Explored</th>
@@ -437,16 +437,16 @@ export default function LabPage() {
                   const path = item as PathResult;
                   return (
                     <tr key={name as string} className="border-t border-blue-100 text-[10px] text-slate-600">
-                      <td className="px-2 py-2 font-mono" style={{ color: color as string }}>
+                      <td className="px-2 py-2 font-sans" style={{ color: color as string }}>
                         {name as string}
                       </td>
-                      <td className="px-2 py-2 text-right font-mono">{path.explored}</td>
-                      <td className="px-2 py-2 text-right font-mono">{path.executionMs.toFixed(2)}</td>
-                      <td className="px-2 py-2 text-right font-mono">{path.memoryKb.toFixed(1)} KB</td>
-                      <td className="px-2 py-2 text-right font-mono">{path.totalCost.toFixed(1)}</td>
-                      <td className="px-2 py-2 text-right font-mono">{path.totalDistanceKm.toFixed(2)} km</td>
-                      <td className="px-2 py-2 text-right font-mono">{path.totalTimeMin.toFixed(1)} min</td>
-                      <td className="px-2 py-2 text-right font-mono">{path.pathEdges.length}</td>
+                      <td className="px-2 py-2 text-right font-sans">{path.explored}</td>
+                      <td className="px-2 py-2 text-right font-sans">{path.executionMs.toFixed(2)}</td>
+                      <td className="px-2 py-2 text-right font-sans">{path.memoryKb.toFixed(1)} KB</td>
+                      <td className="px-2 py-2 text-right font-sans">{path.totalCost.toFixed(1)}</td>
+                      <td className="px-2 py-2 text-right font-sans">{path.totalDistanceKm.toFixed(2)} km</td>
+                      <td className="px-2 py-2 text-right font-sans">{path.totalTimeMin.toFixed(1)} min</td>
+                      <td className="px-2 py-2 text-right font-sans">{path.pathEdges.length}</td>
                       <td className="px-2 py-2 text-right">
                         <Badge tone={path.found ? "green" : "red"}>{path.found ? "found" : "none"}</Badge>
                       </td>
@@ -486,8 +486,8 @@ function executionMs(result: Exclude<Result, null>): number {
 function Metric({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
-      <p className="mt-0.5 font-mono text-[10px] text-slate-700">{value}</p>
+      <p className="font-sans text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 font-sans text-[10px] text-slate-700">{value}</p>
     </div>
   );
 }

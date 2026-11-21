@@ -155,21 +155,21 @@ export default function OptimizePage() {
             {route ? (
               <>
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="rounded-md border border-blue-200 bg-blue-500/[0.06] px-2 py-1 font-mono text-[9px] text-blue-700">
+                  <span className="rounded-md border border-blue-200 bg-blue-500/[0.06] px-2 py-1 font-sans text-[9px] text-blue-700">
                     {route.primary.source} · {nodeName(route.primary.source)}
                   </span>
                   <ArrowRight size={12} className="text-slate-500" />
-                  <span className="rounded-md border border-violet-200 bg-violet-400/[0.06] px-2 py-1 font-mono text-[9px] text-violet-700">
+                  <span className="rounded-md border border-violet-200 bg-violet-400/[0.06] px-2 py-1 font-sans text-[9px] text-violet-700">
                     {route.primary.target} · {nodeName(route.primary.target)}
                   </span>
-                  <span className="ml-auto font-mono text-[8.5px] text-slate-500">
+                  <span className="ml-auto font-sans text-[8.5px] text-slate-500">
                     computed {simClock(route.createdAt / 1000)}
                   </span>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-1.5">
                   {route.primary.pathNodes.map((node, index) => (
                     <span key={`${node}-${index}`} className="flex items-center gap-1">
-                      <span className="rounded border border-blue-100 bg-slate-50 px-1.5 py-0.5 font-mono text-[8.5px] text-slate-600">
+                      <span className="rounded border border-blue-100 bg-slate-50 px-1.5 py-0.5 font-sans text-[8.5px] text-slate-600">
                         {node}
                       </span>
                       {index < route.primary.pathNodes.length - 1 ? (
@@ -180,7 +180,7 @@ export default function OptimizePage() {
                 </div>
                 {route.alternatives.length ? (
                   <div className="mt-3">
-                    <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-slate-500">
+                    <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-slate-500">
                       Alternative corridors
                     </p>
                     <div className="mt-1.5 grid gap-1.5 sm:grid-cols-2">
@@ -189,11 +189,11 @@ export default function OptimizePage() {
                           key={`${alternative.pathEdges.join("-")}-${index}`}
                           className="flex items-center justify-between gap-2 rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-1.5"
                         >
-                          <span className="font-mono text-[9px] text-slate-600">ALT {index + 1}</span>
-                          <span className="font-mono text-[9px] text-slate-500">
+                          <span className="font-sans text-[9px] text-slate-600">ALT {index + 1}</span>
+                          <span className="font-sans text-[9px] text-slate-500">
                             {alternative.totalDistanceKm} km · {formatMinutes(alternative.totalTimeMin, 0)}
                           </span>
-                          <span className="font-mono text-[9px] text-amber-700/80">
+                          <span className="font-sans text-[9px] text-amber-700/80">
                             +{Math.max(0, alternative.totalTimeMin - route.primary.totalTimeMin).toFixed(1)}m
                           </span>
                         </div>
@@ -316,7 +316,7 @@ export default function OptimizePage() {
           <>
             <div className="mt-3 overflow-x-auto">
               <table className="w-full min-w-[680px] border-collapse text-left">
-                <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+                <thead className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
                   <tr>
                     <th className="px-2 py-2">Algorithm</th>
                     <th className="px-2 py-2 text-right">Explored</th>
@@ -332,18 +332,18 @@ export default function OptimizePage() {
                   {rows.map(({ key, result, color }) => (
                     <tr key={key} className="border-t border-blue-100 text-[10px] text-slate-600">
                       <td className="px-2 py-2">
-                        <span className="inline-flex items-center gap-1.5 font-mono" style={{ color }}>
+                        <span className="inline-flex items-center gap-1.5 font-sans" style={{ color }}>
                           <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} />
                           {key === "astar" ? "A*" : key.toUpperCase()}
                         </span>
                       </td>
-                      <td className="px-2 py-2 text-right font-mono">{result.explored}</td>
-                      <td className="px-2 py-2 text-right font-mono">{result.executionMs.toFixed(2)} ms</td>
-                      <td className="px-2 py-2 text-right font-mono">{result.memoryKb.toFixed(1)} KB</td>
-                      <td className="px-2 py-2 text-right font-mono">{result.totalCost.toFixed(1)}</td>
-                      <td className="px-2 py-2 text-right font-mono">{result.totalDistanceKm.toFixed(2)} km</td>
-                      <td className="px-2 py-2 text-right font-mono">{result.totalTimeMin.toFixed(1)} min</td>
-                      <td className="px-2 py-2 text-right font-mono">{result.pathEdges.length}</td>
+                      <td className="px-2 py-2 text-right font-sans">{result.explored}</td>
+                      <td className="px-2 py-2 text-right font-sans">{result.executionMs.toFixed(2)} ms</td>
+                      <td className="px-2 py-2 text-right font-sans">{result.memoryKb.toFixed(1)} KB</td>
+                      <td className="px-2 py-2 text-right font-sans">{result.totalCost.toFixed(1)}</td>
+                      <td className="px-2 py-2 text-right font-sans">{result.totalDistanceKm.toFixed(2)} km</td>
+                      <td className="px-2 py-2 text-right font-sans">{result.totalTimeMin.toFixed(1)} min</td>
+                      <td className="px-2 py-2 text-right font-sans">{result.pathEdges.length}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -351,7 +351,7 @@ export default function OptimizePage() {
             </div>
             <div className="mt-3 grid gap-2 sm:grid-cols-3">
               <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">Route agreement</p>
+                <p className="font-sans text-[8px] uppercase tracking-[0.14em] text-slate-500">Route agreement</p>
                 <p className="mt-0.5 text-[10.5px] text-slate-700">
                   {comparison.dijkstra.totalCost.toFixed(2) === comparison.astar.totalCost.toFixed(2)
                     ? "Dijkstra and A* return identical optimal cost"
@@ -359,7 +359,7 @@ export default function OptimizePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">A* efficiency</p>
+                <p className="font-sans text-[8px] uppercase tracking-[0.14em] text-slate-500">A* efficiency</p>
                 <p className="mt-0.5 text-[10.5px] text-emerald-700">
                   {comparison.dijkstra.explored > 0
                     ? `${Math.max(0, Math.round((1 - comparison.astar.explored / comparison.dijkstra.explored) * 100))}% fewer nodes expanded`
@@ -367,7 +367,7 @@ export default function OptimizePage() {
                 </p>
               </div>
               <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
-                <p className="font-mono text-[8px] uppercase tracking-[0.14em] text-slate-500">Heuristic</p>
+                <p className="font-sans text-[8px] uppercase tracking-[0.14em] text-slate-500">Heuristic</p>
                 <p className="mt-0.5 truncate text-[10px] text-slate-700">{comparison.astar.heuristic}</p>
               </div>
             </div>
@@ -390,7 +390,7 @@ export default function OptimizePage() {
           />
           <div className="scroll-area mt-3 max-h-[260px] overflow-y-auto">
             <table className="w-full border-collapse text-left">
-              <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+              <thead className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
                 <tr>
                   <th className="px-2 py-1.5">Query</th>
                   <th className="px-2 py-1.5">Mode</th>
@@ -409,13 +409,13 @@ export default function OptimizePage() {
                 ) : (
                   optimizationStats.map((stat) => (
                     <tr key={stat.id} className="border-t border-blue-100 text-[10px] text-slate-600">
-                      <td className="px-2 py-1.5 font-mono">
+                      <td className="px-2 py-1.5 font-sans">
                         {stat.source} → {stat.destination}
                       </td>
                       <td className="px-2 py-1.5 capitalize">{stat.mode}</td>
-                      <td className="px-2 py-1.5 text-right font-mono">{stat.distanceKm} km</td>
-                      <td className="px-2 py-1.5 text-right font-mono">{stat.timeMin} min</td>
-                      <td className="px-2 py-1.5 text-right font-mono text-emerald-700">+{stat.timeSavedMin} min</td>
+                      <td className="px-2 py-1.5 text-right font-sans">{stat.distanceKm} km</td>
+                      <td className="px-2 py-1.5 text-right font-sans">{stat.timeMin} min</td>
+                      <td className="px-2 py-1.5 text-right font-sans text-emerald-700">+{stat.timeSavedMin} min</td>
                     </tr>
                   ))
                 )}
@@ -443,7 +443,7 @@ export default function OptimizePage() {
               <div>
                 <div className="flex justify-between text-[10px]">
                   <span className="text-slate-500">Travel-time improvement</span>
-                  <span className="font-mono text-emerald-700">
+                  <span className="font-sans text-emerald-700">
                     {Math.max(0, route.baseline.totalTimeMin - route.primary.totalTimeMin).toFixed(1)} min
                   </span>
                 </div>
@@ -490,9 +490,9 @@ function CompareRow({
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: color }} />
           {label}
         </span>
-        <span className="font-mono text-[11px] text-slate-800">{value}</span>
+        <span className="font-sans text-[11px] text-slate-800">{value}</span>
       </div>
-      <p className="mt-0.5 font-mono text-[8.5px] text-slate-500">{secondary}</p>
+      <p className="mt-0.5 font-sans text-[8.5px] text-slate-500">{secondary}</p>
     </div>
   );
 }

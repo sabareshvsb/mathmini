@@ -169,11 +169,11 @@ export default function NetworkPage() {
               <GitBranch size={12} /> Prim MST
             </Button>
             {mst ? (
-              <span className="font-mono text-[9px] text-slate-500">
+              <span className="font-sans text-[9px] text-slate-500">
                 {mst.edges.length} roads · {mst.totalWeight} km · {mst.executionMs} ms
               </span>
             ) : (
-              <span className="font-mono text-[9px] text-slate-500">MST edges highlighted in emerald</span>
+              <span className="font-sans text-[9px] text-slate-500">MST edges highlighted in emerald</span>
             )}
           </div>
         </Card>
@@ -204,19 +204,19 @@ export default function NetworkPage() {
                   key={node.id}
                   className="group flex items-center gap-2 rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-1.5"
                 >
-                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md border border-blue-200 bg-blue-500/[0.07] font-mono text-[8px] text-blue-700">
+                  <span className="grid h-6 w-6 shrink-0 place-items-center rounded-md border border-blue-200 bg-blue-500/[0.07] font-sans text-[8px] text-blue-700">
                     {node.id}
                   </span>
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[10.5px] text-slate-700">{node.name}</p>
-                    <p className="font-mono text-[8px] text-slate-500">
+                    <p className="font-sans text-[8px] text-slate-500">
                       {node.district} · degree {degrees.get(node.id) ?? 0}
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => setSource(node.id)}
-                    className="shrink-0 font-mono text-[8px] text-blue-700/70 opacity-0 transition hover:text-blue-700 group-hover:opacity-100"
+                    className="shrink-0 font-sans text-[8px] text-blue-700/70 opacity-0 transition hover:text-blue-700 group-hover:opacity-100"
                     title="Set as origin"
                   >
                     A
@@ -224,7 +224,7 @@ export default function NetworkPage() {
                   <button
                     type="button"
                     onClick={() => setDestination(node.id)}
-                    className="shrink-0 font-mono text-[8px] text-violet-700/70 opacity-0 transition hover:text-violet-700 group-hover:opacity-100"
+                    className="shrink-0 font-sans text-[8px] text-violet-700/70 opacity-0 transition hover:text-violet-700 group-hover:opacity-100"
                     title="Set as destination"
                   >
                     B
@@ -251,7 +251,7 @@ export default function NetworkPage() {
                   <Mini label="Cost" value={`${mst.totalWeight} km`} />
                   <Mini label="Components" value={mst.components} />
                 </div>
-                <div className="scroll-area mt-2 max-h-[120px] space-y-0.5 overflow-y-auto pr-1 font-mono text-[8.5px] text-slate-500">
+                <div className="scroll-area mt-2 max-h-[120px] space-y-0.5 overflow-y-auto pr-1 font-sans text-[8.5px] text-slate-500">
                   {mst.log.slice(-12).map((line, index) => (
                     <p key={index} className="truncate">
                       {line}
@@ -278,7 +278,7 @@ export default function NetworkPage() {
         />
         <div className="scroll-area mt-3 max-h-[360px] overflow-auto">
           <table className="w-full min-w-[720px] border-collapse text-left">
-            <thead className="sticky top-0 bg-white font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500 backdrop-blur">
+            <thead className="sticky top-0 bg-white font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500 backdrop-blur">
               <tr>
                 <th className="px-2 py-2">ID</th>
                 <th className="px-2 py-2">Road</th>
@@ -294,16 +294,16 @@ export default function NetworkPage() {
             <tbody>
               {network.edges.map((edge) => (
                 <tr key={edge.id} className="border-t border-blue-100 text-[10px] text-slate-600 hover:bg-blue-50">
-                  <td className="px-2 py-1.5 font-mono text-blue-700/80">{edge.id}</td>
+                  <td className="px-2 py-1.5 font-sans text-blue-700/80">{edge.id}</td>
                   <td className="px-2 py-1.5">{edge.name}</td>
-                  <td className="px-2 py-1.5 font-mono text-slate-500">
+                  <td className="px-2 py-1.5 font-sans text-slate-500">
                     {edge.from} → {edge.to}
                   </td>
                   <td className="px-2 py-1.5">{edge.corridor}</td>
-                  <td className="px-2 py-1.5 text-right font-mono">{edge.lengthKm} km</td>
-                  <td className="px-2 py-1.5 text-right font-mono">{edge.speedLimit}</td>
-                  <td className="px-2 py-1.5 text-right font-mono">{edge.lanes}</td>
-                  <td className="px-2 py-1.5 text-right font-mono">{(edge.baseDemand * 100).toFixed(0)}%</td>
+                  <td className="px-2 py-1.5 text-right font-sans">{edge.lengthKm} km</td>
+                  <td className="px-2 py-1.5 text-right font-sans">{edge.speedLimit}</td>
+                  <td className="px-2 py-1.5 text-right font-sans">{edge.lanes}</td>
+                  <td className="px-2 py-1.5 text-right font-sans">{(edge.baseDemand * 100).toFixed(0)}%</td>
                   <td className="px-2 py-1.5 text-right">
                     <button
                       type="button"
@@ -323,7 +323,7 @@ export default function NetworkPage() {
 
       <div className="grid gap-3 lg:grid-cols-[1fr_auto]">
         <SimulationNote />
-        <div className="flex items-center gap-1.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 font-mono text-[8.5px] text-slate-500">
+        <div className="flex items-center gap-1.5 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 font-sans text-[8.5px] text-slate-500">
           {mstEdges?.length ? `${mstEdges.length} MST edges highlighted on map` : "MST overlay is currently empty"}
         </div>
       </div>
@@ -457,8 +457,8 @@ export default function NetworkPage() {
 function Mini({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
-      <p className="mt-0.5 font-mono text-[10.5px] text-slate-700">{value}</p>
+      <p className="font-sans text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 font-sans text-[10.5px] text-slate-700">{value}</p>
     </div>
   );
 }

@@ -272,7 +272,7 @@ export function DemoMode() {
                   <Sparkles size={15} />
                 </span>
                 <div>
-                  <p className="font-mono text-[8px] uppercase tracking-[0.22em] text-blue-700/60">
+                  <p className="font-sans text-[8px] uppercase tracking-[0.22em] text-blue-700/60">
                     Guided presentation
                   </p>
                   <p className="text-[13px] font-semibold text-slate-900">Project Demonstration Mode</p>
@@ -282,10 +282,10 @@ export function DemoMode() {
                 </Badge>
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-mono text-[9px] text-slate-500">
+                <span className="font-sans text-[9px] text-slate-500">
                   STEP {String(step + 1).padStart(2, "0")} / {demoSteps.length}
                 </span>
-                <span className="hidden items-center gap-1 rounded-md border border-blue-100 bg-slate-50 px-2 py-1 font-mono text-[8px] text-slate-500 sm:flex">
+                <span className="hidden items-center gap-1 rounded-md border border-blue-100 bg-slate-50 px-2 py-1 font-sans text-[8px] text-slate-500 sm:flex">
                   {simClock(useTrafficStore.getState().simTime)} SIM
                 </span>
                 <button
@@ -302,7 +302,7 @@ export function DemoMode() {
             <div className="grid max-h-[calc(100vh-150px)] gap-0 overflow-y-auto lg:grid-cols-[1.02fr_1.25fr]">
               <div className="flex flex-col border-b border-blue-100 p-4 sm:p-5 lg:border-b-0 lg:border-r">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] text-blue-700/70">
+                  <span className="font-sans text-[10px] text-blue-700/70">
                     {String(step + 1).padStart(2, "0")}
                   </span>
                   <div className="h-px flex-1 bg-gradient-to-r from-blue-50 to-transparent" />
@@ -395,7 +395,7 @@ export function DemoMode() {
                   ) : null}
                   {step === 13 && baseline ? (
                     <div className="rounded-xl border border-emerald-200 bg-emerald-400/[0.04] p-3">
-                      <p className="font-mono text-[8px] uppercase tracking-[0.18em] text-emerald-700/70">
+                      <p className="font-sans text-[8px] uppercase tracking-[0.18em] text-emerald-700/70">
                         Before / after · measured in this simulation
                       </p>
                       <div className="mt-2 grid grid-cols-3 gap-2 text-center">
@@ -411,7 +411,7 @@ export function DemoMode() {
                 </div>
 
                 <div className="mt-4 hidden flex-1 overflow-hidden lg:block">
-                  <p className="mb-1.5 font-mono text-[8px] uppercase tracking-[0.18em] text-slate-500">
+                  <p className="mb-1.5 font-sans text-[8px] uppercase tracking-[0.18em] text-slate-500">
                     Demonstration timeline
                   </p>
                   <div className="scroll-area max-h-[150px] space-y-1 overflow-y-auto pr-1">
@@ -431,7 +431,7 @@ export function DemoMode() {
                       >
                         <span
                           className={cn(
-                            "grid h-4 w-4 shrink-0 place-items-center rounded-full border font-mono text-[7px]",
+                            "grid h-4 w-4 shrink-0 place-items-center rounded-full border font-sans text-[7px]",
                             index < step
                               ? "border-emerald-200 bg-emerald-50 text-emerald-700"
                               : index === step
@@ -469,10 +469,10 @@ export function DemoMode() {
                   />
                 </div>
                 <div className="mt-2 flex flex-wrap items-center gap-1.5">
-                  <span className="rounded-md border border-blue-200 bg-blue-500/[0.05] px-2 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-blue-700/70">
+                  <span className="rounded-md border border-blue-200 bg-blue-500/[0.05] px-2 py-1 font-sans text-[8px] uppercase tracking-[0.12em] text-blue-700/70">
                     Emergency route highlighted
                   </span>
-                  <span className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+                  <span className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1 font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
                     All values simulated
                   </span>
                 </div>
@@ -530,8 +530,8 @@ export function DemoMode() {
 function DemoStat({ label, value, tone = "text-slate-900" }: { label: string; value: string; tone?: string }) {
   return (
     <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
-      <p className={cn("mt-0.5 font-mono text-[15px] font-semibold tabular-nums", tone)}>{value}</p>
+      <p className="font-sans text-[7.5px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
+      <p className={cn("mt-0.5 font-sans text-[15px] font-semibold tabular-nums", tone)}>{value}</p>
     </div>
   );
 }
@@ -539,8 +539,8 @@ function DemoStat({ label, value, tone = "text-slate-900" }: { label: string; va
 function MiniDetail({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
-      <p className="font-mono text-[7px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
-      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-700">{value}</p>
+      <p className="font-sans text-[7px] uppercase tracking-[0.14em] text-slate-500">{label}</p>
+      <p className="mt-0.5 truncate font-sans text-[9.5px] text-slate-700">{value}</p>
     </div>
   );
 }
@@ -567,13 +567,13 @@ function ResultCard({
     <div className={cn("rounded-xl border p-3", tones[tone])}>
       <div className="flex items-center gap-1.5">
         <Icon size={12} />
-        <p className="font-mono text-[8.5px] uppercase tracking-[0.16em]">{title}</p>
+        <p className="font-sans text-[8.5px] uppercase tracking-[0.16em]">{title}</p>
       </div>
       <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1">
         {rows.map(([label, value]) => (
           <div key={label} className="flex items-baseline justify-between gap-2 text-[10px]">
             <span className="text-slate-500">{label}</span>
-            <span className="truncate font-mono text-slate-800">{value}</span>
+            <span className="truncate font-sans text-slate-800">{value}</span>
           </div>
         ))}
       </div>
@@ -612,11 +612,11 @@ function ComparisonCard({ comparison }: { comparison: Comparison | null }) {
     <div className="rounded-xl border border-violet-200 bg-violet-400/[0.04] p-3">
       <div className="flex items-center gap-1.5 text-violet-700">
         <Cpu size={12} />
-        <p className="font-mono text-[8.5px] uppercase tracking-[0.16em]">Algorithm comparison · same query</p>
+        <p className="font-sans text-[8.5px] uppercase tracking-[0.16em]">Algorithm comparison · same query</p>
       </div>
       <div className="mt-2 overflow-hidden rounded-lg border border-blue-100">
         <table className="w-full text-left">
-          <thead className="bg-slate-50 font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">
+          <thead className="bg-slate-50 font-sans text-[7.5px] uppercase tracking-[0.12em] text-slate-500">
             <tr>
               <th className="px-2 py-1.5">Algo</th>
               <th className="px-2 py-1.5">Explored</th>
@@ -625,7 +625,7 @@ function ComparisonCard({ comparison }: { comparison: Comparison | null }) {
               <th className="px-2 py-1.5">Time</th>
             </tr>
           </thead>
-          <tbody className="font-mono text-[9.5px] text-slate-700">
+          <tbody className="font-sans text-[9.5px] text-slate-700">
             {rows.map((row) => (
               <tr key={row.name} className="border-t border-blue-100">
                 <td className="px-2 py-1.5" style={{ color: row.color }}>
@@ -651,8 +651,8 @@ function ComparisonCard({ comparison }: { comparison: Comparison | null }) {
 function BeforeAfterCell({ label, before, after }: { label: string; before: string; after: string }) {
   return (
     <div>
-      <p className="font-mono text-[7px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
-      <div className="mt-0.5 flex items-center justify-center gap-1 font-mono text-[10px]">
+      <p className="font-sans text-[7px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <div className="mt-0.5 flex items-center justify-center gap-1 font-sans text-[10px]">
         <span className="text-slate-500">{before}</span>
         <ChevronRight size={8} className="text-slate-500" />
         <span className="text-emerald-700">{after}</span>

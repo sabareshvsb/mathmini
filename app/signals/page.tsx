@@ -115,7 +115,7 @@ export default function SignalsPage() {
             <div className="border-t border-blue-100 px-4 py-3">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <p className="font-mono text-[8px] uppercase tracking-[0.16em] text-blue-700/60">Selected signal</p>
+                  <p className="font-sans text-[8px] uppercase tracking-[0.16em] text-blue-700/60">Selected signal</p>
                   <p className="text-[12px] font-medium text-slate-900">
                     {selectedSignal.nodeId} · {nodeName(selectedSignal.nodeId)}
                   </p>
@@ -138,7 +138,7 @@ export default function SignalsPage() {
               </div>
             </div>
           ) : (
-            <div className="border-t border-blue-100 px-4 py-2.5 text-center font-mono text-[9px] text-slate-500">
+            <div className="border-t border-blue-100 px-4 py-2.5 text-center font-sans text-[9px] text-slate-500">
               Select an intersection on the map to open its signal controller
             </div>
           )}
@@ -235,10 +235,10 @@ export default function SignalsPage() {
                           : "bg-rose-400 shadow-[0_0_8px_#fb7185]",
                     )}
                   />
-                  <span className="font-mono text-[9px] text-blue-700/80">{signal.nodeId}</span>
+                  <span className="font-sans text-[9px] text-blue-700/80">{signal.nodeId}</span>
                   <span className="truncate text-[10.5px] text-slate-700">{nodeName(signal.nodeId)}</span>
                 </div>
-                <span className="font-mono text-[9px] text-slate-500">{signal.remaining}s</span>
+                <span className="font-sans text-[9px] text-slate-500">{signal.remaining}s</span>
               </div>
               <div className="mt-2 grid grid-cols-4 gap-1.5 text-center">
                 <MiniStat label="Phase" value={signal.phase.slice(0, 1)} tone={signal.phase === "GREEN" ? "text-emerald-700" : signal.phase === "YELLOW" ? "text-amber-700" : "text-rose-700"} />
@@ -253,7 +253,7 @@ export default function SignalsPage() {
                   height={3}
                 />
               </div>
-              <div className="mt-1.5 flex items-center justify-between font-mono text-[7.5px] uppercase tracking-[0.1em] text-slate-500">
+              <div className="mt-1.5 flex items-center justify-between font-sans text-[7.5px] uppercase tracking-[0.1em] text-slate-500">
                 <span>cycle {signal.cycle}s</span>
                 <span>offset {signal.offset}s</span>
               </div>
@@ -284,8 +284,8 @@ export default function SignalsPage() {
 function SignalStat({ label, value }: { label: string; value: string | number }) {
   return (
     <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
-      <p className="mt-0.5 font-mono text-[10px] text-slate-700">{value}</p>
+      <p className="font-sans text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 font-sans text-[10px] text-slate-700">{value}</p>
     </div>
   );
 }
@@ -293,8 +293,8 @@ function SignalStat({ label, value }: { label: string; value: string | number })
 function MiniStat({ label, value, tone = "text-slate-700" }: { label: string; value: string | number; tone?: string }) {
   return (
     <div>
-      <p className="font-mono text-[7px] uppercase tracking-[0.1em] text-slate-500">{label}</p>
-      <p className={cn("font-mono text-[9.5px]", tone)}>{value}</p>
+      <p className="font-sans text-[7px] uppercase tracking-[0.1em] text-slate-500">{label}</p>
+      <p className={cn("font-sans text-[9.5px]", tone)}>{value}</p>
     </div>
   );
 }

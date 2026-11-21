@@ -47,7 +47,7 @@ export default function LoginPage() {
             <ShieldCheck size={24} />
           </span>
           <h2 className="mt-3 text-base font-semibold text-slate-900">{auth.name}</h2>
-          <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-700/70">{auth.role} session</p>
+          <p className="mt-1 font-sans text-[10px] uppercase tracking-[0.18em] text-emerald-700/70">{auth.role} session</p>
           <p className="mx-auto mt-2 max-w-md text-[11px] leading-relaxed text-slate-500">
             {auth.role === "admin"
               ? "Full access to configuration, fleet registration, network persistence and destructive actions."
@@ -155,7 +155,7 @@ export default function LoginPage() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] font-medium text-slate-800">Administrator</p>
-                  <p className="font-mono text-[8.5px] text-slate-500">admin / admin123</p>
+                  <p className="font-sans text-[8.5px] text-slate-500">admin / admin123</p>
                 </div>
                 <Badge tone="green">full access</Badge>
               </button>
@@ -173,7 +173,7 @@ export default function LoginPage() {
                 </span>
                 <div className="min-w-0 flex-1">
                   <p className="text-[11px] font-medium text-slate-800">Operations viewer</p>
-                  <p className="font-mono text-[8.5px] text-slate-500">viewer / viewer123</p>
+                  <p className="font-sans text-[8.5px] text-slate-500">viewer / viewer123</p>
                 </div>
                 <Badge tone="cyan">read-only</Badge>
               </button>
@@ -196,7 +196,7 @@ export default function LoginPage() {
               ].map(([label, admin, viewer]) => (
                 <div key={String(label)} className="flex items-center justify-between gap-2 border-b border-blue-100 pb-1.5 last:border-0 last:pb-0">
                   <span className="text-slate-500">{label as string}</span>
-                  <span className="flex items-center gap-3 font-mono text-[8.5px]">
+                  <span className="flex items-center gap-3 font-sans text-[8.5px]">
                     <span className={admin ? "text-emerald-700" : "text-slate-500"}>{admin ? "admin ✓" : "admin —"}</span>
                     <span className={viewer ? "text-blue-700" : "text-slate-500"}>{viewer ? "viewer ✓" : "viewer —"}</span>
                   </span>

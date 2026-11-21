@@ -200,14 +200,14 @@ export default function AnalyticsPage() {
           />
           <div className="mt-3 grid grid-cols-2 gap-2">
             <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-              <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Average congestion</p>
-              <p className="mt-0.5 font-mono text-sm text-orange-700">
+              <p className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">Average congestion</p>
+              <p className="mt-0.5 font-sans text-sm text-orange-700">
                 {percent(dataset.reduce((sum, entry) => sum + entry.congestion, 0) / Math.max(1, dataset.length))}
               </p>
             </div>
             <div className="rounded-lg border border-blue-100 bg-slate-50 px-2.5 py-2">
-              <p className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">Average waiting</p>
-              <p className="mt-0.5 font-mono text-sm text-amber-700">
+              <p className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">Average waiting</p>
+              <p className="mt-0.5 font-sans text-sm text-amber-700">
                 {(dataset.reduce((sum, entry) => sum + entry.waiting, 0) / Math.max(1, dataset.length)).toFixed(0)}s
               </p>
             </div>
@@ -260,7 +260,7 @@ export default function AnalyticsPage() {
           />
           {baseline ? (
             <div className="mt-3 space-y-2.5">
-              <div className="grid grid-cols-[1fr_auto_auto] gap-2 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+              <div className="grid grid-cols-[1fr_auto_auto] gap-2 rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
                 <span>Metric</span>
                 <span className="text-right">Before</span>
                 <span className="text-right">After</span>
@@ -273,14 +273,14 @@ export default function AnalyticsPage() {
               ].map((row) => (
                 <div key={row.label} className="grid grid-cols-[1fr_auto_auto] gap-2 border-b border-blue-100 pb-1.5 text-[10px] last:border-0">
                   <span className="text-slate-500">{row.label}</span>
-                  <span className="text-right font-mono text-slate-500">{row.before}</span>
-                  <span className={`text-right font-mono ${row.good ? "text-emerald-700" : "text-rose-700"}`}>{row.after}</span>
+                  <span className="text-right font-sans text-slate-500">{row.before}</span>
+                  <span className={`text-right font-sans ${row.good ? "text-emerald-700" : "text-rose-700"}`}>{row.after}</span>
                 </div>
               ))}
               <div>
                 <div className="flex justify-between text-[10px]">
                   <span className="text-slate-500">Efficiency delta</span>
-                  <span className="font-mono text-emerald-700">
+                  <span className="font-sans text-emerald-700">
                     {(baseline.after.efficiency - baseline.before.efficiency >= 0 ? "+" : "") +
                       (baseline.after.efficiency - baseline.before.efficiency).toFixed(1)}%
                   </span>
@@ -335,7 +335,7 @@ export default function AnalyticsPage() {
           />
           <div className="scroll-area mt-3 max-h-[330px] overflow-y-auto">
             <table className="w-full border-collapse text-left">
-              <thead className="sticky top-0 bg-white font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500 backdrop-blur">
+              <thead className="sticky top-0 bg-white font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500 backdrop-blur">
                 <tr>
                   <th className="px-2 py-1.5">Junction</th>
                   <th className="px-2 py-1.5 text-right">Queue</th>
@@ -351,13 +351,13 @@ export default function AnalyticsPage() {
                   .map((entry) => (
                     <tr key={entry.nodeId} className="border-t border-blue-100 text-[10px] text-slate-600">
                       <td className="px-2 py-1.5">
-                        <span className="font-mono text-blue-700/70">{entry.nodeId}</span>{" "}
+                        <span className="font-sans text-blue-700/70">{entry.nodeId}</span>{" "}
                         <span className="text-slate-500">{entry.name}</span>
                       </td>
-                      <td className="px-2 py-1.5 text-right font-mono">{entry.queue}</td>
-                      <td className="px-2 py-1.5 text-right font-mono">{entry.greenDuration}s</td>
-                      <td className="px-2 py-1.5 text-right font-mono">{entry.throughput}</td>
-                      <td className="px-2 py-1.5 text-right font-mono text-emerald-700">{entry.efficiency}%</td>
+                      <td className="px-2 py-1.5 text-right font-sans">{entry.queue}</td>
+                      <td className="px-2 py-1.5 text-right font-sans">{entry.greenDuration}s</td>
+                      <td className="px-2 py-1.5 text-right font-sans">{entry.throughput}</td>
+                      <td className="px-2 py-1.5 text-right font-sans text-emerald-700">{entry.efficiency}%</td>
                     </tr>
                   ))}
               </tbody>
@@ -375,7 +375,7 @@ export default function AnalyticsPage() {
         />
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[720px] border-collapse text-left">
-            <thead className="font-mono text-[8px] uppercase tracking-[0.12em] text-slate-500">
+            <thead className="font-sans text-[8px] uppercase tracking-[0.12em] text-slate-500">
               <tr>
                 <th className="px-2 py-2">Query</th>
                 <th className="px-2 py-2">Mode</th>
@@ -396,15 +396,15 @@ export default function AnalyticsPage() {
               ) : (
                 analytics.optimizationStats.map((stat) => (
                   <tr key={stat.id} className="border-t border-blue-100 text-[10px] text-slate-600">
-                    <td className="px-2 py-1.5 font-mono">
+                    <td className="px-2 py-1.5 font-sans">
                       {stat.source} → {stat.destination}
                     </td>
                     <td className="px-2 py-1.5 capitalize">{stat.mode}</td>
-                    <td className="px-2 py-1.5 text-right font-mono">{stat.distanceKm} km</td>
-                    <td className="px-2 py-1.5 text-right font-mono">{stat.timeMin} min</td>
-                    <td className="px-2 py-1.5 text-right font-mono text-emerald-700">+{stat.timeSavedMin} min</td>
-                    <td className="px-2 py-1.5 text-right font-mono">{stat.congestionAvoided.toFixed(2)}</td>
-                    <td className="px-2 py-1.5 text-right font-mono text-slate-500">{stat.algorithm}</td>
+                    <td className="px-2 py-1.5 text-right font-sans">{stat.distanceKm} km</td>
+                    <td className="px-2 py-1.5 text-right font-sans">{stat.timeMin} min</td>
+                    <td className="px-2 py-1.5 text-right font-sans text-emerald-700">+{stat.timeSavedMin} min</td>
+                    <td className="px-2 py-1.5 text-right font-sans">{stat.congestionAvoided.toFixed(2)}</td>
+                    <td className="px-2 py-1.5 text-right font-sans text-slate-500">{stat.algorithm}</td>
                   </tr>
                 ))
               )}

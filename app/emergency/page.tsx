@@ -137,7 +137,7 @@ export default function EmergencyPage() {
                 <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2 text-[10px]">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-500">Origin base</span>
-                    <span className="font-mono text-slate-700">
+                    <span className="font-sans text-slate-700">
                       {activeFleet.baseNode} · {nodeName(activeFleet.baseNode)}
                     </span>
                   </div>
@@ -176,7 +176,7 @@ export default function EmergencyPage() {
                     </span>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[10.5px] text-slate-700">{unit.label}</p>
-                      <p className="font-mono text-[8px] text-slate-500">
+                      <p className="font-sans text-[8px] text-slate-500">
                         {unit.callsign} · base {unit.baseNode}
                       </p>
                     </div>
@@ -221,9 +221,9 @@ export default function EmergencyPage() {
                       </span>
                       <div className="min-w-0 flex-1">
                         <p className="truncate text-[11px] font-medium text-slate-800">
-                          {mission.label} <span className="font-mono text-[9px] text-slate-500">· {mission.id}</span>
+                          {mission.label} <span className="font-sans text-[9px] text-slate-500">· {mission.id}</span>
                         </p>
-                        <p className="font-mono text-[8.5px] text-slate-500">
+                        <p className="font-sans text-[8.5px] text-slate-500">
                           {mission.origin} → {mission.destination} · {mission.routeEdges.length} segments ·{" "}
                           {mission.preemptedNodes.length} signals
                         </p>
@@ -242,11 +242,11 @@ export default function EmergencyPage() {
                         height={4}
                         className="flex-1"
                       />
-                      <span className="font-mono text-[9px] text-slate-500">
+                      <span className="font-sans text-[9px] text-slate-500">
                         {mission.status === "enroute" ? `ETA ${formatEta(mission.etaSec)}` : `${mission.progress * 100}%`}
                       </span>
                     </div>
-                    <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-0.5 font-mono text-[8px] text-slate-500">
+                    <div className="mt-1.5 flex flex-wrap gap-x-4 gap-y-0.5 font-sans text-[8px] text-slate-500">
                       <span>dispatched {simClock(mission.startedAt)}</span>
                       <span>baseline {mission.baselineTimeMin.toFixed(1)} min</span>
                       <span className="text-emerald-700/70">priority {mission.estimatedTimeMin.toFixed(1)} min</span>
@@ -264,19 +264,19 @@ export default function EmergencyPage() {
             <SectionHeader eyebrow="Preemption" title="How priority works" />
             <ol className="mt-3 space-y-2 text-[10px] leading-relaxed text-slate-500">
               <li className="flex gap-2">
-                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-mono text-[7px] text-rose-700">1</span>
+                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-sans text-[7px] text-rose-700">1</span>
                 Emergency weight context is built with a higher congestion penalty and incident avoidance.
               </li>
               <li className="flex gap-2">
-                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-mono text-[7px] text-rose-700">2</span>
+                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-sans text-[7px] text-rose-700">2</span>
                 Dijkstra returns the fastest available corridor from the unit&apos;s base intersection.
               </li>
               <li className="flex gap-2">
-                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-mono text-[7px] text-rose-700">3</span>
+                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-sans text-[7px] text-rose-700">3</span>
                 Signals on the route switch to preempted green and restore their adaptive plan after the pass.
               </li>
               <li className="flex gap-2">
-                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-mono text-[7px] text-rose-700">4</span>
+                <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full border border-rose-200 bg-rose-50 font-sans text-[7px] text-rose-700">4</span>
                 On arrival the mission is marked complete, the unit returns to idle, and response time is recorded.
               </li>
             </ol>
@@ -293,7 +293,7 @@ export default function EmergencyPage() {
                     <Radio size={10} className="mt-0.5 shrink-0 text-rose-700/70" />
                     <div className="min-w-0">
                       <p className="text-slate-600">{log.message}</p>
-                      <p className="font-mono text-[8px] text-slate-500">{simClock(log.simSec)}</p>
+                      <p className="font-sans text-[8px] text-slate-500">{simClock(log.simSec)}</p>
                     </div>
                   </div>
                 ))
@@ -323,8 +323,8 @@ export default function EmergencyPage() {
 function Mini({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-md border border-blue-100 bg-slate-50 px-2 py-1.5">
-      <p className="font-mono text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
-      <p className="mt-0.5 truncate font-mono text-[9.5px] text-slate-700">{value}</p>
+      <p className="font-sans text-[7.5px] uppercase tracking-[0.12em] text-slate-500">{label}</p>
+      <p className="mt-0.5 truncate font-sans text-[9.5px] text-slate-700">{value}</p>
     </div>
   );
 }

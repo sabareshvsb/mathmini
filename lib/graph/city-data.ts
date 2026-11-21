@@ -1,4 +1,4 @@
-﻿import type { CityEdge, CityNetwork, CityNode } from "./types";
+import type { CityEdge, CityNetwork, CityNode } from "./types";
 
 /**
  * Bengaluru major road network model.

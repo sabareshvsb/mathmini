@@ -72,7 +72,7 @@ export function PageHeader({
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <p className="eyebrow">{eyebrow}</p>
-            <span className="rounded-full border border-blue-200 bg-blue-500/[0.07] px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] text-blue-700/80">
+            <span className="rounded-full border border-blue-200 bg-blue-500/[0.07] px-2 py-0.5 font-sans text-[9px] uppercase tracking-[0.18em] text-blue-700/80">
               Simulation data
             </span>
           </div>
@@ -127,7 +127,7 @@ export function StatCard({
       </div>
       <div className="mt-2 flex items-baseline gap-1.5">
         <span className="metric text-[26px] font-semibold leading-none">{value}</span>
-        {unit ? <span className="font-mono text-[11px] text-slate-500">{unit}</span> : null}
+        {unit ? <span className="font-sans text-[11px] text-slate-500">{unit}</span> : null}
       </div>
       <div className="mt-2.5 flex min-h-[16px] items-center justify-between gap-2">
         <span className="truncate text-[10px] text-slate-500">{hint}</span>
@@ -167,7 +167,7 @@ export function Badge({
   return (
     <span
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-mono text-[9.5px] font-medium uppercase tracking-[0.12em]",
+        "inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 font-sans text-[9.5px] font-medium uppercase tracking-[0.12em]",
         badgeTones[tone],
         className,
       )}
@@ -332,7 +332,7 @@ export function Slider({
     <div>
       <div className="mb-1.5 flex items-center justify-between gap-2">
         <span className="label-xs">{label}</span>
-        <span className="font-mono text-[11px] text-blue-700">{display ?? value}</span>
+        <span className="font-sans text-[11px] text-blue-700">{display ?? value}</span>
       </div>
       <input
         type="range"
@@ -574,7 +574,7 @@ export function InlineStat({
   return (
     <div className="rounded-lg border border-blue-100 bg-slate-50 px-3 py-2">
       <p className="label-xs">{label}</p>
-      <p className={cn("mt-1 font-mono text-sm tabular-nums", tone)}>{value}</p>
+      <p className={cn("mt-1 font-sans text-sm tabular-nums", tone)}>{value}</p>
     </div>
   );
 }
