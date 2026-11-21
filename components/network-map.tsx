@@ -264,44 +264,7 @@ export function NetworkMap({
     effectiveEmergency.length > 0 ||
     (effectiveMst?.length ?? 0) > 0;
 
-  if (mapView === "geo" && !hasOverlay) {
-    return (
-      <div
-        className={cn("map-shell group/map overflow-hidden", !height && "aspect-[1200/820]", className)}
-        style={height ? { height } : undefined}
-      >
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.84916296526!2d77.49085452149588!3d12.953997400000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1700000000000"
-          className="absolute inset-0 h-full w-full border-0"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Bengaluru map"
-        />
-        <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap items-center gap-1.5">
-          <span className="pointer-events-auto inline-flex items-center gap-1.5 rounded-md border border-blue-100 bg-white/90 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-600 shadow-sm backdrop-blur">
-            <span className="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_6px_#2563eb]" />
-            Geographic View � Bengaluru
-          </span>
-          <span className="pointer-events-auto rounded-md border border-blue-200 bg-blue-500/[0.06] px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-blue-700/80 backdrop-blur">
-            live map
-          </span>
-        </div>
-        {controlsVisible ? (
-          <div className="absolute right-3 top-3 flex flex-col gap-1.5">
-            <button
-              type="button"
-              onClick={() => setMapView("graph")}
-              title="Switch to road network view"
-              className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 shadow-sm backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
-            >
-              <NetworkIcon size={14} />
-            </button>
-          </div>
-        ) : null}
-      </div>
-    );
-  }
+  // Always render the integrated map so routes/overlays stay on-map.
 
   return (
     <div
@@ -316,22 +279,21 @@ export function NetworkMap({
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
       >
-        <svg viewBox="0 0 1200 820" className="h-full w-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive Bengaluru road graph">
+        <svg viewBox="0 0 1200 820" className="h-full w-full" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive Bengaluru road map">
           <defs>
-            <radialGradient id={`${uid}-glow`} cx="60%" cy="38%" r="65%">
-              <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.22" />
-              <stop offset="60%" stopColor="#bfdbfe" stopOpacity="0.06" />
-              <stop offset="100%" stopColor="#f8fbff" stopOpacity="0" />
+            <radialGradient id={`${uid}-glow`} cx="55%" cy="35%" r="70%">
+              <stop offset="0%" stopColor="#93c5fd" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="#f8fafc" stopOpacity="0" />
             </radialGradient>
-            <pattern id={`${uid}-dots`} width="34" height="34" patternUnits="userSpaceOnUse">
-              <circle cx="1" cy="1" r="1" fill="rgba(59,130,246,0.16)" />
+            <pattern id={`${uid}-dots`} width="36" height="36" patternUnits="userSpaceOnUse">
+              <circle cx="1" cy="1" r="0.8" fill="rgba(148,163,184,0.18)" />
             </pattern>
-            <pattern id={`${uid}-blocks`} width="46" height="46" patternUnits="userSpaceOnUse">
-              <rect width="46" height="46" fill="transparent" />
-              <rect x="5" y="5" width="15" height="12" rx="1.5" fill="#dbeafe" />
-              <rect x="26" y="9" width="12" height="16" rx="1.5" fill="#eff6ff" />
-              <rect x="8" y="27" width="10" height="12" rx="1.5" fill="#eff6ff" />
-              <rect x="28" y="31" width="14" height="9" rx="1.5" fill="#dbeafe" />
+            <pattern id={`${uid}-blocks`} width="48" height="48" patternUnits="userSpaceOnUse">
+              <rect width="48" height="48" fill="transparent" />
+              <rect x="4" y="4" width="14" height="10" rx="1.5" fill="#e2e8f0" opacity="0.5" />
+              <rect x="26" y="8" width="12" height="14" rx="1.5" fill="#e2e8f0" opacity="0.35" />
+              <rect x="8" y="26" width="10" height="12" rx="1.5" fill="#e2e8f0" opacity="0.35" />
+              <rect x="28" y="30" width="14" height="10" rx="1.5" fill="#e2e8f0" opacity="0.45" />
             </pattern>
             <radialGradient id={`${uid}-heat-red`}>
               <stop offset="0%" stopColor="#ef4444" stopOpacity="0.38" />
@@ -366,15 +328,16 @@ export function NetworkMap({
             </filter>
           </defs>
 
-          <rect width="1200" height="820" fill="#ffffff" />
+          <rect width="1200" height="820" fill="#f8fafc" />
           <rect width="1200" height="820" fill={`url(#${uid}-glow)`} />
-          <rect width="1200" height="820" fill={`url(#${uid}-dots)`} opacity="0.55" />
+          <rect width="1200" height="820" fill={`url(#${uid}-dots)`} opacity="0.45" />
 
           <g
             style={{ transform: `translate(${viewport.x}px, ${viewport.y}px) scale(${viewport.k})` }}
             className="transition-transform duration-75"
           >
-            <GraphBackdrop uid={uid} />
+            {mapView === "geo" ? <GeoBackdrop uid={uid} /> : <GraphBackdrop uid={uid} />}
+            {mapView === "geo" ? <GeoOverlay uid={uid} /> : null}
 
             {heatmap ? (
               <g pointerEvents="none">
@@ -662,16 +625,16 @@ export function NetworkMap({
       </div>
 
       <div className="pointer-events-none absolute left-3 top-3 flex flex-wrap items-center gap-1.5">
-        <span className="pointer-events-auto inline-flex items-center gap-1.5 rounded-md border border-blue-100 bg-white/80 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-600 backdrop-blur">
-          <span className="h-1.5 w-1.5 rounded-full bg-blue-500 shadow-[0_0_6px_#2563eb]" />
+        <span className="pointer-events-auto inline-flex items-center gap-1.5 rounded-md border border-slate-200 bg-white/95 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.1em] text-slate-600 shadow-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-blue-600" />
           {mapView === "graph" ? "Graph View · G = (V,E)" : "Geographic View · Bengaluru"}
         </span>
-        <span className="pointer-events-auto rounded-md border border-blue-100 bg-white/80 px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-slate-500 backdrop-blur">
+        <span className="pointer-events-auto rounded-md border border-slate-200 bg-white/95 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.1em] text-slate-500 shadow-sm">
           V {network.nodes.length} · E {network.edges.length}
         </span>
         {!compact ? (
-          <span className="pointer-events-auto rounded-md border border-blue-200 bg-blue-500/[0.06] px-2 py-1 font-mono text-[8.5px] uppercase tracking-[0.14em] text-blue-700/80 backdrop-blur">
-            simulated
+          <span className="pointer-events-auto rounded-md border border-blue-200 bg-blue-50 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.1em] text-blue-700 shadow-sm">
+            route integrated
           </span>
         ) : null}
       </div>
@@ -682,7 +645,7 @@ export function NetworkMap({
             type="button"
             onClick={() => setMapView(mapView === "graph" ? "geo" : "graph")}
             title={mapView === "graph" ? "Switch to geographic map" : "Switch to graph view"}
-            className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
+            className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 bg-white/95 text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-blue-700"
           >
             {mapView === "graph" ? <MapIcon size={14} /> : <NetworkIcon size={14} />}
           </button>
@@ -690,7 +653,7 @@ export function NetworkMap({
             type="button"
             onClick={() => zoomBy(1.25)}
             title="Zoom in"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
+            className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 bg-white/95 text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-blue-700"
           >
             <ZoomIn size={14} />
           </button>
@@ -698,7 +661,7 @@ export function NetworkMap({
             type="button"
             onClick={() => zoomBy(0.8)}
             title="Zoom out"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
+            className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 bg-white/95 text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-blue-700"
           >
             <ZoomOut size={14} />
           </button>
@@ -706,11 +669,11 @@ export function NetworkMap({
             type="button"
             onClick={() => setViewport({ x: 0, y: 0, k: 1 })}
             title="Reset view"
-            className="grid h-8 w-8 place-items-center rounded-lg border border-blue-100 bg-white/90 text-slate-700 backdrop-blur transition hover:border-blue-200 hover:text-blue-700"
+            className="grid h-8 w-8 place-items-center rounded-lg border border-slate-200 bg-white/95 text-slate-700 shadow-sm transition hover:border-slate-300 hover:text-blue-700"
           >
             {viewport.k !== 1 ? <Maximize2 size={14} /> : <Crosshair size={14} />}
           </button>
-          <span className="grid h-6 place-items-center rounded-md border border-blue-100 bg-white/90 font-mono text-[8px] text-slate-500 backdrop-blur">
+          <span className="grid h-6 place-items-center rounded-md border border-slate-200 bg-white/95 text-[10px] font-medium text-slate-500 shadow-sm">
             {viewport.k.toFixed(1)}×
           </span>
         </div>

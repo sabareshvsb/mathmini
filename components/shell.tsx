@@ -243,7 +243,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
     <>
       <LiveEngine />
 
-      <aside className="fixed inset-y-0 left-0 z-50 hidden w-[268px] border-r border-blue-100 bg-white/90 backdrop-blur-2xl lg:block">
+      <aside className="fixed inset-y-0 left-0 z-50 hidden w-[268px] border-r border-slate-200 bg-white lg:block">
         <SidebarContent />
       </aside>
 
@@ -279,7 +279,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </AnimatePresence>
 
       <div className="relative z-10 min-h-screen lg:pl-[268px]">
-        <header className="sticky top-0 z-40 border-b border-blue-100 bg-white/80 backdrop-blur-2xl">
+        <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
           <div className="flex h-[64px] items-center gap-3 px-4 sm:px-5 lg:px-6">
             <button
               type="button"
@@ -372,7 +372,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <main className="mx-auto w-full max-w-[1680px] px-3.5 py-4 sm:px-5 sm:py-5 lg:px-6">{children}</main>
 
-        <footer className="mx-auto flex w-full max-w-[1680px] flex-wrap items-center justify-between gap-2 px-4 pb-6 pt-2 text-[9px] text-slate-400 sm:px-6">
+        <footer className="mx-auto flex w-full max-w-[1680px] flex-wrap items-center justify-between gap-2 px-4 pb-6 pt-2 text-[11px] text-slate-500 sm:px-6">
           <span className="font-mono uppercase tracking-[0.16em]">
             Smart City Traffic Management using Graph Theory
           </span>

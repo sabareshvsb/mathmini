@@ -3,6 +3,7 @@ node_modules
 out
 data/*.db
 data/*.db-*
+cache/
 .env.local
 .env
 *.log

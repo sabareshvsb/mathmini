@@ -14,13 +14,7 @@ const config: Config = {
         card: "0 18px 45px -26px rgba(30, 64, 175, 0.24)",
       },
       fontFamily: {
-        sans: [
-          "Segoe UI Variable Display",
-          "Segoe UI",
-          "system-ui",
-          "-apple-system",
-          "sans-serif",
-        ],
+        sans: ["var(--font-inter)", "Inter", "system-ui", "-apple-system", "sans-serif"],
         mono: ["Cascadia Code", "Consolas", "ui-monospace", "monospace"],
       },
       animation: {

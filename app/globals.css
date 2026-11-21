@@ -4,9 +4,16 @@
 
 :root {
   color-scheme: light;
-  --grid: rgba(37, 99, 235, 0.055);
-  --blue: #2563eb;
-  --green: #059669;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-muted: #f1f5f9;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text: #0f172a;
+  --muted: #64748b;
+  --primary: #2563eb;
+  --primary-soft: #eff6ff;
+  --grid: rgba(148, 163, 184, 0.12);
 }
 
 * {
@@ -19,13 +26,8 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: #f6f9ff;
-  background-image:
-    radial-gradient(1100px 700px at 78% -8%, rgba(59, 130, 246, 0.12), transparent 58%),
-    radial-gradient(900px 650px at 4% 108%, rgba(14, 165, 233, 0.08), transparent 60%),
-    radial-gradient(700px 500px at 40% 50%, rgba(219, 234, 254, 0.4), transparent 70%),
-    linear-gradient(180deg, #fbfdff 0%, #f4f8ff 48%, #f8fbff 100%);
-  color: #0f172a;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+  color: var(--text);
   font-feature-settings: "cv02", "cv03", "cv04", "ss01";
   overflow-x: hidden;
 }
@@ -36,12 +38,12 @@ body::before {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.6;
+  opacity: 0.35;
   background-image:
     linear-gradient(var(--grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-  background-size: 58px 58px;
-  mask-image: radial-gradient(ellipse at 50% 20%, black 10%, transparent 78%);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse at 50% 0%, black 20%, transparent 75%);
 }
 
 ::selection {
@@ -69,28 +71,27 @@ body::before {
 
 @layer components {
   .glass {
-    @apply relative rounded-2xl border border-blue-100 bg-white/80 shadow-card backdrop-blur-xl;
-    background-image: linear-gradient(150deg, rgba(255, 255, 255, 0.98), rgba(248, 251, 255, 0.9) 48%, rgba(239, 246, 255, 0.82));
+    @apply relative rounded-xl border border-slate-200 bg-white shadow-sm;
   }
 
   .glass-strong {
-    @apply relative rounded-2xl border border-blue-200 bg-white shadow-lg shadow-blue-900/5 backdrop-blur-2xl;
+    @apply relative rounded-xl border border-slate-200 bg-white shadow-md;
   }
 
   .glass-hover {
-    @apply transition duration-300 hover:border-blue-300 hover:bg-white hover:shadow-glow;
+    @apply transition duration-200 hover:border-slate-300 hover:shadow-md;
   }
 
   .hairline {
-    @apply border-blue-100;
+    @apply border-slate-200;
   }
 
   .eyebrow {
-    @apply font-mono text-[10px] font-semibold uppercase tracking-[0.26em] text-blue-700;
+    @apply text-[11px] font-semibold uppercase tracking-[0.18em] text-blue-700;
   }
 
   .label-xs {
-    @apply font-mono text-[10px] font-medium uppercase tracking-[0.18em] text-slate-500;
+    @apply text-[11px] font-medium uppercase tracking-[0.12em] text-slate-500;
   }
 
   .metric {
@@ -98,15 +99,15 @@ body::before {
   }
 
   .nav-item {
-    @apply relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium text-slate-600 transition duration-200 hover:bg-blue-50 hover:text-blue-700;
+    @apply relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium text-slate-600 transition duration-200 hover:bg-slate-100 hover:text-slate-900;
   }
 
   .nav-item-active {
-    @apply bg-blue-50 text-blue-700 shadow-[inset_0_0_0_1px_rgba(37,99,235,0.14)] hover:bg-blue-100;
+    @apply bg-blue-50 text-blue-700 shadow-[inset_0_0_0_1px_rgba(37,99,235,0.12)] hover:bg-blue-50;
   }
 
   .input-base {
-    @apply w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15;
+    @apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/15;
   }
 
   .select-base {
@@ -116,8 +117,7 @@ body::before {
   }
 
   .map-shell {
-    @apply relative overflow-hidden rounded-2xl border border-blue-100 bg-[#f8fbff];
-    box-shadow: inset 0 0 80px rgba(219, 234, 254, 0.5), 0 24px 60px -34px rgba(30, 64, 175, 0.32);
+    @apply relative overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm;
   }
 
   .scroll-area {
