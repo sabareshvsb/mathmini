@@ -217,7 +217,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
           </div>
         </div>
         <p className="mt-2 px-1 text-center font-sans text-[7.5px] uppercase tracking-[0.16em] text-slate-400">
-          Simulation data · academic build
+          Bengaluru Traffic Control
         </p>
       </div>
     </div>
